@@ -9,7 +9,7 @@ public class args
 		// 정수형 변수 선언 예제
 		byte num1 = 1;
 		System.out.println(num1);
-		//byte는 127까지 표현 가능하기 때문에 128을 저장할 수 없다.
+		//byte 127까지 표현 가능하기 때문에 128을 저장할 수 없다.
 		//byte num2 = 128;
 		//byte의 양수 표현 범위를 넘어서 오버플로우 발생하여 -128이 됨.
 		byte num3 = (byte)(127 + 1);
@@ -18,7 +18,6 @@ public class args
 		byte num4 = (byte) (-128-1);
 		System.out.println(num4);
 		int num5 = 128;
-	
 		//int의 양수 표현 범위를 넘어서 저장할 수 없다.
 		//int num6 =123456789
 		int num7 = 010;//8진수 10 -> 10진수 8
@@ -29,7 +28,12 @@ public class args
 		System.out.println(num9);
 		//큰 수로 초기화를 하는 경우 기본타입 int이기 때문에 뒤에 접미사 L을 붙여야 한다. 
 		long num10 = 1234569789L;
-		System.out.println(num10)
+		System.out.println(num10);
+		System.out.println(num10);
+		//큰 수로 초기화를 하는 경우 기본타입 int이기 때문에 뒤에 접미사 L을 붙여야 한다.
+		
+	
+
 		
 
 	}

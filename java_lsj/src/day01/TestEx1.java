@@ -9,7 +9,6 @@ public class TestEx1 {
 		char ch1 = 'A';
 		
 		
-		
 
 	}
 

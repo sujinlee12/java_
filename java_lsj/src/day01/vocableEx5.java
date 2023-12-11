@@ -5,13 +5,13 @@ public class vocableEx5 {
 	// String 선언 예제
 	public static void main(String[] args) {
 	String str1 = null;
-	System.out.println(strl);
+	
+	System.out.println(str1);
 	//기본형 변수에는 null을 저장할 수 없다.
 	//int num1 = null;
 	
 	String str2= "hello";
 	System.out.println(str2);
-	
 	//string 클래스에 문자를 저장할 수 없다.
 	//String str3 = "A";
 	

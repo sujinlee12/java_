@@ -22,13 +22,13 @@ public class VariableEx1 {
 	System.out.println(ch2);
 	//""는 문자열을 의미, ""안에 한글자가 들어간다 해서 문자가 되는 것이
 	//아니라 한글자인 문자열이다.
-	char ch3 = "A";
+	char ch3 = 'A';
 	//''안에는 한 글자가 들어가야 한다.12는 두 글자.
 	//char ch4 = '12';
 	//유니코드 61에 해당하는 문자를 저장
 	char ch5 = '\u0061';
 	System.out.println(ch5);
-	아스키 코드 65에 해당하는 문자를 저장
+	//아스키 코드 65에 해당하는 문자를 저장
 	char ch6 = 65;
 	System.out.println(ch6);
 	//\가 들어간 문자들이 있음. \n : 엔터, \t  : 탭키만큼의 공백
