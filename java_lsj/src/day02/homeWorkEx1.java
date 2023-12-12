@@ -30,7 +30,7 @@ public class homeWorkEx1 {
 		}else if(Score>=90 && Score<=100) {
 			System.out.println(Score + "은 A입니다.");}
 		scan.close();
-		
+	
 	}
 }
 
