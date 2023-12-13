@@ -8,7 +8,7 @@ public class SwtichEx1 {
 		int num = 10;
 		//조건식이 아니라 식 또는 변수
 		
-		switch(num) {
+		switch (num) {
 		case 0:
 			System.out.println("0입니다.");
 			break;
