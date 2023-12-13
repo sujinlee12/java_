@@ -7,10 +7,15 @@ public class AlphabetEx1 {
 		 * 반복회수: ch는 a부터 z까지 1씩 증가
 		 * 규칙성: ch를 출력
 		 * */
-		for(char ch = 'a'; ch <= 'z'; ++ch) {
-			System.out.print(ch);
+
 			
-		}
+		
+		
+		for(char ch = 'a'; ch <= 'z'; ++ch) {
+			
+			System.out.println(ch);
+	
+			}
 		
 	
 		

@@ -20,34 +20,28 @@ public class ForUpDownEx1 {
 		
 		//반복문	: 조건식만 입력
 			//정수 입력
-			
 			//정수와 랜덤한수를 비교 후 결과를 출력
-	
+			//랜덤한 수 생성 : 1 ~100
 			
-	
-		//랜덤한 수 생성 : 1 ~100
-	
-		
-		
 		int min = 1, max = 10000;
-		int r = (int)( Math.random() * (max-min +1) + min);
+			int r = (int)( Math.random() * (max-min +1) + min);
 		
 			
-		Scanner scanner = new Scanner(System.in);
-		int num = min - 1;
+			Scanner scanner = new Scanner(System.in);
+				int num = min - 1;
 		
-		for( ;num !=r;) {
+				for( ;num !=r;) {
 		
-			System.out.println("정수 : ");
-			num= scanner.nextInt();
+					System.out.println("정수 : ");
+					num= scanner.nextInt();
 		//정수의 랜덤한 수를 비교 후 결과를 출력
 		if(num > r) {
 			System.out.println("Down!");
 		}else if (num < r) {
 		System.out.println("up!");
 		}else { System.out.println("정답입니다!!");}
+			
+			}
+		}
 
-		
-	}}
-
-}
+	}

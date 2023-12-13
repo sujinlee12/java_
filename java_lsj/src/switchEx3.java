@@ -14,11 +14,16 @@ public class switchEx3 {
 		 * 그 외 : 잘못된 월
 		 * */
 		
+		Scanner scan =new Scanner(System.in);
+		
+		
+		
 		Scanner scan = new Scanner(System.in);
-		System.out.println("월을 입력하시오(1~12) : ");
-		int month = scan.nextInt();
+			System.out.println("월을 입력하시오(1~12) : ");
+			int month = scan.nextInt();
 		
 		switch(month) {
+		
 		case 1, 2, 12:
 			System.out.println(month + "월은 겨울");
 			break;
@@ -34,7 +39,7 @@ public class switchEx3 {
 		default:
 			System.out.println(month + "월은 잘못된 월");
 				
-		}	
+			}	
 		}
 		
 	}
