@@ -11,12 +11,13 @@ public class LoopEx1 {
 		Scanner scan = new Scanner(System.in);
 		char ch = 'a';
 		
-		for( ;ch != 'q'; ) {
+		for( ; ch != 'q'; ) {
 			System.out.println("입력 : " + ch);
 		}
 			ch = scan.next().charAt(0);
 			System.out.println("문자 : " + ch);
 	}
-	
+		
+		
 		
 }
