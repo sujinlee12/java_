@@ -8,6 +8,7 @@ public class GcdEx1 {
 		 * 4의 약수 : 1, 2, 4
 		 *  */
 		//i
+		
 		int num = 4;
 		System.out.print("4의 약수 : ");
 		for(int i = 1; i <= num; i++) {
