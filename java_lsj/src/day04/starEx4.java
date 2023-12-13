@@ -14,7 +14,11 @@ public class starEx4 {
 		
 		for(int i = 1; i<=5;i++) {
 			//' ' 출력 5-i개
-			for(int j =1; j<=rows -i; j++) {
+			for(int j =1; j<=rows-i; j++) {
+				System.out.println(' ');
+			}
+			//*을 1개 출력
+			for(int j = 1; j<=i;j++) {
 				System.out.println(' ');
 			}
 			//*출력 2*i-1개
@@ -33,6 +37,8 @@ public class starEx4 {
 		 *  
 		 *  */
 		
+		
+		
 			
 			//내가 한 것
 		/*int rows=9;
@@ -43,7 +49,9 @@ public class starEx4 {
 			System.out.println(' ');
 			**/
 		}		
-	}
+										}
+
+
 
 
 
