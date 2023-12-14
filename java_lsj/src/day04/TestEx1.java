@@ -25,6 +25,7 @@ public class TestEx1 {
 		//성적의 총점과 평균이 출력3
 		System.out.println("총점 : "+ sum + ", 평균 : " + avg);
 		scan.close();
+		
 			
 					
 

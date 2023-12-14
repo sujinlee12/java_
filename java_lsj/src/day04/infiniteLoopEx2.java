@@ -26,7 +26,6 @@ public class infiniteLoopEx2 {
 			System.out.println("정수 출력 : " + num);	
 		}
 		
-		
 	}
 		
 }
