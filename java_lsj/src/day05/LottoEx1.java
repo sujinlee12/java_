@@ -1,5 +1,7 @@
 package day05;
 
+import java.util.Arrays;
+
 public class LottoEx1 {
 
 	public static void main(String[] args) {
@@ -20,21 +22,21 @@ public class LottoEx1 {
 			//중복 확인
 			int i;
 			for(i=0; i<count;i++) {
-				break;{
+				break;
 			}
 			
 		}
-		//중복되지 않으면 저장 후 count증가
+		//중복되지 않으면 저장 후 count 증가
 		if(i == count) {
 			lotto[count++] = r;
 			
 		}
 	}
 		//정렬
-		Arrays.sort(lotto);
+		Arrays.sort(lotto);{
 	
 		//출력
-		for(int i=0;i<lotto.length;i++) {
+		for(int i=0;i< lotto.length;i++) {
 		System.out.println(lotto[i]+" ");
 	}		
 		

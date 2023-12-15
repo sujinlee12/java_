@@ -23,8 +23,8 @@ public class ThirtyOneEx1 {
 		//사용자가 입력한 숫자를 저장할 변수 
 		int user;			
 	//현재 부른 숫자를 저장할 변수 선언 후 0으로 초기화
-		int count =0;
-		int min=1,max=3;
+		int count = 0;
+		int min = 1, max = 3;
 	//반복문 (현재 숫자가 31이 아닐 대까지)
 			while(count < 31) {
 		//컴퓨터가 랜덤으로 1~3 사이의 숫자를 생성

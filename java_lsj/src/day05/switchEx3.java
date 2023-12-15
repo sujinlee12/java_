@@ -19,7 +19,6 @@ public class switchEx3 {
 		
 		
 		
-		Scanner scan = new Scanner(System.in);
 			System.out.println("월을 입력하시오(1~12) : ");
 			int month = scan.nextInt();
 		
