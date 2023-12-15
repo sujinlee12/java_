@@ -21,7 +21,7 @@ public class AlphabetCountEx1 {
 		//반복문으로 문자열의 길이만큼(26) 반복
 		for(int i = 0; i < str.length(); i++) {
 			//문자열의 각 문자를 가져옴
-			int arr = scan.nextInt();
+			arr = scan.nextInt();
 			
 			char ch = str.charAt(i);
 			//가져온 문자의 배열 번지에 숫자를 증가
@@ -37,7 +37,7 @@ public class AlphabetCountEx1 {
 				System.out.println(ch + ":" + arr[i]);
 		
 			}
-		
+							
 		}
 		
 		System.out.println("=============");
@@ -77,6 +77,6 @@ public class AlphabetCountEx1 {
 		
 		
 		
-	}
+	
 
-}
+
