@@ -26,66 +26,96 @@ public class HomeworkEx1 {
 		 *  결과 : 3S
 		 *  정답입니다.
 		 **/
-		String tmp = "y";
 		
-		int min =1, max=9;
-		int i;
-		while(tmp.equals("y")) {
-			System.out.println("숫자 야구게임을 시작합니다. :");
+		//컴퓨터가 랜덤으로 중복되지 않은 숫자 3개를 생성(1~9)
+		//랜덤으로 중복
+		int min = 1; int max = 9;
+		int com[] = new int [3];
+		int count = 0;
+	
 		
-		int com[]=new int [3];//랜덤한 값을 넣기 위한 배열 (컴퓨터 값)
-		int user[]= new int [3];//사용자 입력값의 각 자리 숫자를 넣기 위한 배열
-		int num=0;//배열 인덱스를 위해 사용하는 변수
-		int count=0;//몇번에 맞추는 지 세기위해
-		boolean loop = true;
-		
-		int O=0;//count=0
-		
-		
-		for(i=0; i<com.length;i++) {
-			com[i] = (int)(Math.random()*9)+1;
-			for(int j=0;j<i;j++) {
-				if(com[j]==com[i]) {
-					i--;
+		//랜덤으로 중복되지 않은 3개의 수를 생성
+		while(count < com.length){
+		//랜덤한 수 생성
+			int r = (int)(Math.random()*(max -min+1)+ min);
+			//중복 확인
+			int i;
+			for(i = 0; i<count;i++) {
+				if(com[i]==r) {
 					break;
+				
 				}
-			}		
+			}
+				
+			
+		//중복되지 않으면 저장 후 count 증가
+		if(i == count) {
+			com[count++] = r;	
 		}
-		
-		//user가 세개의 정수를 입력하도록 하여,user 배열에 숫자를 넣도록 한다.
-		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("1~9의 정수를 입력하세요");
-		
-		// computer와 user의 배열을 비교하여 구분
-		
-		loop = true;
-		
-		while(loop) {
-			for(i=0;i<user.length;i++) {
-				num=sc.nextInt();
-				user[i]=num;
-				if(num<0||num>10) {
-					System.out.println("1~9의 정수를 입력하시오");
+	}
+		//출력
+		for(int i = 0;i< com.length;i++) {
+		System.out.println(com[i]+" ");
+	}		
+		System.out.println();
+		//반복문 : 맞출 때까지=> 스트라이크의 개수가 3개 미만인 경우 반복
+		int strike,ball;
+		int user[] =new int [com.length];
+		Scanner scan = new Scanner(System.in);
+		do {
+			
+			//중복되지 않은 숫자 3개를 입력
+			count =0;
+			System.out.println("입력 : ");
+			while(count <user.length) {
+				int input =scan.nextInt();
+				int i;
+				for(i = 0; i< count;i++) {
+					if(user[i] == input) {
+						break;
 				}
-			}	for(i=0;i<com.length;i++) {
-				for(int j=0;j < user.length;j++)
-					if(com[i]==user[j] && i==j) {
-					System.out.println("strike++");
-					
-			}else if(com[i]==user[j]&&i !=j) {
-				System.out.println("ball++");
-				
-			}else {
-				System.out.println("탈락입니다.");
-				
 			}
+			//중복되지 않으면 저장 후 count 증가
+			if(i == count) {
+				user[count++] = input;	
+			break;
 			}
-		}}}}
-	
-	
-		
-		
+		}
+			//스트라이크와 볼의 개수를 계산
+			strike = 0;
+			ball = 0;
+			for(int i=0;i<com.length;i++) {
+				for(int j=0;j<user.length;j++) {
+					//두 수가 같으면
+					if(com[i]==user[j]) {
+						//위치가 같으면 스트라이크
+						if(i == j) {
+							strike++;
+						}else {//다르면 볼
+							ball++;
+						}
+					}
+				}
+			}
+			//스트라이크와 볼의 개수에 따른 결과를 출력
+			if(strike != 0) {
+				System.out.println(strike + "S");
+			}
+			if(ball != 0) {
+				System.out.println(ball + "B");
+			}
+			if(strike ==0 && ball ==0) {
+				System.out.println("O");
+			}
+			System.out.println();
+			
+		}while(strike < 3);
+		//정답입니다.를 출력
+		System.out.println("정답입니다!");
+		scan.close();
+		}
+	}
+
 
 		
 		
