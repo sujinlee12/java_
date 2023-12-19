@@ -138,7 +138,7 @@ public class StudentProgram {
 		}
 		
 		System.out.println("과목 또는 학생 번호가 잘못됐습니다.");
-	}
+
 		
 	}
 	public static void printMenu() {
