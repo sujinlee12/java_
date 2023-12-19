@@ -34,9 +34,8 @@ public class OddEvenGameEx1 {
 		 * */
 		//반복문 : 프로그램 종료를 선택하기 전까지 반복
 		int menu;
-		
 		Scanner scan =new Scanner(System.in);
-		int win =0,lose=0;
+		int win =0, lose=0;
 		do { //메뉴 출력 : 메서드
 			printMenu();	
 			
@@ -44,7 +43,6 @@ public class OddEvenGameEx1 {
 			//메뉴 선택
 			menu =scan.nextInt();
 			System.out.println("-------------");
-			
 			//선택한 메뉴에 따른 기능 실행
 			switch(menu) {
 				case 1:  
@@ -70,10 +68,10 @@ public class OddEvenGameEx1 {
 					
 				}
 			}while(menu != 3);
-			
+			scan.close();
 	}
 		
-	/* 기능 : 메뉴를 출력하는 메서드 
+		/* 기능 : 메뉴를 출력하는 메서드 
 		 * 매개변수 : 없음
 		 * 리턴타입 : 없음 => void
 		 * 메서드명 : printMenu
@@ -93,12 +91,13 @@ public class OddEvenGameEx1 {
 	 * 메서드명 : newGame 
 	 * */
 	public static boolean newGame()	{
-		int r = random(1,100);
 		//정수를 입력 받음(0,1)
 		Scanner scan = new Scanner(System.in);
 		System.out.print("선택 (홀 :1,짝 :0) : ");
 		int user = scan.nextInt();
-		System.out.println(r + " "+ (r % 2==0?"짝":"홀")+ "입니다.");
+		//랜덤으로 정수를 생성
+		int r= random(1,100);
+		System.out.println(r + " "+ (r % 2 ==0?"짝":"홀")+ "입니다.");
 		//승패를 알려줌 
 		return r % 2 == user;
 	}

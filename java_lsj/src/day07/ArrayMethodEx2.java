@@ -29,7 +29,7 @@ public class ArrayMethodEx2 {
 	 */
 	public static void initArray1 (int [] arr) {
 		//arr = new int[10]; 초기화를 다시하면 연결이 끊겨서 이전 공유하던 애가 안바뀜.
-		arr =new int[10];
+		arr =new int [10];
 		for(int i= 0;i<arr.length;i++) {
 			arr[i] = i + 1;
 		}
