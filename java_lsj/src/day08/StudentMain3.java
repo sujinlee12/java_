@@ -9,7 +9,7 @@ public class StudentMain3 {
 		
 		Student2 std =new Student2(1, 1, 1, "홍길동");
 		std.printScore();
-				
+		
 		
 	}
 

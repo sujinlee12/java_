@@ -197,6 +197,7 @@ public class homeworkEx2 {
 			}
 		}
 		
+		
 		while(menu != 3);
 		scan.close();	
 	}
