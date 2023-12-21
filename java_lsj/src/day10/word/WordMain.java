@@ -19,7 +19,6 @@ public class WordMain {
 				insertWord();
 				break;
 				case 2:
-					System.out.println(count);
 					
 					//단어 검색 기능 구현
 					searchWord();
@@ -80,7 +79,7 @@ public class WordMain {
 						//현재 위치를 index 저장
 						index=i;
 						break;
-					}
+					} 
 				}				
 				//일치하는 단어가 없으면 
 						
