@@ -151,6 +151,7 @@ import java.util.Scanner;
 				
 					
 				case 3:
+					deletedBoard();
 					System.out.println("프로그램 종료");
 					break;
 				default:
@@ -158,6 +159,11 @@ import java.util.Scanner;
 				
 				}
 			} 
+			private static void deletedBoard() {
+			// TODO Auto-generated method stub
+			
+		}
+
 			private static void runSubmenu(int submenu) {
 				switch(submenu) {
 				case 1:
@@ -235,8 +241,7 @@ import java.util.Scanner;
 					//기존 배열을 크기가 같은 새 배열을 생성
 					Board[]tmpList = new Board[boardList.length];
 					//새 배열에 기존 배열을 복사
-					System.arraycopy(boardList,0,tmpList,0,count);
-					
+					System.arraycopy(boardList,0,tmpList,0,boardList.length);
 					//기존 배열에서 찾은 번지 다음부터 나머지 개수를 복사해서
 					//새 배열에 찾은 번지부터 덮어씀
 					System.arraycopy(tmpList,index+1,boardList,index,count-index);
@@ -247,8 +252,14 @@ import java.util.Scanner;
 				default:
 					System.out.println("잘못된 메뉴입니다.");
 				}
+					
 			
 			}
+			private static void updateBoard() {
+				// TODO Auto-generated method stub
+				
+			}
+
 			/** 수정할 게시글 번호와 제목, 내용을 입력받아 게시글을 수정하는 메서드
 			 */
 			
