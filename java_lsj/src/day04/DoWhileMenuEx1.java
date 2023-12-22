@@ -95,8 +95,7 @@ public class DoWhileMenuEx1 {
 					//게임이 끝났으면 현재 횟수가 최고기록 횟수보다 좋으면
 					if(bestCount == -1 || count < bestCount) {
 						//최고 기록 횟수를 현재 횟수로 수정
-						bestCount = count;
-					}
+						bestCount = count;}
 					break;
 					//2번 메뉴 선택
 				case 2:
@@ -116,8 +115,9 @@ public class DoWhileMenuEx1 {
 									
 				}
 
-		}while (menu != 3);
+				}while (menu != 3);
 			
-	}
+		}
+	
 
 

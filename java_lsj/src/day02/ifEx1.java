@@ -23,6 +23,8 @@ public class ifEx1 {
 		//정수가 0이 아니면 0이 아닙니다라고 출력
 		if(num !=0) {
 			System.out.println(num + "는 0이 아닙니다.");
+
+		
 		}
 
 	}
