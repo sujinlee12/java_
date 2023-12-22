@@ -147,8 +147,6 @@ public class ProductMain2 {
 			}
 		}
 		
-		
-	
 		//일치하는 제품이 없으면
 		if(index == -1) {
 			//안내문구 출력후 종료
