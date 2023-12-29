@@ -1,7 +1,5 @@
 package day13;
 
-import java.util.Scanner;
-
 public class ConsoleProgram {
 
 	public static void main(String[] args) {
