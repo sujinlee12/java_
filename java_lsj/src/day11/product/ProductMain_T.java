@@ -117,7 +117,7 @@ public class ProductMain_T {
 			if(list[i].equals(name)) {
 				//번지를 index에 저장
 				index = i;
-			}
+			} 
 		}
 			//일치하는 제품이 없으면 
 		if(index == -1) {
@@ -145,7 +145,8 @@ public class ProductMain_T {
 		//판매 횟수를 1증가
 		salecount++;					
 		System.out.println("판매가 등록되었습니다.");
-	}
+	} 	
+		
 		
 	public static void storeProduct() {
 	

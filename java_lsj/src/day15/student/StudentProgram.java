@@ -130,7 +130,7 @@ public class StudentProgram implements Program {
 			 
 		}
 	}
-
+	
 	private void scoreManager() {
 		//과목 출력 : 수정할 과목을 선택
 		System.out.println("1.국어");
