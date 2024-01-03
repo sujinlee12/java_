@@ -48,6 +48,7 @@ public class StudentMain {
 		}while(menu !=3);
 		save(fileName);
 	}
+	
 		
 	private static void save(String fileName) {
 		try(FileOutputStream fos = new FileOutputStream(fileName);
@@ -61,6 +62,7 @@ public class StudentMain {
 
 	private static void load(String fileName) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -90,7 +92,8 @@ public class StudentMain {
 		
 				
 	}
-
+		
+	
 	private static void insertStudent() {
 		//학년, 반, 번호 이름 입력
 		System.out.print("학년 : ");
