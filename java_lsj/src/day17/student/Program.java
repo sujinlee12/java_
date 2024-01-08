@@ -1,10 +1,10 @@
-package program;
+package day17.student;
 
 
 public interface Program {
 
 	void run();
-	void printMenu(int menu);
+	void printMenu();
 	void runMenu(int menu);
 	
 }

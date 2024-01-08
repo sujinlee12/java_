@@ -29,6 +29,7 @@ public class ServerMain {
 			while(true) {
 				Thread t = new ServerThread(serverSocket.accept());
 				t.start();
+				save();	
 			}
 		} catch (IOException e) {
 			System.out.println("[예외가 발생하여 서버를 종료합니다.]");
@@ -37,18 +38,22 @@ public class ServerMain {
 		
 	}
 	private static void save() {
+		String fileName = "src/day18/student/list.txt";
+		
 		try {
 			ObjectOutputStream foos = 
-					new ObjectOutputStream(new FileOutputStream(FileName));
-			foos.writeObject(List);
+					new ObjectOutputStream(new FileOutputStream(fileName));
+			foos.writeObject(list);
 			foos.flush();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 
 	private static void load() {
+		
 	
 }
+	
 @RequiredArgsConstructor
 class ServerThread extends Thread{
 	@NonNull
@@ -79,7 +84,7 @@ class ServerThread extends Thread{
 	}
 
 	
-		}
+		
 		try {	
 				oos.writeObject(List);
 				oos.flush();
