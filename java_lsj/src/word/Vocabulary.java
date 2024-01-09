@@ -1,12 +1,14 @@
 package word;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import lombok.ToString;
 
 //단어장
-@ToString
+
+
 public class Vocabulary {
 
 	private List<Word> list; //단어 리스트 
@@ -26,8 +28,29 @@ public class Vocabulary {
 		//이미 등록된 단어이고, 뜻도 등록되었으면
 		int index = list.indexOf(new Word(word));
 		if(index >= 0 && list.get(index).getMeanList().contains(new Mean(mean))) {
+			return true;
+		}
+		//등록된 단어
+		Word selectedWord = list.get(index);
+		
+		//중복된 뜻이 있으면 중복 안된 뜻들을 확인
+		//등록된 단어의 뜻을 가져옴
+		List<Mean>selectedMeans = selectedWord.getMeanList();
+		//새로운 뜻에 중복되지 않은 뜻의 개수
+		int count = (int)newMeanList
+					.stream()
+					.filter(m->selectedMean.contains(m))
+					.count();
+		//다 중복되면
+		if(count == 0) {
 			return false;
 		}
+		//하나라도 중복되지 않은 새 뜻이 있으면 기존 뜻에 추가
+		newMeanList
+					.stream()
+					.filter(m->!selectedMeans.contains(m))
+					.forEach(m->selectedMeans.add(m));
+				return true;
 		 
 		//새로 추가된 단어이면
 		list.add(new Word(word, partOfSpeech, mean));
@@ -89,5 +112,38 @@ public class Vocabulary {
 		}
 		return list.get(index);*/
 		return index < 0 ? null : list.get(index);
+		public void print(String word) {
+			print(word, (w1, w2)-> w1.getWord().compareTo(w2.getWord()));
+		}
+
+		public void print() {
+			print("");
+		}
+
+		public void printByViews() {
+			print("", (w1,w2)-> w2.getViews() - w1.getViews());
+		}
+		private void print(String word, Comparator<Word> c) {
+			int count = 
+					(int) list.stream()
+					  		  .filter(w->w.getWord().contains(word))
+					  		  .count();
+			if(count == 0) {
+				System.out.println("일치하는 단어가 없습니다.");
+				return;
+			}
+			list.sort(c);
+			list.stream()
+				//word가 포함된 객체들만 필터링 함
+				.filter(w->w.getWord().contains(word))
+				.forEach(w->{
+					w.printWord();
+					w.views();
+				});
+		
 	}
+		public Collection<? extends Word> getList() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }

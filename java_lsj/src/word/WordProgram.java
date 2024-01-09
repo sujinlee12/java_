@@ -1,6 +1,9 @@
 package word;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import day17.student.Program;
@@ -9,23 +12,29 @@ import word.service.PrintServiceImp;
 
 public class WordProgram implements Program {
 
-	private final int EXIT = 4;
+	private static final String worngList = null;
+	private final int EXIT = 5;
 	private final int WORD_EXIT = 4;
 	private final int MEAN_EXIT = 4;
+	private final int PRINT_EXIT= 4;
 	private final int GAME_EXIT = 4;
 	
 	private Scanner scan = new Scanner(System.in);
+	
 	private PrintService printService = new PrintServiceImp();
+	
+	
 	//빈 단어장 만들기
 	private Vocabulary vocabulary = new Vocabulary(null);
+	private List<Word> wrongList = new ArrayList<Word>(); //오답리스트
 	
 	@Override
 	public void run() {
 		int menu = 0;
+		String fileName = "src/word/wordList.txt";
 		do {
 			try {
 				printMenu();
-			
 				//메뉴 선택
 				menu =scan.nextInt();
 				runMenu(menu);
@@ -36,6 +45,12 @@ public class WordProgram implements Program {
 				scan.nextLine();
 			}
 		}while(menu != EXIT);
+		//저장하기
+		if(fileService.save(fileName, vocabulary.getList())) {
+			System.out.println("저장이 완료됐습니다.");
+		}else {
+			System.out.println("저장에 실패했습니다.");
+		}
 
 	}
 
@@ -67,9 +82,76 @@ public class WordProgram implements Program {
 	}
 
 	private void gameManage() {
-		// TODO Auto-generated method stub
+		int menu;
+		do {
+			//메뉴출력
+			printService.printGameMenu();
+			//메뉴 선택
+			menu =scan.nextInt();
+			//메뉴 실행
+			runGameMenu(menu);
+			
+		}while(menu != GAME_EXIT);
 		
 	}
+
+	private void runGameMenu(int menu) {
+		switch(menu) {
+		case 1:
+			play();
+			break;
+		case 2:
+			printWrongList();
+			break;
+		case 3:
+			initWrongList();
+			break;
+		case 4:
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+		
+	}
+
+	private void initWrongList() {
+		if(worngList == null) {
+			wrongList = new ArrayList<Word>();
+			
+		}
+		wrongList.clear();
+		
+	}
+
+	private void printWrongList() {
+		if(wrongList.size() == 0) {
+			System.out.println("오답이 없습니다.");
+			return;
+		}
+		wrongList.stream().forEach(w->w.printWord());
+	}
+
+	private void play() {
+		List<Word>gameList = new ArrayList<Word>(vocabulary.getList());
+	
+		if(gameList.size() == 0) {
+			System.out.println("등록된 단어가 없습니다.");
+			return;
+		}
+		//랜덤으로 섞어줌
+		Collections.shuffle(gameList);
+		
+		int win = 0, lose =0;
+		//반복문 : 최대 리스트 크기 만큼
+		
+		while(gameList.size() != 0) {
+			//0번지에 있는 단어를 꺼냄
+			Word word = gameList.remove(0);
+			
+		}
+	}
+	
 
 	private void meanManage() {
 		int menu;
