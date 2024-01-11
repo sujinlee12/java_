@@ -7,9 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 //영어 단어의 뜻을 의미하는 클래스로, 품사와 뜻을 멤버로 가짐
+
 @Data
 @AllArgsConstructor
-//이건 왜쓰냐 
+
 public class Mean implements Serializable{
 	
 	//직렬화 할 때 serialVersionUID가 일치하는 경우만 읽어오도록 하기 위해 값을 지정

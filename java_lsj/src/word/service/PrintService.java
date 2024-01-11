@@ -9,6 +9,8 @@ public interface PrintService {
 	void printMeanMenu();
 
 	void printGameMenu();
+
+	void printPrintMenu();
 	
 	
 }

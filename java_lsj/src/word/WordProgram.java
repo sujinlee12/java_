@@ -16,11 +16,10 @@ public class WordProgram implements Program {
 	private final int EXIT = 5;
 	private final int WORD_EXIT = 4;
 	private final int MEAN_EXIT = 4;
-	private final int PRINT_EXIT= 4;
+	private final int PRINT_EXIT= 3;
 	private final int GAME_EXIT = 4;
 	
 	private Scanner scan = new Scanner(System.in);
-	
 	private PrintService printService = new PrintServiceImp();
 	
 	
@@ -70,15 +69,65 @@ public class WordProgram implements Program {
 			meanManage();
 			break;
 		case 3:
-			gameManage();
+			printMange();
 			break;
 		case 4:
+			gameManage();
+			break;
+		case 5:
 			System.out.println("프로그램을 종료합니다.");
 			break;
 		default:
 			throw new InputMismatchException();
 		}
 
+	}
+
+	private void printMange() {
+		int menu;
+		do {
+			//조회 메뉴 출력
+			printService.printPrintMenu();
+			//메뉴 선택
+			menu = scan.nextInt();
+			//메뉴 실행
+			runPrintMenu();
+		}while(menu != PRINT_EXIT);
+		
+	}
+
+	private void runPrintMenu() {
+		switch(menu) {
+		case 1:
+			printAll();
+			break;
+		case 2:
+			printSearch();
+			break;
+		case 3:
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+		
+	}
+
+
+
+	private void printSearch() {
+		//검색할 단어 입력
+		System.out.println("검색어 :");
+		scan.nextLine();//엔터처리
+		String word = scan.nextLine();
+		//단어장에 검색어를 주면서 검색어를 포함하는 단어들을 출력하라고 요청
+		vocabulary.print(word);
+		
+	}
+	private void printAll() {
+		//vocabulary.print();
+		
+		
 	}
 
 	private void gameManage() {
@@ -174,6 +223,7 @@ public class WordProgram implements Program {
 			setMean();
 			break;
 		case 3:
+			removeMean();
 			break;
 		case 4:
 			System.out.println("이전 메뉴로 돌아갑니다.");
@@ -183,6 +233,31 @@ public class WordProgram implements Program {
 			
 		}
 		
+	}
+
+	private void removeMean() {
+		//단어 입력
+		System.out.println("단어 : ");
+		scan.nextLine();
+		String word =scan.nextLine();
+		//입력한 단어와 일치하는단어 객체를 가져옴
+		Word selectedWord = vocabulary.getWord(word);
+		//없는 단어이면 알림
+		if(selectedWord == null) {
+			System.out.println("등록되지 않은 단어입니다.");
+			return;
+		}
+		//단어가 있으면 단어와 뜻을 출력
+		selectedWord.printWord();
+		//삭제할 의미의 번호를 입력
+		System.out.println("삭제할 의미 번호 :");
+		int index = scan.nextInt() -1;
+		//해당 단어의 의미를 삭제 후 알림
+		if(selectedWord.removeMean(index)) {
+			System.out.println("의미를 삭제했습니다.");
+		}else {
+			System.out.println("의미를 삭제하지 못했습니다.");
+		}
 	}
 
 	private void setMean() {
