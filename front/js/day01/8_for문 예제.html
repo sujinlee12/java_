@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for문</title>
+</head>
+<body>
+    <script>
+        //배열 
+        var arr = [1, 2, 3, 6,'안녕'];
+
+        //for of는 값을 가져옴
+        for(let item of arr){
+            document.write(item);
+            document.write('<br>');
+        }
+        //객체
+        var obj = {
+            name:'홍길동',
+            age: 21
+        }
+        //for in은 key값/번지를 가져옴
+        for(let index in obj){
+            document.write(`${index}: ${arr[index]}`);
+            document.write('<br>');
+        }
+         //객체
+         var obj = {
+                name:'홍길동',
+                age: 21
+        }
+        //for in은 key값/번지를 가져옴
+        for(let item in obj){
+            document.write(`${item}: ${obj[item]}`);
+            document.write('<br>');
+        }
+        
+    </script>
+</body>
+</html>

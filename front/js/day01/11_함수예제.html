@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수 예제</title>
+</head>
+<body>
+    <script>
+        /*두 수를 더하는 함수를 만들고, 호출해서 화면에 
+        테스트를 하는 예제
+        - 두 수를 입력받아 합을 구하도록 추가
+
+        */
+        /* (1) 강사님이 하신 1,2 고정으로 값 더하는 코드
+        function sum(num1, num2){
+            return num1 + num2;
+
+        }
+        var num1 =1;
+        var num2 =2;
+        var res = sum(num1, num2);
+        document.write(`${num1} + ${num2} = ${res}`);*/
+
+        function sum(num1,num2){
+            num1 = parseInt(num1);
+            num1 = parseInt(num2);
+            return num1 + num2;
+
+        }
+
+        var num1 = prompt('정수1을 입력하세요.',0)??0;
+        var num2 = prompt('정수2를 입력하세요.',0)??0;
+        var res = sum(num1, num2);
+        document.write(`${num1}+ ${num2} = ${res}`);
+
+        /* 내가 한  입력받는 코드
+        
+        var num1 = prompt('정수1을 입력하세요.',0);
+        var num2 = prompt('정수2를 입력하세요.',0);
+        
+        num1 = +num1;
+        num2 = +num2;
+        
+        function test1(){
+            document.write(`${num1} +  ${num2} =${num1 + num2}`);
+            document.write('<br>');
+
+        }
+        
+        test1();  */      
+        
+    </script>
+
+    
+</body>
+</html>
