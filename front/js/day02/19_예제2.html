@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예제</title>
+	<style>
+		.box{border:1px solid black;height: 300;}
+	</style>
+</head>
+<body>
+	<div class="box">안녕박스</div>
+
+	<button onclick="changeBgToggle()">배경 변경</button>
+
+
+	<script>
+
+		/*박스와 버튼을 만들고, 버튼을 한번 클릭하면 배경색이 노란색,
+		다시 클릭하면 흰색, 다시 클릭하면 노란색이 되도록 수정
+		*/
+		var toggle = true; //저녁변수 toggle을 만들어서 true
+		
+
+		function changeBgToggle(){
+			const color ="yellow";
+			let box = document.getElementsByClassName("box")[0];
+			box.style.backgroundColor = toggle?color:"";
+			toggle = !toggle;
+			
+		}
+
+		/*let box = document.getElementsByClassName("box")[0];
+		
+		let button1= document.getElementById("button1");
+		button1.onclick = function change(color){
+		 		box.style.cssText
+		 = "background-color: yellow";
+		}
+		
+		let button2= document.getElementById("button2");
+		button2.onclick = function change(color){
+		 		box.style.cssText
+		 = "background-color: white";
+		 
+		}*/
+
+	function changeBg(color){
+		let box = document.getElementsByClassName("box")[0];
+		box.style.backgroundColor = color;
+	}
+	</script>
+</body>
+</html>

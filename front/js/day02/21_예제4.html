@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예제4</title>
+	<style>
+		.container{width: 600px; margin:0;}
+		
+		.img-container{
+			display: flex;
+			justify-content: space-evenly;
+			flex-wrap: wrap;
+		}
+
+		.img-box{
+			border:1px solid black;width: 30%;
+			border-radius: 5px; padding: 5px;
+			cursor:pointer;
+
+		}
+		.img-box img{
+			width: 100%; display: block; height: 180px;
+			border-radius: 5px;
+
+		}
+		.show{
+			border:1px solid black;padding:5px;
+			box-sizing: border-box; border-radius:5px;
+			margin-top:10px;
+
+
+		}
+		.show img{
+			display: block; height: 588px; border-radius: 5px;
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="img-container">
+			<div class="img-box">
+				<img src="https://newsimg.hankookilbo.com/2018/02/05/201802051120876500_1.jpg" alt="">
+			</div>
+			<div class="img-box">
+				<img src="https://post-phinf.pstatic.net/MjAyMTAzMzFfMTMg/MDAxNjE3MTgyNDY5OTQ2.7lToiE1uDhnZ60mKOC8ZdK3xe9PVOx2pNdefS_afqdkg.hiWgkZfjEygAmhUuHcpv61eB80v3pOgS8_3ph8bQ_Ywg.JPEG/%EA%BC%AC%EB%A6%AC%EC%95%BC_%281%29.jpg?type=w800_q75" alt="">
+			</div>
+			<div class="img-box">
+				<img src="https://image.dongascience.com/Photo/2020/01/910608e7413ea2ce900a0d570ab9e391.jpg" alt="">
+			</div>
+		</div>
+		<div class="show"></div>
+	</div>
+	<div class="show">
+		<img src="" alt="확대">
+	</div>
+	<script>
+	
+	/*여러개의 이미지가 있고, 이미지를 클릭하면 클릭한 이미지가
+		크게 보이는 예제*/
+		document.querySelectorAll('.img-box').forEach(element=>{
+			element.onclick = function(){
+				let src= this.getElementsByTagName('img')[0].src;
+				let showImg = document.querySelector('.show img');
+				showImg.src = src;
+				showImg.style.visibility='visible';
+			};
+		});
+
+	</script>
+</body>
+</html>
