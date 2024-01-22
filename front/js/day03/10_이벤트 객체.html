@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>이벤트 객체</title>
+	<style>
+		body{
+			margin: 0; min-height: 100vh;
+		}
+		.box{
+			position :fixed;right: 50px; bottom:50px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		220px, 300px
+	</div>
+	<button id ="btn">버튼</button>
+	<script>
+		/*
+		이벤트 객체 : 이벤트 발생 시, 발생한 이벤트와 관련된
+		정보를 관리하는 객체
+		-target : 이벤트가 발생한 요소
+		- screen X/Y : 스크린(모니터) 기준 이벤트 발생 위치
+		- pageX/Y : 페이지 기준 이벤트 발생 위치
+		- client X/Y :브라우저 기준 이벤트 발생 위치
+		- offsetX/Y : 요소 기준 발생 위치
+		키보드
+		- key : 눌린 키의 값
+		- keyCode/which : 눌린 키의 코드
+		- ctrlKey/altKey/shiftKey:컨트롤, 알트, 쉬프트 키의 눌림 여부
+		*/
+		let body = document.body;
+		box.onmousemove =function(){
+			let x = event.clientX;
+			ket yz
+		}
+		let btn = document.getElementById("btn");
+		btn.onclick = function(event){
+			console.log(event);
+		};
+
+	</script>
+</body>
+</html>
