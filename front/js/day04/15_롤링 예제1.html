@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>롤링 예제 2</title>
+	<style>
+		.container{
+			width:300px; border: 5px solid black; overflow: hidden;
+		
+		}
+		.content-box{
+			width:200%; background-color: red;
+		}
+		.box{
+			float: left; height: 50px; width: 50%;
+			transition:marginLeft:1s;
+		}
+		.content-box::after{
+			clear:both; content:'';display: block;
+		}
+		.box:nth-of-type(2){background-color: yellow;}
+		@keyframes moveleft {
+			from {
+				transform: translateX(0);
+			}
+			to{
+				transform: translateX(100px);
+			}}
+
+	</style>
+
+</head>
+<body>
+	<div class="container" id = "con1">
+		<div class="content-box">
+			<div class="box">1</div>
+			<div class="box2">2</div>
+		</div>
+	<script>
+
+
+		let intervaltime = 1500; //에니메이션 시간보다 커야 함
+		const contentBox = document.getElementsByClassName("content-box")[0];
+		let firstBox;
+
+		contentBox.onmouseentar = function(){
+			clearInterval(id);
+		}
+		contentBox.onmouseleave = function(){
+			id = animationRun();
+		}
+		let id = animationRun();
+
+		setInterval(function(){
+
+		},intervaltime);
+
+		function animation(){
+			firstBox.classList.remove("left");
+			let contentBox= document.getElementsByClassName("content-box")[0];
+			contentBox.append(firstBox);
+		}
+	</script>
+</body>
+</html>
