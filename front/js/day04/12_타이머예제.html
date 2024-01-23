@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>타이머 예제</title>
+	<style>
+		.box{
+			width: 300px; border:1px solid black;
+			text-align: center; height: 50px; padding 
+		}
+	</style>
+</head>
+<body>
+	<button class = "btn-start>시작 버튼</button>
+
+	<script>
+		/* 시작 버튼을 누르면 시간이 흐르는 타이머를 구현하세요 
+		시 : 분 : 초로 화면에 표시 
+		00 : 00 : 00
+		*/
+	let count = 3600; 
+	setInterval(function(){
+		++count;
+		//1시간이 3600초
+		let hour = parseInt(count/3600);//시간을 계산
+		//시간을 문자열로 변환. 한자리이면 0으로 채움.
+		hour = String(hour).padStart(2,"0");
+		let minute = parseInt(count/60); % 60;
+		minute = String(minute).padStart(2,"0"); 
+		let second = count % 60;
+		second = String(second).padStart(2,"0")
+		let result = 
+		`${String(hour).padStart("0")`:
+		`${String(minute).padStart(2,"0")};
+		let result:
+		
+		console.log(second,++count);
+		},1000);
+	
+	</script>
+	
+</body>
+</html>
