@@ -31,32 +31,31 @@
 		console.log(`getElementsClassName : ${links1.length}`);
 		let links2 = document.querySelectorAll('.menu-link');
 		console.log(`querySelectorAll : ${links2.length}`);
-	</script>
+</script> 
+<!-- 
+<nav id ="nav2">
+	<ul class = "menu-list">
+		<li class = "menu-item">
+			<a href="#" class ="menu-link">메뉴1</a>
+		</li>
+		<li class = "menu-item">
+			<a href="#" class ="menu-link">메뉴2</a>
+		</li>
+		<li class = "menu-item">
+			<a href="#" class ="menu-link">메뉴3</a>
+		</li>
+	</ul>
+	-->
+<script> 
 	
-	<nav id="nav2">
-		<ul class="menu-list">
-			<li class="menu-item">
-				<a href="#" class="menu-link">메뉴1</a>
-			</li>
-			<li class="menu-item">
-				<a href="#" class="menu-link">메뉴2</a>
-			</li>
-			<li class="menu-item">
-				<a href="#" class="menu-link">메뉴3</a>
-			</li>
-		</ul>
-	</nav>
-	<script>
-		/* 
-		- getElementsByClassName
-		  - 요소를 선택할 당시 없던 요소들도
-		    나중에 추가되면 자동으로 선택이 됨
-		- querySelectorAll
-		  - 요소를 선택할 당시 없던 요소들은 
-		    나중에 추가되도 선택이 안됨. 선택되게 하려면 다시 요소를
-			  선택해야 함.
-		*/
-		console.log(`getElementsClassName : ${links1.length}`);
+	/*
+	getElemetsByClassName은 요소를 선택할 당시 없던 요소들도 
+	나중에 추가되면 자동으로 선택이 됨
+	-querySelectorAll은 요소를 선택할 당시 없던 요소들은
+	나중에 추가되도 선택이 안됨. 선택 되게 하려면 다시 요소를
+	선택해야 함
+	*/
+	console.log(`getElementsClassName : ${links1.length}`);
 		console.log(`querySelectorAll : ${links2.length}`);
 		
 		Array.from(links1).forEach(item=>{
@@ -66,6 +65,9 @@
 		links2.forEach(item=>{
 			console.log(item);
 		});
-	</script>
+	
+	</script> 
+
+
 </body>
 </html>
