@@ -16,17 +16,18 @@
 		
 		.input-group{
 			margin-bottom: 10px;
-
-			
 		}
+
 		/* 선택자1 선택자 2: 선택자1이 조상이고, 선택자2가 자손, 자손은 자식, 손자, 증손자 등 
 		선택자1>선택자2 : 선택자 1이 부모이고, 선택자2가 자식
 		*/
+		
 		.input-group .input{
 			display: block; width: 100%; box-sizing: border-box;
 			margin: 10px 0; height: 30px; border-radius: 5px;
 			border: 1px solid black;
 		}
+		
 		.input-group textarea.input{
 			height:300px;
 		}
@@ -82,11 +83,36 @@
 				let titleRegex = /^[a-zA-Z0-9ㄱ-힣?!,\.]{,50}$/;
 				let writerRegex = /^[a-zA-Z0-9]{0,8}$/; //영문과 숫자만 할 수있게
 				
+				//요소가 아닌 값을 가져오기위해 지정.
 				//현재 입력된 각 요소의 값 (value)
+				//input
 				let titleValue = title.value;
 				let writerValue = writer.value;
 				let contentValue = content.value;
 				let submitOk = true;
+
+				//객체는 속성을 갖는다.그게 멤버변수.
+				//자바스크립트는 객체가 내장되어 있음
+				/*
+					1.기본 내장 객체 new
+
+					2. Bom:브라우저 오브젝트 모델
+						window.open();//생성하면 안돼 이미 생성 되어 있음
+
+					3. Dom(문서객체모델): 브라우저의 흰색부분
+						document.메서드명()
+						getelementById,setter
+						queryselector
+
+						js 
+						객체명.속성명 = 값;
+						객체명.속성명
+						객체명.메서드(?);
+						
+						제이쿼리
+						$ = queryselector
+						$("선택자").메서드();
+			*/
 
 				//에러 박스 내용 초기화
 				titleError.innerText="";
@@ -126,7 +152,10 @@
 				return submitOk;
 			
 		}
-		submitBtn.on
+
+		submitBtn.on("click","box",function(){
+
+		});
 
 
 	</script>
