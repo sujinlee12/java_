@@ -15,7 +15,7 @@ public class Main {
 			printMenu();
 			menu = scan.nextInt();
 			runMenu(menu);
-		}while(menu!=2);
+			}while(menu!=2);
 	}
 
 	private static void printMenu() {
