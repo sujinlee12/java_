@@ -34,6 +34,8 @@ public class Item {
 		
 	}*/
 	//날짜 형식을 보기 편하게 새로운 게터 만들기 
+	
+	
 	public String getIt_date_str() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(it_date);

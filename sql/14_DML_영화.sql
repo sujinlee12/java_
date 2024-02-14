@@ -301,6 +301,31 @@ INSERT INTO ticketing values (null, 2,0,112000*2,1,'abc123');
 insert into ticketing_list(ti_ti_num,ti_se_num)
 values(1,1),(1,2);
 
+# 영화관의 전체 좌석수와 전체 상영관 수를 업데이트하는 쿼리
+UPDATE theater 
+SET 
+    th_seat = (select sum(sc_seat) from screen where sc_th_num = 1),
+    th_screen = (select count(sc_num) from screen where sc_th_num = 1)
+WHERE
+    th_num = 1;
+    
+select * from theater;
+
+# 폴킹 감독이 웡카 영화(1)에 감독으로 참여하는 쿼리
+insert into `join` select 1, '감독',1, mp_num 
+from movie_person join `character` on mp_ch_num = ch_num
+where ch_name = '폴킹' and mp_role = '감독';
+
+insert into `join`
+SELECT 
+    1,'감독',1,mp_num
+FROM
+    movie_person
+        JOIN
+    `character` ON mp_ch_num = ch_num
+WHERE
+    ch_name = '폴킹' AND mp_role = '감독';
+
 
 
     

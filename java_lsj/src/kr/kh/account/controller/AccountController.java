@@ -11,16 +11,16 @@ import kr.kh.account.service.AccountService;
 import kr.kh.account.service.AccountServiceImp;
 
 public class AccountController {
+	
 	private Scanner scan;
 	private AccountService accountService;
-
+	
 	public AccountController(Scanner scan) {
-		if (scan == null) {
+		if(scan == null) {
 			scan = new Scanner(System.in);
 		}
 		this.scan = scan;
-		accountService = (AccountService) new AccountServiceImp();
-
+		accountService = new AccountServiceImp();
 	}
 
 	public void run() {
@@ -28,24 +28,24 @@ public class AccountController {
 		do {
 			printMenu();
 			menu = scan.nextInt();
-			runtMenu(menu);
-		} while (menu != 5);
+			runMenu(menu);
+		}while(menu != 5);
 	}
 
 	private void printMenu() {
-		System.out.println("메뉴");
-		System.out.println("---------");
-		System.out.println("1.내역 입력");
-		System.out.println("2.내역 수정 ");
+		System.out.println("-------메뉴-------");
+		System.out.println("1. 내역 입력");
+		System.out.println("2. 내역 수정");
 		System.out.println("3. 내역 삭제");
 		System.out.println("4. 내역 조회");
 		System.out.println("5. 이전");
-		System.out.println("-----------");
-		System.out.println("메뉴 선택 : ");
+		System.out.println("-----------------");
+		System.out.print("메뉴 선택 : ");
+		
 	}
 
-	private void runtMenu(int menu) {
-		switch (menu) {
+	private void runMenu(int menu) {
+		switch(menu) {
 		case 1:
 			insert();
 			break;
@@ -64,12 +64,10 @@ public class AccountController {
 		default:
 			System.out.println("잘못된 메뉴입니다.");
 		}
-
 	}
-	
-	//조회메서드
+
 	private void view() {
-		System.out.println(" 날짜를 입력하세요(yyyy-MM-dd 또는 yyyy-MM 또는 yyyy) : ");
+		System.out.print("날짜를 입력하세요.(yyyy-MM-dd 또는 yyyy-MM 또는 yyyy) : ");
 		String date = scan.next();
 		List<Item> itemList = accountService.getItemListByDate(date);
 		if(itemList == null || itemList.size() == 0) {
@@ -81,9 +79,8 @@ public class AccountController {
 		}
 	}
 
-	//삭제메서드
 	private void delete() {
-		System.out.println("날짜를 입력하세요(yyyy-MM-dd) : ");
+		System.out.print("날짜를 입력하세요.(yyyy-MM-dd) : ");
 		String date = scan.next();
 		List<Item> itemList = accountService.getItemListByDate(date);
 		
@@ -91,11 +88,11 @@ public class AccountController {
 			System.out.println("삭제할 내역이 없습니다.");
 			return;
 		}
-		//삭제할 내역이 있으면 수정 가능한 내역을 출력
+		//삭제할 내역이 있으면 삭제 가능한 내역을 출력
 		for(Item item : itemList) {
 			System.out.println(item);
 		}
-		System.out.println("내역 번호를 선택하세요 : ");
+		System.out.print("내역 번호를 선택하세요 : ");
 		int it_num = scan.nextInt();
 		//입력한 내역 번호가 잘못된 값인지 확인
 		if(!itemList.contains(new Item(it_num))) {
@@ -108,11 +105,12 @@ public class AccountController {
 			System.out.println("내역을 삭제하지 못했습니다.");
 		}
 	}
-	//수정메서드
+
 	private void update() {
-		System.out.println("날짜를 입력하세요(yyyy-MM-dd) : ");
+		System.out.print("날짜를 입력하세요.(yyyy-MM-dd) : ");
 		String date = scan.next();
 		List<Item> itemList = accountService.getItemListByDate(date);
+		
 		if(itemList == null || itemList.size() == 0) {
 			System.out.println("수정할 내역이 없습니다.");
 			return;
@@ -121,7 +119,7 @@ public class AccountController {
 		for(Item item : itemList) {
 			System.out.println(item);
 		}
-		System.out.println("내역 번호를 선택하세요 : ");
+		System.out.print("내역 번호를 선택하세요 : ");
 		int it_num = scan.nextInt();
 		//입력한 내역 번호가 잘못된 값인지 확인
 		if(!itemList.contains(new Item(it_num))) {
@@ -133,7 +131,6 @@ public class AccountController {
 			item.setIt_num(it_num);
 			if(accountService.updateItem(item)) {
 				System.out.println("내역 수정이 완료되었습니다.");
-				
 			}else {
 				System.out.println("내역을 수정하지 못했습니다.");
 			}
@@ -141,24 +138,20 @@ public class AccountController {
 			System.out.println("날짜를 잘못 입력하여 내역을 수정하지 못했습니다.");
 			return;
 		}
-		
-		
 	}
-	//추가메서드
+
 	private Item inputItem() throws ParseException {
 		//수입/지출 선택
 		List<Type> typeList = accountService.getTypeList();
 		
 		for(int i = 0; i < typeList.size(); i++) {
-			System.out.println(typeList.get(i).getTy_name());
-					if(i != typeList.size() -1 ) {
-						System.out.print("/");
+			System.out.print(typeList.get(i).getTy_name());
+			if(i != typeList.size() - 1) {
+				System.out.print("/");
 			}
 		}
-		
-		System.out.print(" 중 하나를 입력하세요. ");
+		System.out.print(" 중 하나를 입력 하세요:");
 		String type = scan.next();
-		
 		
 		//카테고리 선택
 		List<Category> categoryList = accountService.getCategoryList(type);
@@ -167,22 +160,22 @@ public class AccountController {
 		}
 		System.out.print("분류를 선택하세요 : ");
 		int categoryNum = scan.nextInt();
-		
 		//날짜
 		System.out.print("날짜를 입력하세요(yyyy-MM-dd) : ");
 		String date = scan.next();
+		
 		//금액
 		System.out.print("금액을 입력하세요 : ");
 		int money = scan.nextInt();
-		
+
 		//내용
 		scan.nextLine();
 		System.out.print("내용을 입력하세요 : ");
-				String content = scan.nextLine();
-				
-		return new Item(categoryNum, date, money, content,type);
+		String content = scan.nextLine();
+		
+		return new Item(categoryNum, date, money, content, type);
 	}
-
+	
 	private void insert() {
 		
 		try {
@@ -192,10 +185,8 @@ public class AccountController {
 			}else {
 				System.out.println("내역을 추가하지 못했습니다.");
 			}
-		
-		}catch (ParseException e) {
+		} catch (ParseException e) {
 			System.out.println("날짜 형식이 잘못됐습니다.");
 		}
-		
 	}
 }

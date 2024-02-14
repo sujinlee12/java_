@@ -2,12 +2,9 @@ package kr.kh.account.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import kr.kh.account.model.vo.Category;
 import kr.kh.account.model.vo.Item;
 import kr.kh.account.model.vo.Type;
-
 
 public interface AccountService {
 
@@ -22,7 +19,5 @@ public interface AccountService {
 	boolean updateItem(Item item);
 
 	boolean deleteItem(int it_num);
-	
-
 
 }
