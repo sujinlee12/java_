@@ -32,7 +32,7 @@ public class AccountServiceImp implements AccountService {
 			accountDao = session.getMapper(AccountDAO.class);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	@Override
@@ -42,51 +42,51 @@ public class AccountServiceImp implements AccountService {
 
 	@Override
 	public List<Category> getCategoryList(String type) {
-		if(type == null){
+		if(type == null) {
 			return null;
 		}
 		return accountDao.selectCategoryList(type);
 	}
-	@Override
-		public boolean insertItem(Item item) {
-			if(item == null || item.getIt_ty_name() == null) {
-				return false;
-			}
-			if(!checkCategoryNum(item.getIt_ty_name(),item.getIt_ca_num())) {
-				return false;
-			}
-			return accountDao.insertItem(item);
-		}
 
 	@Override
-	public List<Item> getItemListByDate(String date_Str) {
-		//날짜가 없는 경우
-		if(date_Str == null) {
+	public boolean insertItem(Item item) {
+		if(item == null || item.getIt_ty_name() == null) {
+			return false;
+		}
+		if(!checkCategoryNum(item.getIt_ty_name(), item.getIt_ca_num())) {
+			return false;
+		}
+		return accountDao.insertItem(item);
+	}
+
+	@Override
+	public List<Item> getItemListByDate(String dateStr) {
+		//날짜가 없는 경우 
+		if(dateStr == null) {
 			return null;
 		}
 		
-		return accountDao.selectItemListByDate(date_Str);
+		return accountDao.selectItemListByDate(dateStr);
 	}
 
 	@Override
 	public boolean updateItem(Item item) {
-		if(item == null || item.getIt_ty_name()==null) {
+		if(item == null || item.getIt_ty_name() == null) {
 			return false;
 		}
-		if(!checkCategoryNum(item.getIt_ty_name(),item.getIt_ca_num())) {
+		if(!checkCategoryNum(item.getIt_ty_name(), item.getIt_ca_num())) {
 			return false;
 		}
 		return accountDao.updateItem(item);
-	}
+		}
 	private boolean checkCategoryNum(String ty_name, int ca_num) {
 		//type과 일치하지 않은 카테고리 체크
 		List<Category> categoryList = accountDao.selectCategoryList(ty_name);
 		return categoryList.contains(new Category(ca_num));
-		}
+	}
 
 	@Override
 	public boolean deleteItem(int it_num) {
-		return accountDao.deletItem(it_num);
+		return accountDao.deleteItem(it_num);
 	}
-
-	}
+}

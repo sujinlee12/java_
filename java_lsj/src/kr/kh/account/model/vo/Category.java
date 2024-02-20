@@ -6,17 +6,16 @@ import lombok.Data;
 
 @Data
 public class Category {
-	private int ca_num;
-	private String ca_ty_name;
+
+	private int ca_num; 
+	private String ca_ty_name; 
 	private String ca_name;
-	
 	@Override
 	public String toString() {
-		return ca_num + ".[" + ca_ty_name +"]" + ca_name;
+		return ca_num + ". [" + ca_ty_name + "] " + ca_name;
 	}
 	public Category(int it_ca_num) {
 		this.ca_num = it_ca_num;
-		
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -35,5 +34,5 @@ public class Category {
 	}
 	
 	
-
+	
 }

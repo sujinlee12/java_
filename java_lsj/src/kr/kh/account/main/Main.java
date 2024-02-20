@@ -5,6 +5,7 @@ import java.util.Scanner;
 import kr.kh.account.controller.AccountController;
 
 public class Main {
+
 	private static AccountController accountController;
 	
 	public static void main(String[] args) {
@@ -15,15 +16,13 @@ public class Main {
 			printMenu();
 			menu = scan.nextInt();
 			runMenu(menu);
-			}while(menu!=2);
+		}while(menu != 2);
 	}
-
 	private static void printMenu() {
 		System.out.println("메뉴");
 		System.out.println("1. 가계부 관리");
 		System.out.println("2. 프로그램 종료");
 		System.out.print("메뉴 선택 : ");
-		
 	}
 	private static void runMenu(int menu) {
 		switch(menu) {
@@ -36,7 +35,5 @@ public class Main {
 		default:
 			System.out.println("잘못된 메뉴입니다.");
 		}
-		
 	}
-
 }

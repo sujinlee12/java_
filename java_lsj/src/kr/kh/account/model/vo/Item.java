@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Item {
-	
-	int it_num;
-	int it_ca_num;
-	Date it_date;
-	int it_money;
+
+	int it_num; 
+	int it_ca_num; 
+	Date it_date; 
+	int it_money; 
 	String it_content;
 	String it_ca_name;
 	String it_ty_name;
@@ -29,13 +29,6 @@ public class Item {
 		it_ty_name = type;
 	}
 	
-	/*public Date getIt_date() {
-		return it_date;
-		
-	}*/
-	//날짜 형식을 보기 편하게 새로운 게터 만들기 
-	
-	
 	public String getIt_date_str() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(it_date);
@@ -43,13 +36,13 @@ public class Item {
 	
 	@Override
 	public String toString() {
-		return "["+ it_num + "]" + getIt_date_str()
-			+"["+it_ty_name + "][" + it_ca_name + "]"
+		return "[" + it_num + "] " + getIt_date_str() 
+			+ "[" + it_ty_name + "] [" + it_ca_name + "]"
 			+ " " + it_content + " : " + it_money;
 	}
-	
+
 	public Item(int it_num) {
-		this.it_num = it_num;	
+		this.it_num = it_num;
 	}
 
 	@Override
@@ -68,6 +61,5 @@ public class Item {
 	public int hashCode() {
 		return Objects.hash(it_num);
 	}
-	
 	
 }

@@ -21,11 +21,10 @@ public class CommunityController {
 			scan = new Scanner(System.in);
 		}
 		this.scan = scan;
-		communityService = (CommunityService) new CommunityServiceImp();
+		communityService = new CommunityServiceImp();
 	
 	}
 
-	
 	public void run() {
 		int menu;
 		do {
@@ -71,25 +70,32 @@ public class CommunityController {
 		
 	}
 
-
-
 	
 	//조회메서드
 	private void view() {
 		System.out.println("조회할 게시글의 날짜를 입력하세요(yyyy-MM-dd 또는 yyyy-MM 또는 yyyy) : ");
 		String date = scan.next();
 		List<Board>BoardList = communityService.getBoard.ListByDate(date);
+		if(BoardList == null || BoardList.size() == 0) {
+			System.out.println("조회할 내역이 없습니다.");
+			return;
+		}
+		for(Board tmp : BoardList) {
+			System.out.println(tmp);
+		}
+	
 	}
 
-
-
-
+	//삭제메서드
 	private void delete() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("삭제할 게시글의 날짜를 입력하세요(yyyy-MM-dd) : ");
+		String date = scan.next();
+		List<Board> BoardList = BoardService.getItemListByDate(board);
+		if(BoardList == null || BoardList.size() == 0) {
+			System.out.println("삭제할 내역이 없습니다.");
+			return;
+			
 	}
-
-
 
 	//수정메서드
 	private void update() {
@@ -108,7 +114,7 @@ public class CommunityController {
 		int bo_num = scan.nextInt();
 		
 		//입력한 내역 번호가 잘못된 값인지 확인
-		if(!boardList.contains(new Boar(bo_num))) {
+		if(!boardList.contains(new Boar (bo_num))) {
 			System.out.println("잘못된 내역 번호입니다.");
 			return;
 		}

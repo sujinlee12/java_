@@ -25,7 +25,6 @@ public class Main {
 			switch(menu) {
 			case 1:
 				communityController.run();
-				
 				break;
 			case 2:
 				System.out.println("프로그램을 종료합니다.");
@@ -34,7 +33,7 @@ public class Main {
 				System.out.println("잘못된 메뉴입니다.");
 			}
 			
-		}while(menu != 2);
+			}while(menu != 2);
 		
 		
 	
