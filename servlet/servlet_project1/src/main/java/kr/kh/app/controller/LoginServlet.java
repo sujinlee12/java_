@@ -40,8 +40,8 @@ public class LoginServlet extends HttpServlet {
 		
 		if(user != null){
 			//세션에 회원정보를 저장하여 로그인 유지
-			HttpSession sesseion = request.getSession(); //request에 있는 세션을 가져옴
-			Session.setAttribute("user",user); // 세션에 user라는 이름으로 회원 정보를 저장
+			HttpSession session = request.getSession(); //request에 있는 세션을 가져옴
+			session.setAttribute("user",user); // 세션에 user라는 이름으로 회원 정보를 저장
 			response.sendRedirect(request.getContentType()+ "/");
 			//세션에 log
 		}else {
