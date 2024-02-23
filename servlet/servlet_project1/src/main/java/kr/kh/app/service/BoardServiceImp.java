@@ -15,42 +15,48 @@ import kr.kh.app.model.vo.CommunityVO;
 
 public class BoardServiceImp  implements BoardService{
 	private BoardDAO boardDao;
-		public BoardServiceImp(){
-			String resource = "kr/kh/app/config/mybatis-config.xml";
+	public BoardServiceImp(){
+	String resource = "kr/kh/app/config/mybatis-config.xml";
 			
-		
-		      try {
-			         InputStream inputStream = Resources.getResourceAsStream(resource);
-			         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-			         SqlSession session = sessionFactory.openSession(true);
-			         boardDao = session.getMapper(BoardDAO.class);
-			      	} catch (IOException e) {
-			         e.printStackTrace();
-			      	}
-	}
 
-		@Override
-		public boolean insertBoard(BoardVO board) {
-			   if(board == null
-			       || board.getBo_title() == null 
-			       || board.getBo_title().length()==0) {
-			      
-			      }if(board.getBo_me_id() == null) {
-			         
-			         return false;
-			      }
-			      if(board.getBo_content() ==null) {
-			         return false;
-			         
-			      }
-			      return boardDao.insertBoard(board);
+      try {
+	         InputStream inputStream = Resources.getResourceAsStream(resource);
+	         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+	         SqlSession session = sessionFactory.openSession(true);
+	         boardDao = session.getMapper(BoardDAO.class);
+	      	} 
+     catch (IOException e) {
+	         e.printStackTrace();
+	      	}
+			}
 
-	
+	@Override
+	public boolean insertBoard(BoardVO board) {
+	if(	board == null
+       || board.getBo_title() == null 
+       || board.getBo_title().length()==0) {
+		      
+     	}
+		if(board.getBo_me_id() == null) {
+		         
+    	 return false;
+		}
+		if(board.getBo_content() ==null) {
+		 return false;
+		         
+		}
+		return boardDao.insertBoard(board);
 		}
 
 		@Override
 		public ArrayList<CommunityVO> getCommunityList() {
-			// TODO Auto-generated method
+			
 			return boardDao.selectCommunityList();
 		}
-}
+
+		@Override
+		public ArrayList<BoardVO> selectBoardList() {
+			
+			return boardDao.selectBoardList();
+		}
+	}

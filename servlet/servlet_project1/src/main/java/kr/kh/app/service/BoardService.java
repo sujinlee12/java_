@@ -11,6 +11,8 @@ public interface BoardService {
 
 	ArrayList<CommunityVO> getCommunityList();
 
+	ArrayList<BoardVO> selectBoardList();
+
 
 	
 
