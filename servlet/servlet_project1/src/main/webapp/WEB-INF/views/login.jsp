@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,23 +12,26 @@
 </head>
 	<body>
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	  <div class="container-fluid">
-	    <a class="navbar-brand" href="<%= request.getContextPath() %>/">이수진</a>
-	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-	      <span class="navbar-toggler-icon"></span>
-	    </button>
-	    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-	      <ul class="navbar-nav">
-	        <li class="nav-item">
-	          <a class="nav-link" href="<%= request.getContextPath() %>/signup">회원가입</a>
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link" href="<%= request.getContextPath() %>/login">로그인</a>
-	        </li>
-	      </ul>
-	    </div>
-	  </div>
-	</nav>
+         <div class="container-fluid">
+            <a class="navbar-brand" href="<c:url value ="/"/>">Logo</a>
+            <button class="navbar-toggler" type="button"
+               data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+               <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+               <ul class="navbar-nav">
+               <c:if test="${user ==null}">
+                  <li class="nav-item">
+                  <a class="nav-link" href="<c:url value = "/signup"/>">회원가입</a>
+                     </li>
+                  <li class="nav-item">
+                     <a class = "nav-link" href="<c:url value = "/login"/>">로그인</a>
+                     </li>
+                    </c:if>
+               </ul>
+            </div>
+         </div>
+      </nav>
 	<div class = "container">
 	<!--  id와 pw를 입력받아 서버로 전송하는 코드를 작성 -->
 	 	<form action="<%=request.getContextPath() %>/login" method ="post">

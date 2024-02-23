@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 	private MemberService memberService = new MemberServiceImp();
    
     public LoginServlet() {
-    /* 화면에서 전달한 id와 pw를 콘솔창에 출력 */ 
+    	/* 화면에서 전달한 id와 pw를 콘솔창에 출력 */ 
      
     }
 	
