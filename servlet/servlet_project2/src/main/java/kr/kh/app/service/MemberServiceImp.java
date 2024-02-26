@@ -42,7 +42,16 @@ public class MemberServiceImp implements MemberService {
 		//아이디 중복체크
 		
 		//각 항목 유효성 검사
+		
+		//아래 예외 처리는 아이디 중복 체크 검사를 안했기 때문에 발생하는 예외를 임시 처리하기 위한 방법
+		try {
+			boolean res = memberDao.insertMember(member);
+			return res;
+		}catch(Exception e) {
+			return false;
+		}
+		
 		//이렇게 두 줄 도 가능 boolean res =memberDao.insertMember(member);
-		return memberDao.insertMember(member);
+		
 	}
 }
