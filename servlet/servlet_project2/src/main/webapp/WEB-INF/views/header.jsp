@@ -25,7 +25,7 @@
 	        <li class="nav-item">
 	          <a class="nav-link" href="#">Link</a>
        		</li>  
-      </ul>
+      	</ul>
     </div>
   </div>
 </nav>
