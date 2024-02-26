@@ -6,8 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Main</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	</head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	  <div class="container-fluid">
@@ -18,7 +22,7 @@
 	    <div class="collapse navbar-collapse" id="collapsibleNavbar">
 	      <ul class="navbar-nav">
 	        	<li class="nav-item">
-	          		<a class="nav-link" href="#">Link</a>
+	          		<a class="nav-link"  href="<c:url value="/signup"/>">Link</a>
 	      </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="#">Link</a>
@@ -30,14 +34,5 @@
     </div>
   </div>
 </nav>
-
-</body>
-</html>
-
-
-
-
-</html>
-
 </body>
 </html>
