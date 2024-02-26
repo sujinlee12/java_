@@ -14,5 +14,6 @@
 	</head>
 <body>
 <jsp:include page ="/WEB-INF/views/header.jsp"/>
+
 </body>
 </html>
