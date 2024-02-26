@@ -13,19 +13,7 @@ import kr.kh.app.dao.MemberDAO;
 import kr.kh.app.model.vo.MemberVO;
 
 public interface MemberService {
-	//	String resource = "kr/kh/app/mybatis-config.xml";
-	InputStream inputStream;
-	SqlSession session;
-	try {
-		inputStream = Resources.getResourceAsStream(resource);
-		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		session = sessionFactory.openSession(true);
-		boardDao = session.getMapper(MemberDAO.class);
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-	
-}
+
 	boolean signup(MemberVO member);
 	MemberVO getMember(LoginDTO loginDto);
 

@@ -12,10 +12,8 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
-container
+<div class ="container">
 <!-- 서버에서 보낸 데이터를 c:forEach를 이용하여 화면에 출력 -->
-
-
 </div>
 </body>
 </html>

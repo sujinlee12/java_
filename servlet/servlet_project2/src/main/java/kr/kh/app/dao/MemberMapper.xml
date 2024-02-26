@@ -9,6 +9,5 @@
 	</insert>
 	<select id="selectMember" resultType ="kr.kh.app.model.vo.MemberVO">
 		select * from member where me_id = #{id}
-	
 	</select>
 </mapper>
