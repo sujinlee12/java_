@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
+import kr.kh.app.pagination.Criteria;
 
 public interface BoardDAO {
 
@@ -14,6 +15,10 @@ public interface BoardDAO {
 	ArrayList<CommunityVO> selectCommunityList();
 
 	ArrayList<BoardVO> selectBoardList();
+
+	int selectTotalCount((@Param("cri")Criteria cri););
+	
+	ArrayList<BoardVO> selectBoardList(Criteria cri);
 	
 
 }
