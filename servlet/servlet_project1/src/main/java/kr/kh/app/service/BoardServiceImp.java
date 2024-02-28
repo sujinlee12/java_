@@ -14,62 +14,72 @@ import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.pagination.Criteria;
 
-public class BoardServiceImp  implements BoardService{
+public class BoardServiceImp implements BoardService {
 	private BoardDAO boardDao;
-	public BoardServiceImp(){
-	String resource = "kr/kh/app/config/mybatis-config.xml";
-			
 
-      try {
-	         InputStream inputStream = Resources.getResourceAsStream(resource);
-	         SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-	         SqlSession session = sessionFactory.openSession(true);
-	         boardDao = session.getMapper(BoardDAO.class);
-	      	} 
-     catch (IOException e) {
-	         e.printStackTrace();
-	      	}
-			}
+	public BoardServiceImp() {
+		String resource = "kr/kh/app/config/mybatis-config.xml";
+
+		try {
+			InputStream inputStream = Resources.getResourceAsStream(resource);
+			SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			SqlSession session = sessionFactory.openSession(true);
+			boardDao = session.getMapper(BoardDAO.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
+	
 	public boolean insertBoard(BoardVO board) {
-	if(	board == null
-       || board.getBo_title() == null 
-       || board.getBo_title().length()==0) {
-		      
-     	}
-		if(board.getBo_me_id() == null) {
-		         
-    	 return false;
+		if (board == null || board.getBo_title() == null || board.getBo_title().length() == 0) {
+
 		}
-		if(board.getBo_content() ==null) {
-		 return false;
-		         
+		if (board.getBo_me_id() == null) {
+
+			return false;
+		}
+		if (board.getBo_content() == null) {
+			return false;
+
 		}
 		return boardDao.insertBoard(board);
-		}
-
-		@Override
-		public ArrayList<CommunityVO> getCommunityList() {
-			
-			return boardDao.selectCommunityList();
-		}
-
-		@Override
-		public ArrayList<BoardVO> getBoardList(Criteria cri) {
-			if(cri == null) {
-				cri = new Criteria();
-			}
-			return boardDao.selectBoardList(cri);
-		}
-
-		@Override
-		public int getTotalCount(Criteria cri) {
-			if(cri == null) {
-				cri = new Criteria();
-			}
-			return boardDao.selectTotalCount(cri);
-		}
-
-		
 	}
+
+	@Override
+	public ArrayList<CommunityVO> getCommunityList() {
+
+		return boardDao.selectCommunityList();
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		if (cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectTotalCount(cri);
+	}
+
+	@Override
+	public ArrayList<BoardVO> getBoardList(Criteria cri) {
+
+		if (cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectBoardList(cri);
+
+	}
+
+	@Override
+	public BoardVO getBoard(int num) {
+		return boardDao.selectBoard(num);
+	}
+	
+	//매개변수는 객체인 경우 체크를 함
+	@Override
+	public boolean updateView(int num) {
+		return boardDao.updateView(num);
+	}
+
+}

@@ -11,10 +11,15 @@ public interface BoardService {
 	boolean insertBoard(BoardVO board);
 
 	ArrayList<CommunityVO> getCommunityList();
+	
+	BoardVO getBoard(int num);
+
+	int getTotalCount(Criteria cri);
 
 	ArrayList<BoardVO> getBoardList(Criteria cri);
 
-	int getTotalCount(Criteria cri);
+	//void를 boolean으로 수정.
+	boolean updateView(int num);
 
 
 
