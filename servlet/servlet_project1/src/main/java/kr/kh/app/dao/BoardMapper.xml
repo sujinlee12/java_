@@ -30,37 +30,36 @@
 	</select>
 	<select id="selectBoardList" resultMap="BoardMap">
 		SELECT * FROM board
-			<if test="cri.type == all">
+			<if test='cri.type == "all"'>
 			where bo_title like concat ('%', #{cri.search},'%')
 				or bo_me_id = #{cri.search}
 			</if>
-			<if test="cri.type == title">
+			<if test='cri.type == "title"'>
 				where bo_title like concat ('%', #{cri.search},'%')
 			</if>
-			<if test="cri.type == writer">
+			<if test='cri.type == "writer"'>
 				bo_me_id = #{cri.search}
 			</if>
 			order by bo_num desc
-				limit #{cri.pageStart} = #{cri.search}
+				limit #{cri.pageStart} , #{cri.perPageNum}
 	</select>
 	<select id="selectCommunity"
 		resultType="kr.kh.app.model.vo.CommunityVO">
 			select * from community where co_num = #{bo_co_num}
 	</select>
-	<select id="selectBoardList" resultMap="BoardMap">
-		SELECT * FROM board
-			<if test="cri.type == all">
+	<select id="selectTotalCount" resultType="int">
+		SELECT count(*) FROM board
+			<if test='cri.type == "all"'>
 			where bo_title like concat ('%', #{cri.search},'%')
 				or bo_me_id = #{cri.search}
 			</if>
-			<if test="cri.type == title">
+			<if test='cri.type == "title"'>
 				where bo_title like concat ('%', #{cri.search},'%')
 			</if>
-			<if test="cri.type == writer">
+			<if test='cri.type == "writer"'>
 				bo_me_id = #{cri.search}
 			</if>
-			order by bo_num desc
-			limit #{cri.pageStart} = #{cri.search}
+			
 	</select>
 	
 	

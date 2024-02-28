@@ -1,6 +1,10 @@
 package kr.kh.app.pagination;
 
+import lombok.Data;
+
 //1~10, 10~20 등 페이지에 대한 정보
+@Data
+
 public class PageMaker {
 
 	private int totalCount;// 전체 컨텐츠 개수 => 마지막 페이지네이션의 마지막 페이지를 계산하기 위해
