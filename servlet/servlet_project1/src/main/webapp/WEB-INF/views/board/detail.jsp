@@ -37,8 +37,9 @@
            <a href="<c:url value="/board/list"/>" class="btn btn-ouline-dark">목록으로</a>
            <c:if test="${board.bo_me_id == user.me_id }">
            		<a href="<c:url value = "/board/delete?num=${board.bo_num }"/>" class="btn btn-ouline-danger">삭제</a>
+      			<a href="<c:url value = "/board/update?num=${board.bo_num }"/>" class="btn btn-ouline-danger">수정</a>
       		</c:if>
- </div> 
+ 	</div> 
 </div>
 </body>
 </html>

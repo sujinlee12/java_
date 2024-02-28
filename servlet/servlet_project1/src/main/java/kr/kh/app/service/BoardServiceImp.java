@@ -98,4 +98,31 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.deleteBoard(num);
 	}
 
+	@Override
+	public boolean updateBoard(BoardVO board, MemberVO user) {
+		if(user == null|| user.getMe_id() == null) {
+			return false;
+		}
+		if(	board == null || 
+			!checkString(board.getBo_content())||
+			!checkString(board.getBo_title())) {
+			return false;
+		}
+		//게시글 번호를 이용하여 게시글을 가져옴
+		BoardVO dbBoard = boardDao.selectBoard(board.getBo_num());
+		//게시글 작성자와 회원 아이디를 비교하여 다르면 false 반환
+		if(dbBoard == null || !dbBoard.getBo_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		//같으면 게시글 수정
+		return boardDao.updateBoard(board);
+	}
+	//checkString은 내부에서만 쓰려고 만드는거라 private으로 해도 상관없음
+	private boolean checkString(String str) {
+		if(str == null || str.length() == 0) {
+		return false;
+		}
+		return true;
+	}
 }
+	
