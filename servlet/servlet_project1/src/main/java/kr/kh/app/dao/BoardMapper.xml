@@ -38,7 +38,7 @@
 				where bo_title like concat ('%', #{cri.search},'%')
 			</if>
 			<if test='cri.type == "writer"'>
-				bo_me_id = #{cri.search}
+				where bo_me_id = #{cri.search}
 			</if>
 			order by bo_num desc
 				limit #{cri.pageStart} , #{cri.perPageNum}
@@ -57,7 +57,7 @@
 				where bo_title like concat ('%', #{cri.search},'%')
 			</if>
 			<if test='cri.type == "writer"'>
-				bo_me_id = #{cri.search}
+				where bo_me_id = #{cri.search}
 			</if>
 			
 	</select>

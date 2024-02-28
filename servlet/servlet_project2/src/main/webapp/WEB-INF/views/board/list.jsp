@@ -36,6 +36,9 @@
 	        		<a href="<c:url value=""/>">${board.bo_title}</a>
 	        	</td>
 	        	<td>
+	        		<c:url var = "page" value ="/board/list">
+	        		<c:param name="type"value></c:param>
+	        		</c:url>
 	        		<a href="<c:url value=""/>">${board.bo_me_id}</a>
 	        	</td>
 	        	<td>${board.bo_view}</td>
