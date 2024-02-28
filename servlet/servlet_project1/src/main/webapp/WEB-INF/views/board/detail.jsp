@@ -33,10 +33,12 @@
            <div class="mb-3 mt-3">
           <label for="content" class="form-label">내용:</label>
           <textarea rows="10" class="form-control" id="content" name="content" readonly> ${board.bo_content}</textarea>
-        </div>
+        	</div>
            <a href="<c:url value="/board/list"/>" class="btn btn-ouline-dark">목록으로</a>
-      </div>
+           <c:if test="${board.bo_me_id == user.me_id }">
+           		<a href="<c:url value = "/board/delete?num=${board.bo_num }"/>" class="btn btn-ouline-danger">삭제</a>
+      		</c:if>
+ </div> 
 </div>
-${board}
 </body>
 </html>
