@@ -24,7 +24,7 @@
 					class="form-control" id="id" placeholder="아이디" name="id">
 			</div>
 			<div class="mb-3 mt-3">
-				<label for="pw" class="form-label">비밀번호:</label> <input type="text"
+				<label for="pw" class="form-label">비밀번호:</label> <input type="password"
 					class="form-control" id="pw" placeholder="비밀번호" name="pw">
 			</div>
 			<button>로그인</button>
