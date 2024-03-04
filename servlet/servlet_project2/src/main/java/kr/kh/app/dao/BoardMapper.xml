@@ -21,7 +21,6 @@
 		select * from board order
 		by bo_num desc
 	</select>
-
 	<select id="selectCommunity"
 		resultType="kr.kh.app.model.vo.CommunityVO">
 		select * from community where co_num = #{bo_co_num}
@@ -32,7 +31,20 @@
 	</insert>
 	<select id="selectCommunityList" resultType="kr.kh.app.model.vo.CommunityVO">
 		select * from community
-	
 	</select>
+	<update id="updateView">
+		update board set bo_view = bo_view +1 where bo_num = #{num}
+	</update>
+	<select id="selectBoard" resultMap = "BoardMap">
+		select * from board where bo_num = #{num}
+	</select>
+	<update id="updateBoard">
+		update board set
+			bo_title = #{board.bo_title},
+			bo_content = #{board.bo_content},
+			bo_co_num = #{board.bo_co_num}
+		where
+			bo_num = #{board.bo_num}
+	</update>
 	
 </mapper>

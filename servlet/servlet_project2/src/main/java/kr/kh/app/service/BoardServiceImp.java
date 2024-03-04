@@ -10,8 +10,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.kh.app.dao.BoardDAO;
+import kr.kh.app.filter.Criteria;
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
+import kr.kh.app.model.vo.MemberVO;
 
 public class BoardServiceImp implements BoardService {
 	
@@ -58,6 +60,53 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<CommunityVO> getCommunityList() {
 		return boardDao.selectCommunityList();
+	}
+	@Override
+	public boolean updateView(int num) {
+		return boardDao.updateView(num);
+		
+	}
+	@Override
+	public BoardVO getBoard(int num) {
+		return boardDao.selectBoard(num);
+	}
+	@Override
+	public boolean updateBoard(BoardVO board, MemberVO user) {
+		
+		//게시글 null 체크
+		if(board == null || 
+		  !checkString(board.getBo_title()) ||
+		  !checkString(board.getBo_content())) {
+		  return false;
+			
+		}
+		
+		//회원 null 체크
+		if(user == null) {
+			return false;
+		}
+		//게시글 번호를 이용하여 게시글을 가져옴
+		BoardVO dbBoard = boardDao.selectBoard(board.getBo_num());
+		//게시글이 없거나 게시글 작성자가 회원이 아니면 false를 리턴
+		if( dbBoard == null || 
+		   !dbBoard.getBo_me_id().equals(user.getMe_id())) {
+		   return false;
+		}
+		//서비스에게 게시글을 주면서 수정하라고 요청 
+		return boardDao.updateBoard(board);
+	
+	}
+	@Override
+	public ArrayList<BoardVO> getBoardList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int getTotalCount(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectTotalCount(cri);
 	}
 
 }

@@ -11,8 +11,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
-<div class ="container">
-	<h1>게시글 상세</h1>
+<h1>게시글 상세</h1>
       <div>
          <div class="mb-3 mt-3">
             <label for="community" class="form-label">게시판:</label> 
@@ -34,12 +33,6 @@
           <label for="content" class="form-label">내용:</label>
           <textarea rows="10" class="form-control" id="content" name="content" readonly> ${board.bo_content}</textarea>
         	</div>
-        	<c:if test="${file!=null }">
-        	<div class="mb-3 mt-3">
-               <label for="view" class="form-label">첨부파일:</label>
-              	<a href ="<c:url value = "/downLoad?filename =${file.fi_name}"/>" class=form-control download="${file.fi_ori_name}">${file.fi_ori_name}</a>
-           </div>
-           </c:if>
            <a href="<c:url value="/board/list"/>" class="btn btn-ouline-dark">목록으로</a>
            <c:if test="${board.bo_me_id == user.me_id }">
            		<a href="<c:url value = "/board/delete?num=${board.bo_num }"/>" class="btn btn-ouline-danger">삭제</a>

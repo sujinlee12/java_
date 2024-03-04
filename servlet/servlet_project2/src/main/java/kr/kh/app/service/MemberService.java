@@ -16,5 +16,10 @@ public interface MemberService {
 
 	boolean signup(MemberVO member);
 	MemberVO getMember(LoginDTO loginDto);
+	
+	static MemberVO getMember(MemberVO member) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

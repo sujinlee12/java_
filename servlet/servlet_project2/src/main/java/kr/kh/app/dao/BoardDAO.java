@@ -16,7 +16,17 @@ public interface BoardDAO {
 	boolean insertBoard(@Param("board")BoardVO board);
 	//메퍼에는 파람에 있는 이름 쓰기.
 
+
+	//insertBoard
 	ArrayList<CommunityVO> selectCommunityList();
+
+	//int selectTotal
+	boolean  updateView(@Param("num")int num);
+
+	BoardVO selectBoard(@Param("num")int num);
+	//delete
+
+	boolean updateBoard(@Param("board")BoardVO board);
 
 	
 
