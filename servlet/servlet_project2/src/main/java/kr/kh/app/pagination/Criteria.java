@@ -1,5 +1,10 @@
-package kr.kh.app.filter;
+package kr.kh.app.pagination;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class Criteria {
 	
 	private int page = 1;//현재 페이지 : 기본값 - 1
@@ -21,8 +26,10 @@ public class Criteria {
 		this.search = search == null ? "" : search;
 	}
 	
+	
 	public int getPageStart() {
 		return (page - 1) * perPageNum;
 	}
+
 	
 }

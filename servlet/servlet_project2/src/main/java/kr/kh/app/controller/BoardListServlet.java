@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.kh.app.filter.Criteria;
-import kr.kh.app.filter.PageMaker;
 import kr.kh.app.model.vo.BoardVO;
+import kr.kh.app.pagination.Criteria;
+import kr.kh.app.pagination.PageMaker;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
 
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-		private BoardService boardService = new BoardServiceImp();
+	private BoardService boardService = new BoardServiceImp();
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//화면에서 보낸 type과 search를 가져옴
@@ -33,7 +33,6 @@ public class BoardListServlet extends HttpServlet {
 			e.printStackTrace();
 			page = 1;
 		}
-		
 		//type과 search와 page를 이용해서 Criteria 객체를 생성
 		Criteria cri = new Criteria(page, 2, type, search);
 		
@@ -42,8 +41,9 @@ public class BoardListServlet extends HttpServlet {
 		//현재 페이지 정보, 게시글수, 한 페이지네이션에서 페이지 갯수를 이용하여 PageMaker 클래스 객체를 생성
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		//생성한 객체를 화면에 전달
+		
 		//서비스에게 게시글을 리스트를 달라고 요청 : getBoardList()
-		ArrayList<BoardVO> list = boardService.getBoardList();
+		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		
 		//화면에 게시글 리스트를 전송: 화면에서 사용할 이름 - boardList 
 		request.setAttribute("boardList", list);

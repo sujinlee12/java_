@@ -6,27 +6,32 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
+import kr.kh.app.pagination.Criteria;
 
 public interface BoardDAO {
 
 	
-
-	ArrayList<BoardVO> selectBoardList();
+	
+	ArrayList<BoardVO> selectBoardList(@Param("cri")Criteria cri);
 
 	boolean insertBoard(@Param("board")BoardVO board);
-	//메퍼에는 파람에 있는 이름 쓰기.
 
-
-	//insertBoard
 	ArrayList<CommunityVO> selectCommunityList();
 
-	//int selectTotal
+	int selectTotalCount(@Param("cri")Criteria cri);
+	
 	boolean  updateView(@Param("num")int num);
 
 	BoardVO selectBoard(@Param("num")int num);
-	//delete
-
+	
+	boolean deleteBoard(@Param("num")int num);
+	
 	boolean updateBoard(@Param("board")BoardVO board);
+	
+
+
+
+
 
 	
 

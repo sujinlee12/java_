@@ -18,9 +18,25 @@
 	</resultMap>
 
 	<select id="selectBoardList" resultMap="BoardMap">
-		select * from board order
-		by bo_num desc
+		select * from board
+		<choose>
+			<!-- 전체 검색 -->
+			<when test='cri.type == "all"'>
+				where
+					bo_title like concat('%',#{cri.search},'%')or
+					bo_me_id like concat('%',#{cri,search}, '%')
+			</when>
+			<!-- 제목 또는 작성자 검색 -->
+			<otherwise>
+				where
+					${cri.type} like concat('%',#{cri.search},'%')
+			</otherwise>
+		</choose>
+		order by bo_num desc
+		<!-- 현재 페이지 정보에 맞는 게시글을 위한 limit절 작성-->
+		limit #{cri.pageStart},#{cri.perPageNum}
 	</select>
+	
 	<select id="selectCommunity"
 		resultType="kr.kh.app.model.vo.CommunityVO">
 		select * from community where co_num = #{bo_co_num}
@@ -32,12 +48,35 @@
 	<select id="selectCommunityList" resultType="kr.kh.app.model.vo.CommunityVO">
 		select * from community
 	</select>
+	<select id="selectTotalCount" resultType="int">
+		select count(*) from board 
+		<choose>
+			<!-- 전체 검색 -->
+			<when test='cri.type == "all"'>
+				where 
+					bo_title like concat('%',#{cri.search}, '%') or 
+					bo_me_id like concat('%',#{cri.search}, '%')
+			</when>
+			<!-- 제목 또는 작성자 검색 -->
+			<otherwise>
+				where
+					${cri.type} like concat('%',#{cri.search}, '%')
+			</otherwise>
+		</choose>
+	</select>
 	<update id="updateView">
 		update board set bo_view = bo_view +1 where bo_num = #{num}
 	</update>
 	<select id="selectBoard" resultMap = "BoardMap">
-		select * from board where bo_num = #{num}
+		select * from board 
+		where 
+			bo_num = #{num}
 	</select>
+	<delete id="deleteBoard">
+		delete from board
+		where
+			bo_num = #{num}
+	</delete>
 	<update id="updateBoard">
 		update board set
 			bo_title = #{board.bo_title},

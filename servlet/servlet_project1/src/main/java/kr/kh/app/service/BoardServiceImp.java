@@ -152,7 +152,6 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public FileVO getFile(int num) {
-		
 		return boardDao.selectFileByBo_num(num);
 	}
 }

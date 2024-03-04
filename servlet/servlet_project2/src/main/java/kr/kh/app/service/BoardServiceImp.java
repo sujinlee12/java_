@@ -10,10 +10,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.kh.app.dao.BoardDAO;
-import kr.kh.app.filter.Criteria;
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.MemberVO;
+import kr.kh.app.pagination.Criteria;
 
 public class BoardServiceImp implements BoardService {
 	
@@ -34,12 +34,7 @@ public class BoardServiceImp implements BoardService {
 			}
 		
 	}
-	//서비스: 필수, 아닌지 널인지 아닌지 체크 / 없으면 다오에게 일 시키기
-	@Override
-	public ArrayList<BoardVO> getBoardList() {
-		//Mapper에서 이름이 헷갈리지 않도록 이름을 설정하기
-		return boardDao.selectBoardList();
-	}
+	
 	@Override
 	public boolean insertBoard(BoardVO board) {
 		if( board == null || 
@@ -61,6 +56,9 @@ public class BoardServiceImp implements BoardService {
 	public ArrayList<CommunityVO> getCommunityList() {
 		return boardDao.selectCommunityList();
 	}
+	
+	
+	
 	@Override
 	public boolean updateView(int num) {
 		return boardDao.updateView(num);
@@ -97,10 +95,20 @@ public class BoardServiceImp implements BoardService {
 	
 	}
 	@Override
-	public ArrayList<BoardVO> getBoardList(Criteria cri) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean deleteBoard(int num, MemberVO user) {
+		if(user == null ) {
+			return false;	
+		}
+		//게시글을 가져옴
+		BoardVO board = boardDao.selectBoard(num);
+		//게시글이 없거나 작성자가 아니면 false를 리턴
+		if(board==null || !board.getBo_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		//게시글을 삭제 요청
+		return boardDao.deleteBoard(num);
 	}
+
 	@Override
 	public int getTotalCount(Criteria cri) {
 		if(cri == null) {
@@ -108,5 +116,16 @@ public class BoardServiceImp implements BoardService {
 		}
 		return boardDao.selectTotalCount(cri);
 	}
+
+	@Override
+	public ArrayList<BoardVO> getBoardList(Criteria cri) {
+		//현재 페이지정보 null 처리 
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectBoardList(cri);
+	}
+	
+	
 
 }
