@@ -76,10 +76,11 @@
 				'class' : 'form-control'
 			});
 			attachment.append(inputFile);
+			}
 	});
 	
 		
-	}
+	
 	function createElement(tagName, text, attrs){
 		let element = document.createElement(tagName);
 		if(text){
@@ -95,7 +96,7 @@
 			attr.value = attrs[key];
 			element.setAttributeNode(attr);
 		}
-		return elements;
+		return element;
 	}
 </script>
 </body>
