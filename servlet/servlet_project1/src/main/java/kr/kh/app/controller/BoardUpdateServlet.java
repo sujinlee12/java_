@@ -54,16 +54,16 @@ public class BoardUpdateServlet extends HttpServlet {
 			request.setAttribute("msg", "작성자가 아닙니다.");
 			request.setAttribute("url", "board/detail?num="+num);
 			request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
-		return; //return을 쓰면 밑에 else를 쓸 필요가 없어진다.
+			return; //return을 쓰면 밑에 else를 쓸 필요가 없어진다.
 		
 		}
 		//게시글 번호를 주면서 가져오라고 요청
-		FileVO file = boardService.getFile(num);
-		request.setAttribute("file", file);
-		
-		
+		ArrayList<FileVO> fileList = boardService.getFile(num);
+		request.setAttribute("fileList", fileList);
 		//같으면
+		
 		//게시판을 가져와서 화면에 전달
+		
 		//서비스에게 게시판 리스트를 가져오라고 시킴
 		ArrayList<CommunityVO> list = boardService.getCommunityList();
 		//게시판 리스트를 화면에 전송
@@ -90,18 +90,25 @@ public class BoardUpdateServlet extends HttpServlet {
 		BoardVO board = new BoardVO(num, title, content,community);
 		
 		//새로 추가된 첨부파일 정보 가져옴
-		Part file = request.getPart("file");
+		ArrayList<Part> fileList = (ArrayList<Part>) request.getParts();
 		//삭제할 첨부파일 정보 가져옴
-		int fi_num;
+		//파라미터 values로 여러개를 읽어와야함
+		String numsStr [] = request.getParameterValues("fi_num");
+		//문자열을 숫자 배열로 바꾸기 => 향상된 포문으로 하려면 접근이 복잡해서 integer사용
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		if(numsStr != null){
+			for(String numStr :numsStr) {
+				
 		try {
-			fi_num = Integer.parseInt(request.getParameter("fi_num"));
+				int fi_num = Integer.parseInt(numStr);
+				nums.add(fi_num);
 		}catch(Exception e) {
-			fi_num = 0;
+		
+				}
+			}
 		}
-		
-		
 		//서비스에게 게시글과 회원 정보를 주면서 게시글 수정하라고 요청 
-		boolean res = boardService.updateBoard(board,user,fi_num,file);
+		boolean res = boardService.updateBoard(board,user,nums, fileList);
 		
 		//성공하면 성공했다고 알리고 게시글 상세로 이동
 		if(res) {
@@ -116,6 +123,6 @@ public class BoardUpdateServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
 		
 		
-	}
+		}
 
 }
