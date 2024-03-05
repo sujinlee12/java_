@@ -24,7 +24,7 @@
 			<when test='cri.type == "all"'>
 				where
 					bo_title like concat('%',#{cri.search},'%')or
-					bo_me_id like concat('%',#{cri,search}, '%')
+					bo_me_id like concat('%',#{cri.search}, '%')
 			</when>
 			<!-- 제목 또는 작성자 검색 -->
 			<otherwise>

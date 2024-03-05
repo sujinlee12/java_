@@ -1,5 +1,6 @@
 package kr.kh.app.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -105,9 +106,20 @@ public class BoardServiceImp implements BoardService {
 		if(board == null || !board.getBo_me_id().equals(user.getMe_id())){
 			return false;
 		}
+		
+		//게시글의 첨부파일을 서버 폴더에서 삭제(실제 파일)
+		//게시글의 첨부파일을 DB에서 삭제
+		//게시글에 있는 첨부파일 정보를 가져옴
+	
+		FileVO file = boardDao.selectFileByBo_num(num);
+		deleteFile(file);
+		
+		
+		
 		//같으면 게시글 삭제 후 삭제 여부를 반환
 		return boardDao.deleteBoard(num);
 	}
+
 
 	@Override
 	public boolean updateBoard(BoardVO board, MemberVO user) {
@@ -150,6 +162,21 @@ public class BoardServiceImp implements BoardService {
 		
 	}
 
+	private void deleteFile(FileVO fileVo) {
+		if(fileVo == null) {
+			return;
+		}
+		File file = new File(uploadPath 
+				+ fileVo.getFi_name().replace('/',File.separatorChar));
+		//Fi_name() = 실제 서버의 경로를 이용해서 찾고 / 로 저장했기때문에 \로 바꾸려면 file.sepator 필요
+		if(file.exists()) {
+			file.delete();
+			//해당 파일이 존재하면 삭제를 함.
+		}	
+		boardDao.deleteFile(fileVo.getFi_num());
+		//첨부파일 최대 3개로 바꿀 것이기 때문에 게시글 번호로 지우는 것은 어려움. 
+	}
+	
 	@Override
 	public FileVO getFile(int num) {
 		return boardDao.selectFileByBo_num(num);
