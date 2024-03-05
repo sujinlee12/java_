@@ -47,7 +47,7 @@ public class BoardListServlet extends HttpServlet {
 		
 		//화면에 게시글 리스트를 전송: 화면에서 사용할 이름 - boardList 
 		request.setAttribute("boardList", list);
-		
+		request.setAttribute("pm", pm);
 		request.getRequestDispatcher("/WEB-INF/views/board/list.jsp").forward(request, response);
 		
 	}

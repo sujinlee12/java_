@@ -43,7 +43,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${list}" var="board">
+				<c:forEach items="${boardList}" var="board">
 					<tr>
 						<td>${board.bo_num }</td>
 						<td>${board.community.co_name}</td>
@@ -68,8 +68,33 @@
 				</c:if>
 			</tbody>
 		</table>
+		<ul class="pagination justify-content-center">
+			<c:if test="${pm.prev}">
+				<li class="page-item"><c:url var="prevUrl" value="/board/list">
+						<c:param name="type" value="${pm.cri.type}" />
+						<c:param name="search" value="${pm.cri.search}" />
+						<c:param name="page" value="${pm.startPage-1}" />
+					</c:url> <a class="page-link" href="${prevUrl}">이전</a></li>
+			</c:if>
+			<c:forEach begin="${pm.startPage}" end="${pm.endPage }" var="i">
+				<li
+					class="page-item <c:if test="${pm.cri.page == i }">active</c:if>">
+					<c:url var="page" value="/board/list">
+						<c:param name="type" value="${pm.cri.type}" />
+						<c:param name="search" value="${pm.cri.search}" />
+						<c:param name="page" value="${i}" />
+					</c:url> <a class="page-link" href="${page}">${i}</a>
+				</li>
+			</c:forEach>
+			<c:if test="${pm.next }">
+				<li class="page-item"><c:url var="nextUrl" value="/board/list">
+						<c:param name="type" value="${pm.cri.type}" />
+						<c:param name="search" value="${pm.cri.search}" />
+						<c:param name="page" value="${pm.endPage+1}" />
+					</c:url> <a class="page-link" href="${nextUrl}">다음</a></li>
+			</c:if>
+		</ul>
   <a href="<c:url value = "/board/insert"/>" class= "btn btn-outline-primary">게시글 등록</a>
-
 </div>
 </body>
 </html>

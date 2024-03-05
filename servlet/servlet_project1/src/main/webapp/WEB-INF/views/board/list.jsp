@@ -31,7 +31,7 @@
 				<button class="btn btn-danger" type="submit">검색</button>
 			</div>
 		</form>
-		<table class="table table-dark table-hover">
+	<table class="table table-dark table-hover">
 			<thead>
 				<tr>
 					<th>번호</th>
