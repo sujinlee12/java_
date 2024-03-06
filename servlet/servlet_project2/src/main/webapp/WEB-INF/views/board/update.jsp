@@ -7,7 +7,13 @@
 <meta charset="UTF-8">
 <title>게시글 등록</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">	
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
+
+
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
@@ -66,7 +72,12 @@
 		$(this).parent().remove();
 		
 	})
-	</script>
+      $('[name=content]').summernote({
+        placeholder: 'Hello Bootstrap 4',
+        tabsize: 2,
+        height: 400
+      });
+    </script>
 </div>
 </body>
 </html>
