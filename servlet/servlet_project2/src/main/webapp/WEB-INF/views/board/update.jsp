@@ -12,7 +12,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 <div class = "container">
-	<form action="<c:url value ="/board/update"/>" method ="post">
+	<form action="<c:url value ="/board/update"/>" method ="post" enctype = "multipart/form-data">
 		<h1>게시글 수정</h1>
 		<div class="mb-3 mt-3">
     			<label for="community" class="form-label">게시판</label>

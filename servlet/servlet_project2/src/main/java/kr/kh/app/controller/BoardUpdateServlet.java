@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
@@ -18,6 +20,12 @@ import kr.kh.app.service.BoardServiceImp;
 
 
 @WebServlet("/board/update")
+@MultipartConfig(
+		maxFileSize = 1024 * 1024 * 10, //10Mb
+		maxRequestSize = 1024 * 1024 * 10 * 3, //10Mb 최대 3개
+		fileSizeThreshold = 1024 * 1024 //1Mb : 파일 업로드 시 메모리에 저장되는 임시 파일 크기
+	)
+
 public class BoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardService boardService = new BoardServiceImp();
@@ -68,10 +76,18 @@ public class BoardUpdateServlet extends HttpServlet {
 		board.setBo_num(num);
 		
 		//회원 가져옴
-		//부모클래스의 객체를 자식 클래스에서 불러오려면 명시적 형변환이 필요함 (MemberVO)
 		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		//부모클래스의 객체를 자식 클래스에서 불러오려면 명시적 형변환이 필요함 (MemberVO)
+		
+		//삭제할 첨부파일 번호들
+		String [] nums = request.getParameterValues("fi_num");
+	
+		//추가할 첨부파일들을 가져옴
+		ArrayList<Part> partList = (ArrayList<Part>) request.getParts();
+
 		//서비스에게 회원 정보와 수정할 게시글 정보를 주면서 수정하라고 요청
-		boolean res = boardService.updateBoard(board,user);
+		boolean res = boardService.updateBoard(board,user,nums,partList);
+		
 		//수정했으면 게시글을 수정했습니다
 		if(res) {
 			request.setAttribute("msg", "게시글을 수정했습니다");

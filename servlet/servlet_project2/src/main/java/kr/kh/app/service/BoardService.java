@@ -27,7 +27,7 @@ public interface BoardService {
 
 	boolean deleteBoard(int num, MemberVO user);
 
-	boolean updateBoard(BoardVO board, MemberVO user);
+	boolean updateBoard(BoardVO board, MemberVO user, String[] nums, ArrayList<Part> partList); //매개변수가 추가됨, 추가된 매개변수 복사.
 
 	ArrayList<FileVO> getFileList(int num);
 
