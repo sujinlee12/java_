@@ -16,10 +16,9 @@ public class BoardVO {
 	private CommunityVO community;
 	
 	public BoardVO(String title, String content, String writer, int co_num) {
-		this.bo_title = title;
+		this.bo_title =title;
 		this.bo_content = content;
 		this.bo_me_id = writer;
 		this.bo_co_num = co_num;
+		}
 	}
-
-}

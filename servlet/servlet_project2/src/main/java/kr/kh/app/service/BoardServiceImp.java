@@ -48,6 +48,17 @@ public class BoardServiceImp implements BoardService {
 		}
 		
 	}
+	
+	@Override
+	public ArrayList<BoardVO> getBoardList(Criteria cri) {
+		//현재 페이지정보 null 처리 
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectBoardList(cri);
+	}
+	
+	
 	@Override
 	public boolean insertBoard(BoardVO board, ArrayList<Part> partList) {
 	
@@ -58,7 +69,7 @@ public class BoardServiceImp implements BoardService {
 		}
 		
 		boolean res = boardDao.insertBoard(board);
-		
+		System.out.println(board);
 		//게시글 등록에 실패한 경우 
 		if(!res) {
 			return false;
@@ -75,38 +86,18 @@ public class BoardServiceImp implements BoardService {
 		return res;
 	}
 	
-
-	//문자열이 null이거나 빈 문자열이면 false, 아니면 true를 반환하는 메서드
-	private void uploadFile(Part part, int bo_num) {
-		
-		if(part == null || bo_num == 0) {
-			return;
-		}
-		//서버에 업로드
-		String fileOriginalName = FileUploadUtils.getFileName(part);
-		if(!checkString(fileOriginalName)) {
-			// fileOriginalName이 null이거나 빈 문자열이면 return
-			return;
-		}
-		//DB에 추가
-		String fileName = FileUploadUtils.upload(uploadPath, part);
-		FileVO fileVo =new FileVO(bo_num, fileName, fileOriginalName);
-		boardDao.insertFile(fileVo);
-		
-	}
-	
-	public boolean checkString(String str) {
-		if(str == null || str.length() == 0) {
-			return false;
-		}
-		return true;
-	}
-	
 	@Override
 	public ArrayList<CommunityVO> getCommunityList() {
 		return boardDao.selectCommunityList();
 	}
 	
+	@Override
+	public int getTotalCount(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return boardDao.selectTotalCount(cri);
+	}
 	@Override
 	public boolean updateView(int num) {
 		return boardDao.updateView(num);
@@ -116,6 +107,44 @@ public class BoardServiceImp implements BoardService {
 	public BoardVO getBoard(int num) {
 		return boardDao.selectBoard(num);
 	}
+	
+	@Override
+	public boolean deleteBoard(int num, MemberVO user) {
+		if(user == null ) {
+			return false;	
+		}
+		//게시글을 가져옴
+		BoardVO board = boardDao.selectBoard(num);
+		//게시글이 없거나 작성자가 아니면 false를 리턴
+		if(board==null || !board.getBo_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+	
+	      
+		ArrayList<FileVO> fileList = boardDao.selectFileList(num);
+		 
+		for(FileVO file:fileList) {
+	         deleteFile(file);
+		}
+	    //게시글을 삭제 요청
+		return boardDao.deleteBoard(num);
+		
+		
+	}
+	
+	private void deleteFile(FileVO file) {
+		if(file == null) {
+			return;
+		}
+		
+		
+		String fileName = uploadPath +
+			((FileVO) file).getFi_name().replace('/', File.separatorChar);
+		//서버에서 실제 파일을 삭제
+		FileUploadUtils.deleteFile(fileName);
+		boardDao.deleteFile(file.getFi_num());
+	}
+
 	@Override
 	public boolean updateBoard(BoardVO board, MemberVO user) {
 		
@@ -142,58 +171,40 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.updateBoard(board);
 	
 	}
-	@Override
-	public boolean deleteBoard(int num, MemberVO user) {
-		if(user == null ) {
-			return false;	
-		}
-		//게시글을 가져옴
-		BoardVO board = boardDao.selectBoard(num);
-		//게시글이 없거나 작성자가 아니면 false를 리턴
-		if(board==null || !board.getBo_me_id().equals(user.getMe_id())) {
-			return false;
-		}
-		//게시글 첨부파일을 서버 폴더에서 삭제(실제파일)
-		ArrayList<FileVO> file = boardDao.seletFileByBo_num(num);
-		
-		//게시글의 첨부파일을 DB에서 삭제
-		//게시글에 있는 첨부파일 정보를 가져옴
-		
-		
-		
-		//게시글을 삭제 요청
-		return boardDao.deleteBoard(num);
-	}
 
-	private void deleteFile(FileVO file) {
-		// TODO Auto-generated method stub
+	//문자열이 null이거나 빈 문자열이면 false, 아니면 true를 반환하는 메서드
+	private void uploadFile(Part part, int bo_num) {
+		System.out.println(0);
+		if(part == null || bo_num == 0) {
+			return;
+		}
+		//서버에 업로드
+		String fileOriginalName = FileUploadUtils.getFileName(part);
+		System.out.println(fileOriginalName);
+		if(!checkString(fileOriginalName)) {
+			// fileOriginalName이 null이거나 빈 문자열이면 return
+			return;
+		}
+		System.out.println(1);
+		String fileName = FileUploadUtils.upload(uploadPath, part);
+		//DB에 추가
+		FileVO fileVo =new FileVO(bo_num, fileName, fileOriginalName);
+		boardDao.insertFile(fileVo);
 		
-	}
-
-	@Override
-	public int getTotalCount(Criteria cri) {
-		if(cri == null) {
-			cri = new Criteria();
-		}
-		return boardDao.selectTotalCount(cri);
-	}
-
-	@Override
-	public ArrayList<BoardVO> getBoardList(Criteria cri) {
-		//현재 페이지정보 null 처리 
-		if(cri == null) {
-			cri = new Criteria();
-		}
-		return boardDao.selectBoardList(cri);
 	}
 	
+	public boolean checkString(String str) {
+		if(str == null || str.length() == 0) {
+			return false;
+		}
+		return true;
+	}
+
 	//검색이 안될뿐이지 빈 배열이 나와도 상관없고 객체이기때문에 
 	@Override
 	public ArrayList<FileVO> getFileList(int num) {
 		return boardDao.selectFileList(num);
 	}
 
-	
-	
 
 }

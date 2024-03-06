@@ -13,24 +13,21 @@ import kr.kh.app.pagination.Criteria;
 public interface BoardService {
 
 	
+	ArrayList<BoardVO> getBoardList(Criteria cri);
 
 	boolean insertBoard(BoardVO board, ArrayList<Part> partList);
 
 	ArrayList<CommunityVO> getCommunityList();
 
-	
+	int getTotalCount(Criteria cri);
+
 	boolean updateView(int num);
-	
+
 	BoardVO getBoard(int num);
-
-	boolean updateBoard(BoardVO board, MemberVO user);
-
 
 	boolean deleteBoard(int num, MemberVO user);
 
-	int getTotalCount(Criteria cri);
-
-	ArrayList<BoardVO> getBoardList(Criteria cri);
+	boolean updateBoard(BoardVO board, MemberVO user);
 
 	ArrayList<FileVO> getFileList(int num);
 

@@ -14,87 +14,88 @@
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 <div class ="container">
 	<!-- 서버에서 보낸 데이터를 c:forEach를 이용하여 화면에 출력 -->
-	<!-- 서버에서 보낸 게시글 리스트를 간단하게 출력 -->
-	<!--  for (BoardVO board : board) 향상된 포문처럼 사용-->
-<h1>게시글 리스트</h1>
-		<form action="<c:url value="/board/list"/>" class="mt-3">
-			<div class="input-group mb-3">
-				<select name="type">
-					<c:if test='${pm.cri.type == "all" }'>selected</c:if>
-					<option value="all"
-						<c:if test='${pm.cri.type == "all" }'>selected</c:if>>전체</option>
-					<option value="title"
-						<c:if test='${pm.cri.type == "title" }'>selected</c:if>>제목</option>
-					<option value="writer"
-						<c:if test='${pm.cri.type == "writer" }'>selected</c:if>>작성자</option>
-				</select> <input type="text" class="form-control" placeholder="검색어"
-					name="search" value="${pm.cri.search}" />
-				<button class="btn btn-danger" type="submit">검색</button>
-			</div>
-		</form>
-<table class="table table-dark table-hover">
-			<thead>
+	<h1>게시글 리스트</h1>
+	<!-- 
+	form태그를 이용하여 검색창을 추가
+	form태그의 action을 /board/list로 지정
+	타입의 name을 type으로 지정. 왜? Criteria에 type으로 되어 있어서
+	검색어의 name을 search로 지정. 
+	 -->
+		<form action="<c:url value="/board/list"/>">
+		<div class="input-group">
+			
+			<select class="form-control" name="type">
+				<option value="all" <c:if test='${pm.cri.type == "all"}'>selected</c:if>>전체</option>
+				<option value="bo_title" <c:if test='${pm.cri.type == "bo_title"}'>selected</c:if>>제목</option>
+				<option value="bo_me_id" <c:if test='${pm.cri.type == "bo_me_id"}'>selected</c:if>>작성자</option>
+			</select>
+			<input type="text" class="form-control" placeholder="검색어" name="search" value="${pm.cri.search}">
+			<button class="btn btn-outline-success">검색</button>
+		</div>
+		
+		
+	</form>
+<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>게시판</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${boardList}" var="board">
 				<tr>
-					<th>번호</th>
-					<th>게시판</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>조회수</th>
+					<td>${board.bo_num}</td>
+					<td>${board.community.co_name}</td>
+					<td>
+						<a href="<c:url value="/board/detail?num=${board.bo_num}"/>">${board.bo_title}</a>
+					</td>
+					<td>
+						<a href="<c:url value=""/>">${board.bo_me_id}</a>
+					</td>
+					<td>${board.bo_view}</td>
 				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${boardList}" var="board">
-					<tr>
-						<td>${board.bo_num }</td>
-						<td>${board.community.co_name}</td>
-						
-						<td><c:url var="url" value="/board/detail">
-								<c:param name="num" value="${board.bo_num}" />
-							</c:url> <a href="${url }">${board.bo_title}</a></td>
-						<td><c:url var="page" value="/board/list">
-								<c:param name="type" value="writer" />
-								<c:param name="search" value="${board.bo_me_id}" />
-								<c:param name="page" value="1" />
-							</c:url> <a href="${page}"> ${board.bo_me_id}</a></td>
-						<td>${board.bo_view }</td>
-					</tr>
-				</c:forEach>
-				<c:if test="${list.size() == 0 }">
-					<tr>
-						<th colspan="5">
-							<h3 class="text-center">등록된 게시글이 없습니다.</h3>
-						</th>
-					</tr>
-				</c:if>
-			</tbody>
-		</table>
+			</c:forEach>
+		</tbody>
+	</table>
+	<!--서버에서 보낸 pageMaker객체를 이용하여 페이지네이션 구성  -->
 		<ul class="pagination justify-content-center">
 			<c:if test="${pm.prev}">
-				<li class="page-item"><c:url var="prevUrl" value="/board/list">
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="page" value="${pm.startPage-1}" />
-					</c:url> <a class="page-link" href="${prevUrl}">이전</a></li>
+				<li class="page-item">
+				<c:url var="url" value="/board/list">
+					<c:param name="page" value="${pm.startPage-1 }"/>
+					<c:param name="search" value="${pm.cri.search }"/>
+					<c:param name="type" value="${pm.cri.type }"/>
+				</c:url>
+				<a class="page-link" href="${url}">이전</a>
+			</li>
 			</c:if>
 			<c:forEach begin="${pm.startPage}" end="${pm.endPage }" var="i">
-				<li
-					class="page-item <c:if test="${pm.cri.page == i }">active</c:if>">
-					<c:url var="page" value="/board/list">
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="page" value="${i}" />
-					</c:url> <a class="page-link" href="${page}">${i}</a>
-				</li>
+			<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
+				<c:url var="url" value="/board/list">
+					<c:param name="page" value="${i}"/>
+					<c:param name="search" value="${pm.cri.search }"/>
+					<c:param name="type" value="${pm.cri.type }"/>
+				</c:url>
+				<a class="page-link" href="${url}">${i}</a>
+			</li>
 			</c:forEach>
 			<c:if test="${pm.next }">
-				<li class="page-item"><c:url var="nextUrl" value="/board/list">
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-						<c:param name="page" value="${pm.endPage+1}" />
-					</c:url> <a class="page-link" href="${nextUrl}">다음</a></li>
+				<li class="page-item">
+				<c:url var="url" value="/board/list">
+					<c:param name="page" value="${pm.endPage+1 }"/>
+					<c:param name="search" value="${pm.cri.search }"/>
+					<c:param name="type" value="${pm.cri.type }"/>
+				</c:url>
+				<a class="page-link" href="${url}">다음</a>
+			</li>
 			</c:if>
 		</ul>
   <a href="<c:url value = "/board/insert"/>" class= "btn btn-outline-primary">게시글 등록</a>
+
 </div>
 </body>
 </html>

@@ -29,11 +29,11 @@ public interface BoardDAO {
 	
 	boolean updateBoard(@Param("board")BoardVO board);
 
-	ArrayList<FileVO> seletFileByBo_num(@Param("num")int num);
-
 	void insertFile(@Param("file")FileVO fileVo);
-
+	
 	ArrayList<FileVO> selectFileList(@Param("bo_num")int num); //의미를 명확하게 전달하기 위해 file => bo_num으로 변경.
+
+	void deleteFile(@Param("fi_num")int fi_num);
 
 	
 	

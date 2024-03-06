@@ -14,6 +14,7 @@ public class FileUploadUtils {
 	public static String getFileName(Part part) {
 		
 		String contentDisposition = part.getHeader("content-disposition");
+		System.out.println(contentDisposition);
 		String [] items = contentDisposition.split(";");
 		for(String item : items) {
 			//item은 다음과 같은 형태로 구성
@@ -76,5 +77,13 @@ public class FileUploadUtils {
 				dir.mkdir();
 			}
 		}
+	}
+	
+	public static void deleteFile(String fileName) {
+		File file = new File(fileName);
+		if(file.exists()) {
+			file.delete();
+		}
+		
 	}
 }

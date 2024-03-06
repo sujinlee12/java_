@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
+import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
@@ -34,6 +35,12 @@ public class BoardUpdateServlet extends HttpServlet {
 		BoardVO board = boardService.getBoard(num);
 		//게시판 리스트를 가져옴
 		ArrayList<CommunityVO> list = boardService.getCommunityList();
+		
+		//게시글 번호를 이용하여 첨부파일 리스트를 가져옴
+		ArrayList<FileVO> fileList = boardService.getFileList(num);
+		//가져온 첨부파일 리스트를 화면에 전송
+		request.setAttribute("fileList", fileList);
+		
 		//게시글과 게시판 리스트를 화면에 전송
 		request.setAttribute("list", list);
 		request.setAttribute("board", board);
