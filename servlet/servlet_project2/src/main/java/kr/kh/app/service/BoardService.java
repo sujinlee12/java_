@@ -32,6 +32,6 @@ public interface BoardService {
 
 	ArrayList<BoardVO> getBoardList(Criteria cri);
 
-	ArrayList<FileVO> getFile(int num);
+	ArrayList<FileVO> getFileList(int num);
 
 }

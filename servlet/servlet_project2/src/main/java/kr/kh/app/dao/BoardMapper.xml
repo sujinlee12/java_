@@ -89,9 +89,8 @@
 		insert into file(fi_bo_num, fi_name, fi_ori_name)
 		values(#{file.fi_bo_num},#{file.fi_name},#{file.fi_ori_name})
 	</insert>
-	
-	<select id="seletFileByBo_num" resultType ="kr.kh.app.model.vo.FileVO">
-		select * from file where fi_bo_num = #{num}
+	<select id="selectFileList" resultType="kr.kh.app.model.vo.CommunityVO">
+		select * from file where fi_bo_num =#{bo_num}
 	</select>
 	
 </mapper>

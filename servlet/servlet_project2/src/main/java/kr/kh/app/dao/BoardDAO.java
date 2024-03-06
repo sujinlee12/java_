@@ -33,6 +33,8 @@ public interface BoardDAO {
 
 	void insertFile(@Param("file")FileVO fileVo);
 
+	ArrayList<FileVO> selectFileList(@Param("bo_num")int num); //의미를 명확하게 전달하기 위해 file => bo_num으로 변경.
+
 	
 	
 

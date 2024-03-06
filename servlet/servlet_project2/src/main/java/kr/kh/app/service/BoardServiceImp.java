@@ -187,9 +187,10 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectBoardList(cri);
 	}
 	
+	//검색이 안될뿐이지 빈 배열이 나와도 상관없고 객체이기때문에 
 	@Override
-	public ArrayList<FileVO> getFile(int num) {
-		return boardDao.seletFileByBo_num(num);
+	public ArrayList<FileVO> getFileList(int num) {
+		return boardDao.selectFileList(num);
 	}
 
 	
