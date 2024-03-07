@@ -233,6 +233,15 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectFileByBo_num(num);
 	}
 
+	@Override
+	public RecommendVO getRecommend(MemberVO user, int num) {
+		if(user == null) {
+			return null;
+		}
+		//이미 만들어져서 호출만 해주면 된다.
+		return boardDao.selectRecommend(user.getMe_id(), num);
+	}
+
 
 }
 	
