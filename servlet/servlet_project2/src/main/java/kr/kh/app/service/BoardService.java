@@ -36,4 +36,6 @@ public interface BoardService {
 
 	int recommend(int boNum, int state, String me_id);
 
+	RecommendVO getRecommend(int num, MemberVO user);
+
 }

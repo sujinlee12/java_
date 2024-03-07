@@ -18,8 +18,10 @@ public interface MemberService {
 	MemberVO getMember(LoginDTO loginDto);
 	
 	static MemberVO getMember(MemberVO member) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
+	
+	String checkId(String id);
 
 }

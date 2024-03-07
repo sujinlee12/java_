@@ -61,7 +61,15 @@
 	<script src="//code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javascript">
 		$(".btn-up,.btn-down").click(function(){
-			let state = $(this).date('state');
+			
+			if('{user.me_id}'== ''){
+			if(contirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하겠습니까?")){
+				location.href = '<c:url value ="/login"/>'	
+			}else{
+				return;
+				}
+			}
+			let state = $(this).data('state');
 			let boNum = '${board.bo_num}';
 			$.ajax({
 				url : '<c:url value="/recommend"/>',//어딛로 보낼ㄹ지
@@ -73,9 +81,27 @@
 					"boNum" : boNum
 				},
 				//성공했을 때
-				sucess : function(data){
+				success : function(data){
+					
 					console.log(data);
+					//복사해서 순서를 바꿔준다.
+					initBtn(".btn-up","btn-outline-success","btn-success",);
+					initBtn(".btn-down","btn-outline-success","btn-success");
+					switch(data){
+					case "1":
+						alert("추천 되었습니다.");
+						initBtn(".btn-up","btn-success","btn-outline-success");
+						break;
+					case "0":
+						alert(`\${state == 1 ? '' : '비'} 추천이 취소 되었습니다.`);
+						break;
+					case "-1":
+						alert("비추천 되었습니다.");
+						initBtn(".btn-down","btn-success","btn-outline-success");
+						break;
+					}
 				},
+				
 				//실패했을 때 
 				error : function(a, b, c){
 					console.error("예외 발생");
@@ -83,7 +109,20 @@
 			});//ajax end
 			
 		 });//click end
-	
+		
+		 function initBtn(selector, addClassName, removeClassName){
+			$(selector).addClass(addClassName);
+			$(selector).removeClass(removeClassName);
+		 }
+		 <c:if test ="${recommend != null}">
+		 	<c:if test = "${recommend.re_state == 1}">
+		 		initBtn(".btn-up","btn-success","btn-outline-success");
+		 	</c:if>
+			<c:if test = "${recommend.re_state == -1}">
+				initBtn(".btn-down","btn-success","btn-outline-success");
+		 	</c:if>
+		 </c:if>
+		 
 	</script>
 <%-- 	/* 
 	

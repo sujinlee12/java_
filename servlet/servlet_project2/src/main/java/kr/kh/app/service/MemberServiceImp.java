@@ -71,11 +71,16 @@ public class MemberServiceImp implements MemberService {
 		if(user.getMe_pw().equals(loginDto.getPw()))  {
 			return user;
 		}
-			return null;
+		return null;
 		
-		}
 	}
 
 
+	@Override
+	public String checkId(String id) {
+		MemberVO member = memberDao.selectMember(id);
+		
+		return member == null ? "1" : "";
 	
-
+	}
+}

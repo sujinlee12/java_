@@ -34,7 +34,7 @@ public class RecommendServlet extends HttpServlet {
 			int res = boardService.recommend(boNum,state,user.getMe_id());
 			response.getWriter().write("" + res);
 			}catch(Exception e) {
-			
+			e.printStackTrace();
 			response.getWriter().write("추천할 수 없습니다.");
 		}
 		
