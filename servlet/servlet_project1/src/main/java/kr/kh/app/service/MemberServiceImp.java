@@ -64,6 +64,12 @@ public class MemberServiceImp implements MemberService{
 				return user;
 			}
 			return null;
-	
+		}
+
+	@Override
+	public boolean checkId(String id) {
+		MemberVO member = memberDao.selectMember(id);
+		return member == null; //member가 null이면 사용가능
+
 	}
 }

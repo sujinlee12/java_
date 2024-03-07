@@ -183,8 +183,9 @@ public class BoardServiceImp implements BoardService {
 			else {
 				recommend.setRe_state(state);
 			
+			} 
 			boardDao.updateRecommend(recommend);
-			} return recommend.getRe_state();	
+			return recommend.getRe_state();	
 			
 		}
 	}
