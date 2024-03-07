@@ -17,6 +17,7 @@ import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
+import kr.kh.app.model.vo.RecommendVO;
 import kr.kh.app.pagination.Criteria;
 import kr.kh.app.utils.FileUploadUtils;
 
@@ -223,6 +224,29 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<FileVO> getFileList(int num) {
 		return boardDao.selectFileList(num);
+	}
+
+	@Override
+	public RecommendVO getRecommend(MemberVO user, int num) {
+		if(user == null) {
+			return null;
+		}
+		
+		return boardDao.selectRecommend(user.getMe_id(),num);
+	}
+
+	@Override
+	public int recommend(int boNum, int state, String me_id) {
+		//회원이 게시글에 추천한 내역이 있는지 확인 => 없으면 추가, 있으면 수정
+		
+		//회원이 게시글에 추천한 정보를 가져옴
+		RecommendVO recommend = boardDao.selectRecommend(me_id, boNum);
+		//없으면 추가
+		
+		//있으면 수정 
+		
+		
+		return 0;
 	}
 
 

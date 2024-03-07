@@ -98,5 +98,8 @@
 	<select id="selectFile">
 		select * from file where fi_num = #{fi_num}
 	</select>
+		<select id="selectRecommend" resultType = "kr.kh.app.model.vo.RecommendVO">
+		select * from recommend where re_bo_num = #{bo_num} and re_me_id = #{me_id}
+	</select>
 	
 </mapper>

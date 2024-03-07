@@ -8,6 +8,7 @@ import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
+import kr.kh.app.model.vo.RecommendVO;
 import kr.kh.app.pagination.Criteria;
 
 public interface BoardService {
@@ -30,5 +31,9 @@ public interface BoardService {
 	boolean updateBoard(BoardVO board, MemberVO user, String[] nums, ArrayList<Part> partList); //매개변수가 추가됨, 추가된 매개변수 복사.
 
 	ArrayList<FileVO> getFileList(int num);
+
+	RecommendVO getRecommend(MemberVO user, int num);
+
+	int recommend(int boNum, int state, String me_id);
 
 }

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.FileVO;
+import kr.kh.app.model.vo.MemberVO;
+import kr.kh.app.model.vo.RecommendVO;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
 
@@ -37,6 +39,11 @@ public class BoardDetailServlet extends HttpServlet {
 		//게시글 번호를 주면서 첨부파일을 가져오라고 서비스에게 시킴, 기본키로 검색하면 VO (아이디는 1개거나 없거나)
 		ArrayList<FileVO> fileList = boardService.getFileList(num);
 		request.setAttribute("fileList", fileList);
+		
+		MemberVO user =(MemberVO)request.getSession().getAttribute("user");
+		RecommendVO recommend = boardService.getRecommend(user,num);
+		request.setAttribute("recommend", recommend);
+		
 		//화면에 게시글을 전송
 		
 		request.setAttribute("board", board);
