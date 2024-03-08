@@ -64,7 +64,12 @@
     		<hr>
       		<div class ="mt-3 comment-box">
 	      		<h3>댓글</h3>
-      			<div class="comment-list"></div>
+      			<div class="comment-list">
+      			<div class ="input-group mb-3" >
+      				<div class = "col-3">abc123</div>
+      				<div class ="col-9">내용</div>
+      				</div>
+      			</div>
       			<!-- 댓글 페이지네이션 박스  -->
       			<div class = "comment-pagination"></div>
       			<!-- 댓글 입력 박스 -->
@@ -148,27 +153,26 @@
 	</c:if>
 	</script>
 	
-	<!-- 댓글 기능 구현 -->
+	<!-- 댓글 등록 구현 -->
 	<script type="text/javascript">
 	//댓글등록 버튼 클릭 이벤트를 등록 
 	$(".btn-comment-insert").click(function(){
 		//입력받은 댓글을 가져옴
-		let content = $(".comment-content").val();
+		//let content = $(".comment-content").val();
 		if('${user.me_id}' == ''){
 			//확인 누르면 로그인 페이지로
 			if(confirm('로그인이 필요한 서비스입니다. 로그인으로 이동하겠습니까?')){
 				location.href = "<c:url value ='/login'/>"
 			}
-			//취소 누르면 안함
+			//취소 누르면 현재 페이지에서 추천/비추천 동작을 안함
 			else{
 				return;
 			}
 		}
+		//입력받은 댓글을 가져옴
+		let content =$(".comment-content").val();
 		//게시글 번호를 가져옴
 		let num = '${board.bo_num}';
-		console.log({
-			content,
-		})
 		alert(num);
 		$.ajax({
 			url : '<c:url value="/comment/insert"/>',
@@ -187,5 +191,44 @@
 		
 		}); //click end
 </script>
+	
+	<!-- 댓글 조회 구현 -->
+	<script type="text/javascript">
+	//댓글 현재 페이지 정보, 댓글 기본 1페이지, 조회하진 않음
+	let cri = {
+			page : 1,
+			boNum : '${board.bo_num}'
+		
+	}
+	
+	//댓글 리스트를 화면에 출력하는 함수
+	function getCommentList(cri){
+		$.ajax({
+			url : '<c:url value="/comment/list"/>',
+			method : "post",
+			data : cri,
+			success : function(data){
+				console.log(data.list);
+
+				let str='';
+				for(comment of data.list){
+					str +=
+						
+						`
+						<div class ="input-group mb-3" >
+	      					<div class = "col-3">\${comment.cm_me_id}</div>
+	      					<div class ="col-9">\${comment.cm_me_content}</div>
+	      				</div>
+						`;	
+					}
+				$(".comment-list").html(str);
+				
+			},
+			error : function(a,b,c){
+			}
+		});
+	}
+	getCommentList(cri);
+	</script>
 </body>
 </html>
