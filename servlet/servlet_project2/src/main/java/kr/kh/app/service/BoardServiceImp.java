@@ -169,15 +169,18 @@ public class BoardServiceImp implements BoardService {
 		   return false;
 		}
 		
-		//삭제할 첨부파일 삭제
-		for(String numStr : nums) {
-			try {
-				int num = Integer.parseInt(numStr); //정수로 변환
-				FileVO fileVo = boardDao.selectFile(num); //기본키로 전달할 것이기에 list 노노
-				deleteFile(fileVo);
-			}catch(Exception e) {
-				e.printStackTrace();
-				
+		if(nums != null) {
+		
+			//삭제할 첨부파일 삭제
+			for(String numStr : nums) {
+				try {
+					int num = Integer.parseInt(numStr); //정수로 변환
+					FileVO fileVo = boardDao.selectFile(num); //기본키로 전달할 것이기에 list 노노
+					deleteFile(fileVo);
+				}catch(Exception e) {
+					e.printStackTrace();
+					
+				}
 			}
 		}
 		
