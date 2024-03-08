@@ -43,6 +43,7 @@
 							type="text" class="form-control" id="writer" name="writer"
 							readonly value="${board.bo_me_id}">
 					</div>
+					
 					<div class="mb-3 mt-3">
 						<label for="view" class="form-label">조회수:</label> <input
 							type="text" class="form-control" id="view" name="view" readonly
@@ -54,6 +55,7 @@
 						<button type="button" id="btnDown" data-state="-1"
 							class="btn btn-outLine-danger col-5 float-end">비추천</button>
 					</div>
+					
 					<div class="mb-3 mt-3">
 						<label for="content" class="form-label">내용:</label>
 						<div class="form-control">${board.bo_content}</div>
@@ -62,8 +64,7 @@
 						<div class="mb-3 mt-3">
 							<label for="view" class="form-label">첨부파일:</label>
 							<c:forEach items="${fileList}" var="file">
-								<a href="<c:url value = "/downLoad?filename =${file.fi_name}"/>"
-									class=form-control download="${file.fi_ori_name}">${file.fi_ori_name}</a>
+								<a href="<c:url value="/download?filename=${file.fi_name}"/>" class="form-control" download="${file.fi_ori_name}">${file.fi_ori_name}</a>
 							</c:forEach>
 						</div>
 					</c:if>
@@ -74,9 +75,10 @@
 						<a href="<c:url value = "/board/update?num=${board.bo_num }"/>"
 							class="btn btn-ouline-danger">수정</a>
 					</c:if>
+					<hr>
 					<!--목록 밑에 댓글 작성  -->
 					<!-- 등록->리스트를 가져오고->추가수정삭제 -->
-					<hr>
+					
 					<div class="mt-3 comment-box">
 						<h3>댓글</h3>
 						<div class="comment-list">
@@ -86,7 +88,10 @@
 							</div>
 						</div>
 						<!-- 댓글 페이지네이션 박스  -->
-						<div class="comment-pagination"></div>
+						<div class="comment-pagination">
+						<ul class="pagination pagination-lg">
+						</ul>
+						</div>
 						<!-- 댓글 입력 박스 -->
 						<div class="comment-input-box">
 							<div class="input-group">
@@ -179,6 +184,7 @@
 			//확인 누르면 로그인 페이지로
 			if(confirm('로그인이 필요한 서비스입니다. 로그인으로 이동하겠습니까?')){
 				location.href = "<c:url value ='/login'/>"
+				return;
 			}
 			//취소 누르면 현재 페이지에서 추천/비추천 동작을 안함
 			else{
@@ -215,42 +221,116 @@
 		}); //click end
 </script>
 
-	<!-- 댓글 조회 구현 -->
-	<script type="text/javascript">
-	//댓글 현재 페이지 정보, 댓글 기본 1페이지, 조회하진 않음
-	let cri = {
-			page : 1,
-			boNum : '${board.bo_num}'
-		
-	}
-	
-	//댓글 리스트를 화면에 출력하는 함수
-	function getCommentList(cri){
-		$.ajax({
-			url : '<c:url value="/comment/list"/>',
-			method : "post",
-			data : cri,
-			success : function(data){
-				console.log(data.list);
-
-				let str='';
-				for(comment of data.list){
-				str +=
+<!-- 댓글 조회 구현 -->
+<script type="text/javascript">
+//댓글 현재 페이지 정보
+let cri = {
+	page : 1,
+	boNum : '${board.bo_num}'
+}
+//댓글 리스트를 화면에 출력하는 함수
+function getCommentList(cri){
+	$.ajax({
+		url : '<c:url value="/comment/list"/>',
+		method : "post",
+		data : cri,
+		success : function(data){
+			console.log(data.list);
+			
+			let str = '';
+			for(comment of data.list){
+				let btns = '';
+				if('${user.me_id}' == comment.cm_me_id){
+					btns +=					
 					`
-					<div class ="input-group mb-3" >
-      					<div class = "col-3">\${comment.cm_me_id}</div>
-      					<div class ="col-9">\${comment.cm_me_content}</div>
-      				</div>
-					`;	
+						<button class="btn btn-outline-warning btn-comment-update">수정</button>
+						<button class="btn btn-outline-danger btn-comment-delete" data-num="\${comment.cm_num}">삭제</button>
+					`
 				}
-				$(".comment-list").html(str);
 				
-			},
-			error : function(a,b,c){
+				str +=
+				`
+				<div class="input-group mb-3">
+					<div class="col-3">\${comment.cm_me_id}</div>
+					<div class="col-6">\${comment.cm_content}</div>
+					\${btns}
+				</div>
+				`;
 			}
-		});
-	}
+			$(".comment-list").html(str);
+			//JSON.parse(문자열) : json형태의 문자열을 객체로 변환
+			//JSON.stringify(객체) : 객체를 json형태의 문자열로 변환
+			let pm = JSON.parse(data.pm);
+			let pmStr = "";
+			//이전 버튼 활성화 여부
+			if(pm.prev){
+				pmStr += `
+				<li class="page-item">
+					<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage-1}">이전</a>
+				</li>
+				`;
+			}
+			//숫자 페이지
+			for(i = pm.startPage; i<= pm.endPage; i++){
+				let active = pm.cri.page == i ? "active" :"";
+				pmStr += `
+				<li class="page-item \${active}">
+					<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+				</li>
+				`
+			}
+			//다음 버튼 활성화 여부
+			if(pm.next){
+				pmStr += `
+				<li class="page-item">
+					<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage+1}">다음</a>
+				</li>
+				`;
+			}
+			$(".comment-pagination>ul").html(pmStr);
+		}, 
+		error : function(a, b, c){
+			
+		}
+	});
+}
+
+$(document).on("click",".comment-pagination .page-link", function(){
+	cri.page = $(this).data("page");
 	getCommentList(cri);
-	</script>
+})
+
+getCommentList(cri);
+</script>
+<!-- 댓글 수정 기능 -->
+<script type="text/javascript">
+//이벤트를 등록할때 요소가 있으면 해당 요소에 이벤트를 등록. 요소가 나중에 추가되면 동작을 하지 않음
+//$("선택자").click(function(){});
+//document객체에 이벤트를 등록하기 때문에 요소가 나중에 추가되도 동작
+$(document).on("click",".btn-comment-delete", function(){
+	let num = $(this).data("num");
+	$.ajax({
+		url : '<c:url value="/comment/delete"/>',
+		method : "post",
+		data : {
+			num
+		},
+		success : function(data){
+			console.log(data);
+			if(data == 'ok'){
+				alert("댓글을 삭제했습니다.");
+				getCommentList(cri);
+			}else{
+				alert("댓글을 삭제하지 못했습니다.");
+			}
+			
+		}, 
+		error : function(a, b, c){
+			
+		}
+	});
+});
+</script>
+
 </body>
 </html>
