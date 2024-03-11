@@ -14,6 +14,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.kh.app.dao.BoardDAO;
 import kr.kh.app.model.vo.BoardVO;
+import kr.kh.app.model.vo.CommentVO;
 import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
@@ -278,6 +279,24 @@ public class BoardServiceImp implements BoardService {
 		}
 		return boardDao.selectRecommend(user.getMe_id(),num);
 	}
+
+	@Override
+	public ArrayList<CommentVO> getCommentList(Criteria cri) {
+		if(cri == null) {
+			return null;
+		}
+		return boardDao.selectCommentList(cri);
+	}
+
+	@Override
+	public int getTotalCommentCount(Criteria cri) {
+		if(cri == null) {
+			return 0;
+		}
+		return 0;
+	}
+
+	
 
 
 }

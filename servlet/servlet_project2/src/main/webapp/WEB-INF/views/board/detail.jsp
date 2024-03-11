@@ -47,18 +47,42 @@
 					</c:forEach>
 				</div>
 		</c:if>
-		<a href="<c:url value="/board/list"/>" class="btn btn-outline-primary">목록으로</a>
-			<c:if test="${user.me_id == board.bo_me_id }">
-			<a href="<c:url value="/board/delete?num=${board.bo_num }"/>" class="btn btn-outline-danger">삭제</a>
-			<a href="<c:url value="/board/update?num=${board.bo_num }"/>" class="btn btn-outline-danger">수정</a>
-			</c:if>
-	</c:when>
+		<!-- 댓글들을 보여줄 박스-->
+		<h3>댓글</h3>
+			<div class="box-comment-list">
+				<div class="box-comment input-group">
+					<div class="col-3">아이디</div>
+					<div class="col-9">
+						<div>댓글내용</div>
+						<div class ="btn-group">
+							<button class ="btn btn-outline-warning">수정</button>
+							<button class = "btn btn-outline-warning">삭제</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- 댓글 페이지네이션을 보여줄 박스 -->
+	<div class = "box-comment-pagination">
+		<ul class="pagination justify-content-center">
+			 <li class="page-item">
+		 		 <a class="page-link" href="javascript:void(0);">이전</a>
+			 </li>
+		  <li class="page-item active">
+		 	     <a class="page-link" href="javascript:void(0);">1</a>
+		 	</li>
+		  <li class="page-item">
+		 	     <a class="page-link" href="javascript:void(0);">다음</a>
+		 </li>
+		</ul>
+		</div>
+		</c:when>
 		<c:otherwise>
 			<h1>없는 게시글이거나 삭제된 게시글입니다.</h1>
 		</c:otherwise>	
 	</c:choose>
 	</div>
 	<script src="//code.jquery.com/jquery-3.4.1.js"></script>
+	<!-- 추천 기능 -->
 	<script type="text/javascript">
 		$(".btn-up,.btn-down").click(function(){
 			
@@ -124,70 +148,97 @@
 		 </c:if>
 		 
 	</script>
-<%-- 	/* 
+	<!-- 조회 기능 -->
+	<script type="text/javascript">
+	//댓글을 불러와서 화면에 출력하는 함수 : 현재 댓글 페이지 정보
+	let cri = {
+			page : 1,
+			boNum :'${board.bo_num}'
+	} 
 	
-		let btnUp = document.getElementById("btnUp");
-		let btnDown = document.getElementById("btnDown");
-	
-		btnUp.onclick = recommend;
-		
-		btnDown.onclick = recommend;
-		
-		function recommend(){
-			if('{user.me_id}' == ''){
-				//확인 누르면 로그인 페이지로
-				if(confirm("로그인이 필요한 서비스입니다 .로그인으로 이동하시겠습니까?"))
-					location.href = "<c:url value ='/login'/>"			
-			}
-			//취소 누르면 현재 페이지에서 추천/비추천 동작을 안함
-			else{
-				return;
-			}
-		}
-		
-		let boNum = '${board.bo_num}';
-		let state = this.getAttribute("data-state");
-		
-		fetch(`<c:url value ="/recommend"/>?boNum=\${boNum}&state=\${state}`)
-		.then(response => response.text())
-		.then(data =>{
-			let str = state == 1 ? '추천' : '비추천';
-			initRecommendBtn(btnUp);
-			initRecommendBtn(btnDown);
+	displayCommentAndPagination(cri);
+	//게시글 상세에 들어가서 작업,cri 현재 페이지 정보
+	function displayCommentAndPagination(cri){
+		//서버에서 보낸 댓글 리스트와 페이지네이션 정보를 받아와서 화면에 출력
+		$.ajax({
+			url : '<c:url value ="/comment/list"/>',
+			method : "get",
+			data : cri,
+			success : function(data){
+				console.log(data)
+				displayComment(data.list);
+				//문자열을 객체로 바꿔서 전달함
+				displayCommentPagination(JSON.parse(data.pm));
+				}
 			
-			switch(data){
-				case "1":	
-					alert('게시글을 추천했습니다.'); 
-					selectRecommendBtn(btnUp);
-					break;
-				case "-1":	
-					alert('게시글을 비추천했습니다.');
-					selectRecommendBtn(btnDown);
-					break;
-				case "0":	alert(`게시글 \${str}을 취소했습니다.`); break;
-				default: 	alert(data);
-			}
-		})
-		.catch(error => console.error(error));
-	}
-	fuction initRecommendBtn(btn){
-		btn.classList.remove('btn-danger');
-		btn.classList.add('btn-outline-danger');
-	}
-	function selectRecommend(btn){
-		btn.classList.remove('btn-outline-danger');
-		btn.classList.add('btn-danger');
-	}
-	<c:if test = "${recommend != null}">
-		if(${recommend.re_state == 1}){
-			selectRecommend(btnUp);
-		}else if(${recommend.re_state == -1}){
-			selectRecommendBtn(btnDown);
+			});
 		}
+		//댓글이 주어지면 댓글을 화면에 출력하는 함수
+		function displayComment(commentList){
+			let str = '';
+			if(commentList.length == 0){
+				$("box-comment-list").html('<h3>등록된 댓글이 없습니다.</h3>')
+				return;
+				
+			}
+			for(comment of commentList){
+				str += `
+				<div class="box-comment input-group">
+				<div class="col-3">\${comment.cm_me_id}</div>
+				<div class="col-9">
+					<div>\${comment.cm_content}</div>
+					<div class ="btn-group">
+						<button class ="btn btn-outline-warning">수정</button>
+						<button class = "btn btn-outline-danger">삭제</button>
+					</div>
+				</div>
+			</div>`;
+			
+			}
+			$(".box-comment-list").html(str);
+			
+			
+		}
+		//페이지네이션이 주어지면 댓글 페이지네이션을 화면에 출력하는 함수
+		function displayCommentPagination(pm){
+			let str = '';
+			
+			//이전 버튼 활성화
+			if(pm.prev){
+				//문자열을 이어붙이기
+				str += `
+					<li class="page-item">
+			 			 <a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage-1}">이전</a>
+					</li>`;
+			}
+			for(i=pm.startPage;i<=pm.endPage; i++){
+				let active = pm.cri.page == i ? "active" : "";
+				str +=
+					`
+					<li class="page-item \${active}">
+		 		 		<a class="page-link" href="javascript:void(0);"data-page="\${i}">\${i}</a>
+				    </li>`;
+					
+			}
+			
+			if(pm.next){
+				str += `
+				<li class="page-item">
+			 	     <a class="page-link" href="javascript:void(0);"data-page="\${pm.endPage+1}">다음</a>
+				 </li>`;
+			}
+			$(".box-comment-pagination>ul").html(str);
 		
-		</c:if> */ --%>
+		}
+		//페이지 클릭 이벤트
+		$(document).on("click",".box-comment-pagination .page-link",function(){
+				cri.page = $(this).data("page");
+				displayCommentAndPagination(cri);
+		});
+		
+		
+		
 	
-	
-
+	</script>
 </body>
 </html>
