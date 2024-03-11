@@ -14,29 +14,34 @@ import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
 
 
-@WebServlet("/comment/insert")
-public class CommentInsertServlet extends HttpServlet {
+@WebServlet("/comment/update")
+public class CommentUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private BoardService boardService = new BoardServiceImp();
-	
+  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//화면에서 보낸 댓글 내용과 게시글 번호를 가져옴
-		String content = request.getParameter("content");
-		int bo_num = 0;
+		//화면에서 보낸 댓글 내용과 댓글 번호를 가져옴
+		int num = 0;
 		try {
-			bo_num = Integer.parseInt(request.getParameter("num"));
+			num = Integer.parseInt(request.getParameter("num"));
 		}catch(Exception e) {
 			e.printStackTrace();
+		
 		}
-		//댓글 작성자를 가져옴 => 회원 정보를 가져옴
+		String content = request.getParameter("content");
+		
+		//회원 정보를 가져옴
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
-		//댓글 등록하라고 시킴
-		//memberfilter에서 로그인한 회원만 권한이 있으므로 user.getMe_id()로 불러온 것
-		CommentVO comment = new CommentVO(bo_num, content,user.getMe_id());
-		boolean res = boardService.insertComment(comment);
+		//댓글 객체를 댓글 번호, 내용, 작성자를 이용하여 생성
+		CommentVO comment = new CommentVO(0,content,user.getMe_id());
+		comment.setCm_num(num);
+		//생성자를 가져와서 기존의 cm_num을 num으로 (없는 부분만 추가해서 사용)
+		//댓글을 수정하라고 시키고 결과를 boolean으로 받아옴
+		boolean res = boardService.updateComment(comment);
 		response.getWriter().write(res?"ok":"");
-		//성공했으면 ok, 실패하면 빈 문자열
+		
+		
 	}
 
 }
