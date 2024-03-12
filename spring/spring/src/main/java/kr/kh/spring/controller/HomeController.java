@@ -1,7 +1,5 @@
 package kr.kh.spring.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.kh.spring.model.dto.TestDTO;
+import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.service.MemberService;
-import kr.kh.spring.service.MemberServiceImp;
 
 @Controller
 public class HomeController {
@@ -23,9 +21,14 @@ public class HomeController {
 	//value : url, method :전송 방식을 get 또는 post
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
+		MemberVO member = memberService.getMember("admin");
+		System.out.println(member);
+		
+
 		//테스트용으로 등록된 회원 수를 조회
-		int count = memberService.testCountMember();
-		System.out.println("등록된 회원 수 : "+ count);
+		/* int count = memberService.testCountMember();
+		 * System.out.println("등록된 회원 수 : "+ count);
+		 */
 		
 		//model.addAttribute("화면에서 사용할 이름","보낼 데이터");
 		model.addAttribute("name","홍길동");
