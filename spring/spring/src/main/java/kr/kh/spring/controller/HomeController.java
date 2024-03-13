@@ -21,7 +21,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 	
-		return "home";
+		return "/main/home";
 	
 	}
 	//a태그는 get으로 받을 수 있음
@@ -29,7 +29,7 @@ public class HomeController {
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup(Model model) {
 	
-		return "member/signup"; //연결할 jsp 이름
+		return "/member/signup"; //연결할 jsp 이름
 	
 	}
 	//vo이름 me_id가 노출되는게 싫으면 dto만들어서 노출 숨기기
@@ -49,7 +49,7 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
 	
-		return "member/login";
+		return "/member/login";
 	
 	}
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
