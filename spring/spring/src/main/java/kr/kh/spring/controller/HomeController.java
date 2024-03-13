@@ -1,5 +1,6 @@
 package kr.kh.spring.controller;
 
+import org.apache.ibatis.annotations.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,34 +22,40 @@ public class HomeController {
 	//value : url, method :전송 방식을 get 또는 post
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		MemberVO member = memberService.getMember("admin");
-		System.out.println(member);
-		
-
-		//테스트용으로 등록된 회원 수를 조회
-		/* int count = memberService.testCountMember();
-		 * System.out.println("등록된 회원 수 : "+ count);
-		 */
-		
-		//model.addAttribute("화면에서 사용할 이름","보낼 데이터");
-		model.addAttribute("name","홍길동");
+	
 		return "home";
+	
+	}
+	//a태그는 get으로 받을 수 있음
+	//signup
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public String signup(Model model) {
+	
+		return "member/signup"; //연결할 jsp 이름
+	
+	}
+	//vo이름 me_id가 노출되는게 싫으면 dto만들어서 노출 숨기기
+	
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public String signupPost(Model model,MemberVO member) {
+		if(memberService.insertMember(member)) {
+			model.addAttribute("msg","회원가입을 완료했습니다.");
+			model.addAttribute("url","/");
+		}else {
+			model.addAttribute("msg","회원가입을 하지 못했습니다.");
+			model.addAttribute("url","/signup");
+				
+			}
+			return "message";
+		}
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model) {
+	
+		return "member/login";
+	
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String homePost(Model model,TestDTO testDto/*String name,int age*/) {
-		/*
-		  System.out.println("이름 : "+ name); System.out.println("나이 : " + age);
-		  model.addAttribute("화면에서 사용할 이름","보낼 데이터"); TestDTO testDto = new
-		  TestDTO(name, age);
-		 */
-		System.out.println(testDto);
-		return "home";
-	}
-	@RequestMapping(value = "/test/{num}", method = RequestMethod.GET)
-	public String test(Model model,@PathVariable("num")int num) {
-		System.out.println("경로 데이터 : " + num);
-		return "redirect:/";
-	}
+
+	
 	
 }
