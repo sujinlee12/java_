@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>스프링 - 회원가입</title>
+ 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+</head>
+<form action="<c:url value="/board/insert" />" method="post" >
+	<h1>게시글 등록</h1>
+	<div class="from-group">
+		    <label for="bo_title">게시판:</label>
+		    <select class="form-control" name="bo_co_num">
+		    	<c:forEach items="${list}" var="co">
+		    		<option value="${co.co_num }">${co.co_name}</option>
+		    	</c:forEach>
+		    </select>
+	  	</div>
+		<div class="mb-3 mt-3">
+		    <label for="bo_title">제목:</label>
+		    <input type="text" class="form-control" id="bo_title" placeholder="제목" name="bo_title">
+	  	</div>
+	  	
+	  	<div class="mb-3 mt-3">
+		    <label for="content" class="form-label">내용:</label>
+		    <textarea rows="10" class="form-control" id="content" name="bo_content" placeholder="내용"></textarea>
+	  	</div>
+	  	<button class="btn btn-outline-warning col-12">글 등록</button>
+	</form>
+</div>
+<script type = "text/javascript">
+//서버에 전송하기 전에 제목, 내용 글자수 확인
+$("form").submit(function(){
+	let title = $("[name = bo_title]").val();
+	if(title.length == 0){
+		alert("제목은 1글자 이상 입력해야 합니다.");
+		$("[name=bo_title]").focus();
+		return false;
+		
+	}
+	let content = $("[name = bo_content]").val();
+	if(content.length == 0){
+		alert("내용은 1글자 이상 입력해야 합니다.");
+		$("[name=bo_content]").focus();
+		return false;
+	}
+	
+});
+
+$('[name = bo_content]').summernote({
+  placeholder: '내용을 입력하세요',
+  tabsize: 2,
+  height: 400
+});
+
+
+</script>
+
