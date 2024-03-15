@@ -4,13 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-
-<title>스프링 - 회원가입</title>
  	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
-<form action="<c:url value="/board/insert" />" method="post" >
+<body>
+<form action="<c:url value="/board/insert" />" method="post" enctype="multipart/form-data" >
 	<h1>게시글 등록</h1>
 	<div class="from-group">
 		    <label for="bo_title">게시판:</label>
@@ -20,18 +18,23 @@
 		    	</c:forEach>
 		    </select>
 	  	</div>
-		<div class="mb-3 mt-3">
+		<div class="form-group">
 		    <label for="bo_title">제목:</label>
 		    <input type="text" class="form-control" id="bo_title" placeholder="제목" name="bo_title">
 	  	</div>
 	  	
-	  	<div class="mb-3 mt-3">
+	  	<div class="form-group">
 		    <label for="content" class="form-label">내용:</label>
 		    <textarea rows="10" class="form-control" id="content" name="bo_content" placeholder="내용"></textarea>
 	  	</div>
-	  	<button class="btn btn-outline-warning col-12">글 등록</button>
+	  	<div class="form-group">
+		    <label >첨부파일(최대 3개)</label>
+			<input type="file" class="form-control" name="file">
+	  		<input type="file" class="form-control" name="file">
+	  		<input type="file" class="form-control" name="file">
+	  	</div>
+	  	<button class="btn btn-outline-success col-12">글 등록</button>
 	</form>
-</div>
 <script type = "text/javascript">
 //서버에 전송하기 전에 제목, 내용 글자수 확인
 $("form").submit(function(){
@@ -59,4 +62,5 @@ $('[name = bo_content]').summernote({
 
 
 </script>
-
+</body>
+</html>

@@ -12,7 +12,6 @@
     	</select>
     	<input type ="text" name ="search" class ="form-control" placeholder="검색어를 입력하세요" value="${pm.cri.search }">
   </div>
-  
 </form>
 
 <table class="table table-striped">
@@ -31,19 +30,26 @@
       	<tr>
 	        <td>${board.bo_num }</td>
 	        <td>${board.bo_co_name }</td>
-	        <td>${board.bo_title }</td>
 	         <td>
+	         	<c:url value="/board/detail" var="url">
+		 			<c:param name="page" value="${pm.cri.page}"/>
+		 			<c:param name="type" value="${pm.cri.type}"/>
+		 			<c:param name="search" value="${pm.cri.search}"/>
+		 			<c:param name="boNum" value="${board.bo_num}"/>
+		 		</c:url>
+	         	<a href = "${url}"> ${board.bo_title }</a>
+	        </td>
+	        <td>
 	         	<c:url value="/board/list" var="url">
 		 			<c:param name="type" value="writer"/>
 		 			<c:param name="search" value="${board.bo_me_id }"/>
 		 		</c:url>
 	         	<a href = "${url}"> ${board.bo_me_id }</a>
-	        </td>
-	        <td>${board.bo_view }</td>
-	        <td>${board.bo_up }/${board.bo_down }</td>
+	    	    <td>${board.bo_view }</td>
+	        	<td>${board.bo_up }/${board.bo_down }</td>
 	     </tr>
 	</c:forEach>		
-	 </tbody>
+	</tbody>
 </table>
 
 <ul class="pagination justify-content-center">
