@@ -1,0 +1,36 @@
+package kr.kh.spring.interceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import kr.kh.spring.model.vo.MemberVO;
+
+public class MemberInterceptor extends HandlerInterceptorAdapter {
+	
+	/* preHandle에서 return값이 true이면 가려던 컨트롤러로 가서 작업을 진행
+	 * return 값이 false이면 가려던 컨트롤러로 가지마세요. 리다이렉트할 
+	 * 경로가 있으면 해당 경로로 이동
+	 * */
+	
+	//overrride 클래스에 있는 기능을 재정의함, 따라서 여기를 수정해서 추가할 수 없음
+	@Override
+	public boolean preHandle(
+		HttpServletRequest request, 
+		HttpServletResponse response, 
+		Object handler)
+	    throws Exception {
+		MemberVO user = (MemberVO) request.getSession().getAttribute("user");
+		
+		//로그인 안했으면 
+		if(user == null) {
+			//sendRedirect는 contextPath를 고려하지 않기 때문에 추가해주어야 한다.
+			response.sendRedirect(request.getContextPath() + "/login");
+			return false;
+			}
+			return true;
+	}
+	
+}

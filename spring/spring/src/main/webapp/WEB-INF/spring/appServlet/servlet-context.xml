@@ -48,12 +48,22 @@
 	<!-- LoginInterceptor를 등록 -->
 	<beans:bean id ="loginInterceptor"
 		class="kr.kh.spring.interceptor.LoginInterceptor"/>
-		
+	<!--MemberInterceptor를 등록 -->
+	<beans:bean id ="memberInterceptor"
+	class="kr.kh.spring.interceptor.MemberInterceptor"/>
 	<interceptors>
 		<!-- LoginInterceptor가 실행된 URL 지정 -->
 		<interceptor>
 			<mapping path="/login"/>
 			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		<!-- MemberInterceptor가 실행된 URL 지정 -->
+		<interceptor>
+			<mapping path="/board/insert"/>
+			<mapping path="/board/update"/>
+			<mapping path="/board/delete"/>
+			<mapping path="/board/list"/>
+			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
 	</interceptors>
 	<!-- 첨부파일 용량 제한 -->
