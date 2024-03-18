@@ -51,6 +51,9 @@
 	<!--MemberInterceptor를 등록 -->
 	<beans:bean id ="memberInterceptor"
 	class="kr.kh.spring.interceptor.MemberInterceptor"/>
+	<!--GuestInterceptor를 등록 -->
+	<beans:bean id ="guestInterceptor"
+	class="kr.kh.spring.interceptor.GuestInterceptor"/>
 	<interceptors>
 		<!-- LoginInterceptor가 실행된 URL 지정 -->
 		<interceptor>
@@ -65,7 +68,14 @@
 			<mapping path="/board/list"/>
 			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
+		<!-- GuestInterceptor가 실행된 URL 지정 -->
+		<interceptor>
+			<mapping path="/login"/>
+			<mapping path="/signup"/>
+			<beans:ref bean="guestInterceptor"/>
+		</interceptor>
 	</interceptors>
+	
 	<!-- 첨부파일 용량 제한 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 업로드 최대 크기 10Mb -->
