@@ -31,18 +31,17 @@
 		<div class ="form-control" style ="min-height:400px">${board.bo_content}</div>
 	</div>
 	<div>
-	<label>첨부파일</label>
-	<c:choose>
-		<c:when test="${fileList.size() != 0}">
-			<label>첨부파일</label>
-			<c:forEach items ="${fileList }" var="file">
-				<a href= "<c:url value ="/downLoad${file.fi_name}"/>"
-				 	class ="form-control"
-				 	download= "${file.fi_ori_name}">${file.fi_ori_name}</a>
-			</c:forEach>
-		</c:when>
-		<c:otherwise>
-			<div>첨부파일 없음</div>
+		<c:choose>
+			<c:when test="${fileList.size() != 0}">
+				<label>첨부파일</label>
+				<c:forEach items="${fileList }" var="file">
+					<a href="<c:url value="/download${file.fi_name}"/>" 
+						class="form-control"
+						download="${file.fi_ori_name}">${file.fi_ori_name}</a>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<div>첨부파일 없음</div>
 		</c:otherwise>
 	</c:choose>
 	</div>
@@ -52,6 +51,11 @@
  			<c:param name="search" value="${cri.search}"/>
  		</c:url>
 	<a href ="${url}" class ="btn btn-outline-dark">목록으로</a>
+	<!-- 로그인한 회원이 작성자인지 확인하는 코드 -->
+	<c:if test="${user.me_id == board.bo_me_id}">
+		<a href="<c:url value="/board/delete?boNum=${board.bo_num}"/>" class="btn btn-outline-success">삭제</a>
+		<a href="<c:url value="/board/update?boNum=${board.bo_num}"/>" class="btn btn-outline-warning">수정</a>
+	</c:if>
 	</div>
 </body>
 </html>

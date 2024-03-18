@@ -1,5 +1,10 @@
 package kr.kh.spring.model.vo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 //class이름이 매번 달라지기 때문에 문서
 public class FileVO {
 	private int fi_num;  
@@ -12,4 +17,5 @@ public class FileVO {
 		this.fi_name = fi_name;
 		this.fi_ori_name = fi_ori_name;
 	}
+
 }

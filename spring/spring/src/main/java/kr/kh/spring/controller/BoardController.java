@@ -3,6 +3,7 @@ package kr.kh.spring.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,5 +77,61 @@ public class BoardController {
 		model.addAttribute("cri",cri);
 		
 		return "/board/detail";
+	}
+		
+	@GetMapping("/board/delete")
+	public String boardDelete(Model model, int boNum, HttpSession session) {
+		//회원 정보를 가져옴
+		MemberVO user =(MemberVO) session.getAttribute("user");
+		boolean res = boardService.deleteBoard(boNum, user);
+		//삭제 성공 시 성공 처리
+		if(res) {
+			model.addAttribute("url","/board/list");
+			model.addAttribute("msg","게시글을 삭제했습니다.");
+			
+		}
+		//삭제 실패 시 실패 처리
+		else {
+			model.addAttribute("url","/board/detaul?boNum="+ boNum);
+			model.addAttribute("msg","게시글을 삭제하지못했습니다.");
+		}
+		return "message";
+	}
+	@GetMapping("/board/update")
+	//detail.jsp파일에 a태그에 boNum으로 추가했기 때문에 boNum
+	public String boardUpdate(Model model,int boNum) {
+		//커뮤니티 리스트를 가져와서 화면에 전송
+		ArrayList<CommunityVO>list = boardService.getCommunityList();
+		//게시글을 가져옴
+		BoardVO board = boardService.getBoard(boNum);
+		ArrayList<FileVO> fileList = boardService.getFileList(boNum);
+		//fileList가 jsp에서 불러올 때 ${}안에 써야하는 것 .
+		model.addAttribute("fileList",fileList);
+		model.addAttribute("board",board);
+		model.addAttribute("list", list);
+		return "/board/update";
+			
+		
+		}
+	@PostMapping("/board/update")
+	//post방식으로 mapping
+	//update.jsp에서 name을 file로 했기 때문에 여기도 file
+	public String boardUpdatePost(Model model, BoardVO board, MultipartFile []file,
+			int [] delNums, HttpSession session) {
+		//회원 정보를 가져옴. 왜? 작성자만 수정해야하기 때문에
+		MemberVO user =(MemberVO) session.getAttribute("user");
+		boolean res = boardService.updateBoard(board, user, file, delNums);
+		if(res) {
+			model.addAttribute("url","/board/detail?boNum="+board.getBo_num());
+			model.addAttribute("msg", "게시글을 수정했습니다.");
+		}else {
+			model.addAttribute("url","/board/detail?boNum="+board.getBo_num());
+			model.addAttribute("msg", "게시글을 수정하지 못했습니다.");
+		}
+		
+		return"message";
+		
+		
+	
 	}
 }

@@ -10,17 +10,17 @@ import org.springframework.util.FileCopyUtils;
 public class UploadFileUtils {
     public static String uploadFile(String uploadPath, String originalName, byte[]
             fileData)throws Exception{
-        //랜덤한 UUID 생성 : 같은 파일명을 처리하기 위해
-    	UUID uid = UUID.randomUUID();
-    	//파일명에 UUID를 붙임
+    	//랜덤한 UUID 생성 : 같은 파일명을 처리하기 위해
+        UUID uid = UUID.randomUUID();
+        //파일명에 UUID를 붙임
         String savedName = uid.toString() +"_" + originalName;
-        //파일을 저장할 경로(날짜 경로로 업로드하는 년/월/일로 구성)
+        //파일을 저장할 경로(날짜 경로로 업로드하는 날짜이며, 년/월/일로 구성)
         String savedPath = calcPath(uploadPath);
         //서버에 업로드할 파일 객체 생성
         File target = new File(uploadPath + savedPath, savedName);
         //파일을 서버에 업로드
         FileCopyUtils.copy(fileData, target);
-        //업로드된 파일의 파일명을 가져옴. \을/로 바꿈
+        //업로드된 파일의 파일명을 가져옴. \를 /로 바꿈
         String uploadFileName = getFileName(savedPath, savedName);
         return uploadFileName;
     }
@@ -38,7 +38,6 @@ public class UploadFileUtils {
         return datePath;
 
     }
-    //날짜 폴더 만들 때 사용
     private static void makeDir(String uploadPath, String... paths) {
         if(new File(paths[paths.length-1]).exists())
             return;
@@ -53,4 +52,13 @@ public class UploadFileUtils {
         String iconName = path + File.separator + fileName;
         return iconName.replace(File.separatorChar, '/');
     }
+
+	public static void delteFile(String uploadPath, String fi_name) {
+		fi_name = fi_name.replace('/', File.separatorChar);
+		File file = new File(uploadPath + fi_name);
+		//파일이 존재하면 파일을 삭제
+		if(file.exists()) {
+			file.delete();
+		}
+	}
 }

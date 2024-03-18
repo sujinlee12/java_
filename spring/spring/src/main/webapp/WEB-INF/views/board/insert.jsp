@@ -8,16 +8,16 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body>
-<form action="<c:url value="/board/insert" />" method="post" enctype="multipart/form-data" >
+<form action="<c:url value="/board/insert"/>" method="post" enctype="multipart/form-data">
 	<h1>게시글 등록</h1>
-	<div class="from-group">
-		    <label for="bo_title">게시판:</label>
-		    <select class="form-control" name="bo_co_num">
-		    	<c:forEach items="${list}" var="co">
-		    		<option value="${co.co_num }">${co.co_name}</option>
-		    	</c:forEach>
-		    </select>
-	  	</div>
+	<div class="form-group">
+		<label for="bo_title">게시판</label>
+		<select name="bo_co_num" class="form-control">
+			<c:forEach items="${list}" var="co">
+				<option value="${co.co_num}">${co.co_name}</option>
+			</c:forEach>
+		</select>
+	</div>
 		<div class="form-group">
 		    <label for="bo_title">제목:</label>
 		    <input type="text" class="form-control" id="bo_title" placeholder="제목" name="bo_title">
