@@ -272,7 +272,7 @@ $(document).on('click','.btn-comment-update', function(){
 	let contentBox = $(this).parents(".box-comment").find(".text-comment");
 	//댓글을 수정할 수 있는 textarea로 변경
 	let content = contentBox.text();
-	console.log(content)
+	/* console.log(content) */
 	let str = 
 	`<textarea class ="form-control">\${content}</textarea>`;
 	contentBox.after(str);
@@ -287,7 +287,33 @@ $(document).on('click','.btn-comment-update', function(){
 });
 //수정완료 버튼 클래스에 btn-complete추가 후 여기 넣어주기 이벤트 등록하기위해.
 $(document).on('click','.btn-complete',function(){
-	
+		//전송할 데이터를 생성 => 댓글 수정 =>댓글 번호, [댓글 내용],
+		let comment = {
+				cm_content : $('.box-comment').find('textarea').val(),
+				cm_num : $(this).data("num")
+		}
+				
+		//서버에서 ajax로 데이터를 전송 후 처리
+		$.ajax({
+			async : true, //비동기 : true(비동기), false(동기)
+			url : '<c:url value ="/comment/update"/>', 
+			type : 'post', 
+			data : JSON.stringify(comment), 
+			contentType :"application/json; charset=utf-8",
+			dataType : "json",
+			success : function (data){
+				if(data.result){
+					alert('댓글을 수정했습니다.');
+					getCommentList(cri);
+				}else{
+					alert('댓글을 수정하지 못했습니다.')
+				}
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+
+			}
+		});
+		
 })
 //수정버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글을 원상태로 돌려주는 함수
 function initComment(){
