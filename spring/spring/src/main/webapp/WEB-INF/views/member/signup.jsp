@@ -40,7 +40,7 @@
  $.validator.addMethod(
 			"regex",
 			function (value,element,regexp){
-				var re = new RegExp(regex);
+				var re = new RegExp(regexp);
 				return this.optional(element) || re.test(value);
 			},
 			"정규표현식에 맞지 않습니다."
@@ -126,6 +126,7 @@ function idCheckDup(){
 		error : function(jqXHR, textStatus, errorThrown){
 		
 		}
+		
 	});
 	return result;
 }
