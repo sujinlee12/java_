@@ -65,6 +65,7 @@
 		</div>
 		<hr>
 	</div>
+	
 	<c:url value="/board/list" var="url">
  			<c:param name="page" value="${cri.page}"/>
  			<c:param name="type" value="${cri.type}"/>
@@ -110,18 +111,29 @@ function getCommentList(cri){
 function displayCommentList(list){
 	let str = '';
 	if(list == null || list.length == 0){
-		str ='<h3>등록된 댓글이 없습니다.</h3>';
+		str ='<h5>등록된 댓글이 없습니다.</h5>';
 		$('.box-comment-list').html(str);
 		return;
 	}
+	
 	for(item of list){
+	  let boxBtns =
+		`<span class ="box-btn float-right">
+			<button class ="btn btn-outline-danger btn-comment-del" 
+				data-num="\${item.cm_num}">삭제</button>
+			<button class ="btn btn-outline-danger btn-comment-update" 
+				data-num="\${item.cm_num}">수정</button>
+		 </span>`;
+		let btns = '${user.me_id}'== item.cm_me_id ? boxBtns : ''; 
 		str += 
 		`
 			<div class = "box-comment row">
 				<div class ="col-3">\${item.cm_me_id}</div>
-				<div class ="col-9">\${item.cm_content}</div>
+				<div class ="col-9 clearfix input-group">
+					<span class ="text-comment">\${item.cm_content}</span>
+					\${btns}
+				</div>
 			</div>
-		
 		`
 	}
 	$('.box-comment-list').html(str);
@@ -215,12 +227,75 @@ function checkLogin(){
 	}
 	return false;
 }
-</script>
 
 /* 댓글은 비동기 통신으로 새로 뿌려주는 경우 btn.click */
 /* html로 고정이 안되는 경우, 화면에 다시 뿌리는 경우는 document.on('click')' */
+</script>
+<!-- 댓글 삭제 -->
+<script type="text/javascript">
+//댓글 삭제 버튼 클릭 시 alert(1)이 실행되도록 작성
+$(document).on('click','.btn-comment-del', function(){
+	//서버로 보낼 데이터 생성
+	let comment = {
+		cm_num : $(this).data('num')
+	}
+	//서버로 데이터를 전송
+	$.ajax({
+		async : true,
+		url : '<c:url value ="/comment/delete"/>', 
+		type : 'post', 
+		data : JSON.stringify(comment),
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+				if(data.result){
+					alert('댓글을 삭제했습니다.');
+					getCommentList(cri);
+				}else{
+					alert('댓글을 삭제하지 못했습니다.');
+				}
+			}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log();
+		}
+	});
 
 
+});
 
+</script>
+<!-- 댓글 수정 -->
+<script type="text/javascript">
+$(document).on('click','.btn-comment-update', function(){
+	initComment();
+	//곳곳에서 쓰일 예정이라서 따로 빼주기
+	let contentBox = $(this).parents(".box-comment").find(".text-comment");
+	//댓글을 수정할 수 있는 textarea로 변경
+	let content = contentBox.text();
+	console.log(content)
+	let str = 
+	`<textarea class ="form-control">\${content}</textarea>`;
+	contentBox.after(str);
+	contentBox.hide();
+	//수정/삭제버튼을 감추고
+	$(this).parents(".box-comment").find('.box-btn').hide();
+	
+	//수정 완료 버튼을 추가
+	let cm_num = $(this).data("num");
+	str = `<button class="btn btn-outline-warning btn-complete" data-num ="\${cm_num}">수정완료</button>`;
+	$(this).parents(".box-comment").find('.box-btn').after(str);
+});
+//수정완료 버튼 클래스에 btn-complete추가 후 여기 넣어주기 이벤트 등록하기위해.
+$(document).on('click','.btn-complete',function(){
+	
+})
+//수정버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글을 원상태로 돌려주는 함수
+function initComment(){
+	$('.btn-complete').remove();
+	$('.box-comment').find('textarea').remove();	
+	$('.box-btn').show();
+	$('.text-comment').show();
+}
+</script>
 </body>
 </html>
