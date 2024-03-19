@@ -57,11 +57,14 @@ public class MemberServiceImp implements MemberService {
 	//아이디와 일치하는 회원 정보 가져옴
 	MemberVO user = memberDao.selectMember(loginDto.getId());
 	//회원 정보가 없거나 비번이 다르면
+	//passwordEncoder는 복화 불가능한 비밀번호 생성.
+	//암호화되어서 새로운 비밀번호로 발급해서 DB에 저장 후 새 비밀번호를 이메일,문자로 알려주는 것.
+	
 	if(user == null || !passwordEncoder.matches(loginDto.getPw(), user.getMe_pw())) {
-			return null;
-		}
-		return user;
+		return null;
 	}
+	return user;
+}
 
 	@Override
 	public boolean idCheck(String id) {

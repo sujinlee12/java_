@@ -89,6 +89,7 @@
 		submitHandler : function(form){
 			return idCheckDup();
 		}
+
 });  
 
 
