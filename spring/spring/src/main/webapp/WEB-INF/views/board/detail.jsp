@@ -57,10 +57,14 @@
 		<div class ="box-pagination">
 			<ul class="pagination justify-content-center"></ul>
 		</div>
-		<div class ="box-comment-insert"></div>
+		<div class ="box-comment-insert">
+			<div class="input-group mb-3">
+			       <textarea class="form-control textarea-comment"></textarea>
+				   <button class="btn btn-outline-success btn-comment-insert">댓글 등록</button>
+			 </div>
+		</div>
 		<hr>
 	</div>
-	
 	<c:url value="/board/list" var="url">
  			<c:param name="page" value="${cri.page}"/>
  			<c:param name="type" value="${cri.type}"/>
@@ -123,11 +127,7 @@ function displayCommentList(list){
 	$('.box-comment-list').html(str);
 }
 function displayCommentPagination(pm){
-	<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-  
+	
 	let str = '';
 	if(pm.prev){
 		str += `
@@ -150,12 +150,53 @@ function displayCommentPagination(pm){
 			</li>`;
 	
 	}
-	$('.box-comment-list').html(str);
+	$('.box-pagination ul').html(str);
 }
-$(document).on('click','.box-pagination.page-link;',function(){
+$(document).on('click','.box-pagination .page-link',function(){
 	cri.page - $(this).data('page');
 	getCommentList(cri);
 })
+
+</script>
+<!-- 댓글 등록 -->
+<script type="text/javascript">
+//댓글 등록 버튼의 클릭 이벤트를 등록
+$(".btn-comment-insert").click(function(){
+	//서버에 보낼 데이터를 생성 => 댓글 등록을 위한 정보 => 댓글 내용, 게시글 번호, (x)작성자 아이디(세션에서 가져오는게 나음)
+	let comment = {
+			/* vo의 이름과 같아야 자동으로 들어감 */
+			cm_content : $('.textarea-comment').val(),
+			cm_bo_num : '${board.bo_num}'
+	}
+	 console.log(comment);
+	//서버에 데이터를 전송
+	$.ajax({
+		async : true,
+		url : '<c:url value="/comment/insert"/>', 
+		type : 'post', 
+		data : JSON.stringify(comment), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result){
+				alert('댓글을 등록했습니다.');
+				$('.textarea-comment').val('');
+				cri.page = 1;
+				getCommentList(cri);
+			}else{
+				alert('댓글을 등록하지 못했습니다.');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log(xhr);
+			console.log(textStatus);
+		}
+	});
+}); 
+/* 댓글은 비동기 통신으로 새로 뿌려주는 경우 btn.click */
+/* html로 고정이 안되는 경우, 화면에 다시 뿌리는 경우는 document.on('click')' */
+
+
 
 </script>
 </body>
