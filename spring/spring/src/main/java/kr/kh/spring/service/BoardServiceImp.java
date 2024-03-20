@@ -231,9 +231,10 @@ public class BoardServiceImp implements BoardService{
 	public int getUserRecommend(int num, MemberVO user) {
 		if(user == null) 
 			return -2;
-		
-		RecommendVO recommend = boardDao.selectRecommend(new RecommendVO(num, user.getMe_id()));
-		return 0;
+		//생성자를 새로 만들어야 함 기존에 selectRecommend가 있기 때문에.
+		RecommendVO recommend = 
+				boardDao.selectRecommend(new RecommendVO(num, user.getMe_id()));
+		return recommend == null ? -2 : recommend.getRe_state();
 		
 	}
 

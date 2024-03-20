@@ -327,6 +327,10 @@ function initComment(){
 <script type="text/javascript">
 /* ,는 또는 */
 $(".btn-up,.btn-down").click(function(){
+	//로그인 여부를 체크
+	if(!checkLogin()){
+		return;
+	}
 	//서버에 보낼 데이터 생성
 	let state = $(this).data('state');
 	let boNum = '${board.bo_num}';
