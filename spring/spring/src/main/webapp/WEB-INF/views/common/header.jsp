@@ -21,6 +21,9 @@
 	  	<!-- user가 널이 아닐 때 즉 유저가 로그인한 상태일 때 -->
 	  	<c:if test="${user != null }">
 	  		<li class="nav-item">
+	    		<a class="nav-link" href= "<c:url value="/mypage"/>">마이페이지</a>
+	  		</li>
+	  		<li class="nav-item">
 	    		<a class="nav-link" href= "<c:url value="/logout"/>">로그아웃</a>
 	  		</li>
 	  	</c:if>
