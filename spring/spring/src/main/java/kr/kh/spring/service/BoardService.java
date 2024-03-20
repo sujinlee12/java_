@@ -31,7 +31,9 @@ public interface BoardService {
 
 	boolean updateBoard(BoardVO board, MemberVO user, MultipartFile[] file, int[] delNums);
 
-	boolean recommend(RecommendVO recommend, MemberVO user);
+	int recommend(RecommendVO recommend, MemberVO user);
+
+	int getUserRecommend(int num, MemberVO user);
 
 	
 }

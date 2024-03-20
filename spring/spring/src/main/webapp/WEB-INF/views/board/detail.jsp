@@ -23,8 +23,8 @@
 		<div class ="form-control">${board.bo_title}</div>
 	</div>
 	<div class="input-group mb-3 mt-3">
-		<button class="btn btn-outline-success btn-up col-6" data-state ="1">추천(${board.bo_up})</button>
-		<button class="btn btn-outline-success btn-down col-6" data-state ="-1">비추천(${board.bo_down})</button>
+		<button class="btn btn-outline-success btn-up col-6" data-state ="1">추천(<span class="text-up"> ${board.bo_up}</span>)</button>
+		<button class="btn btn-outline-success btn-down col-6" data-state ="-1">비추천(<span class="text-down">${board.bo_down}</span>)</button>
 	</div>
 	<div>
 		<label>내용</label>
@@ -343,15 +343,69 @@ $(".btn-up,.btn-down").click(function(){
 		contentType : "application/json; charset=utf-8",
 		dataType : "json", 
 		success : function (data){
-			/* console.log(data); */
+			switch(data.result){
+				case 1:
+					alert('추천했습니다.');
+					break;
+				case 0:
+					let str = recommend.re_state == 1 ? '추천' : '비추천';
+					alert(`\${str}을 취소했습니다.`);
+					break;
+				case -1:
+					alert('비추천했습니다');
+					break;
+				default:
+					alert('추천/비추천을 하지 못했습니다.');
+				}
+				getRecommend();
+			}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+});
+//로그인한 회원의 추천/비추천 여부와 게시글의 추천/비추천 수를 가져오는 함수
+function getRecommend(){
+	//서버로 보낼 데이터를 생성 => 게시글 번호
+	let num = '${board.bo_num}'
+	let obj = {
+			num : num
+	}
+	//url남기는건get, 남기지 않는건 post
+	//서버로 데이터를 전송. object => json 하나밖에 없기 때문에 object. 굳이 담아서 보낼 필요 없음.
+	$.ajax({
+		async : true, 
+		url : '<c:url value="/recommend"/>', 
+		type : 'post',
+		data : obj, 
+		dataType : "json", 
+		success : function (data){
+			displayUpdateRecommend(data.board);
+			displayRecommend(data.state);
+			
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
 
 		}
 	});
-})
+	
+}
+function displayUpdateRecommend(board){
+	$(".text-up").text(board.bo_up);
+	$(".text-down").text(board.bo_down);
+}
+function displayRecommend(state){
+	$('.btn-up,.btn-down').addClass("btn-outline-success");
+	$('.btn-up,.btn-down').removeClass("btn-success");
+	if(state == 1){
+		$('.btn-up').removeClass("btn-outline-success");
+		$('.btn-up').addClass("btn-success");
+	}else if(state == -1){
+		$('.btn-down').removeClass("btn-outline-success");
+		$('.btn-down').addClass("btn-success");
+	}
+}
 
 </script>
-
 </body>
 </html>
