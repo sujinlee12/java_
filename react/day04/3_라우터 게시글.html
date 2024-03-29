@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js'></script>
+    <script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+    <style>
+      .menu-list{
+        display:flex; list-style: none;
+      }
+      .menu-list>li{
+        padding-left :10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='root'></div>
+    <script type='text/babel'>
+      const {Link = ReactRouterDOM.Link,
+            Route = ReactRouterDOM.Route,
+						HashRouter = ReactRouterDOM.HashRouter;
+//exact는 메인일 때 사용 정확하게 /일때 home component 호출
+      function App(){
+        let [list,setList] = React.useState([{
+          title : "공지사항2",
+          writer : "admin",
+          content: "공지사항2입니다."
+      },{
+         title : "공지사항1",
+          writer : "admin",
+          content: "공지사항1입니다."
+      }]);
+        return(
+				<HashRouter>
+          <ul className="menu-list">
+            <li><Link to="/">메인</Link></li>
+            <li><Link to="/board/list">게시글 리스트</Link></li>
+            <li><Link to="/board/insert">게시글 작성</Link></li>
+          </ul>
+
+          <Route path="/" exact component={Home} /> 
+          <Route path="/board/list" component={List} />
+          <Route path="/board/insert" component={Insert} />
+        </HashRouter>
+    	  );
+			}
+			function Home(){
+				return(
+				<h1>Home</h1>
+				);
+			}
+			function List(){
+				return(
+				<table>
+          <thead>
+            <tr>
+              <th>제목</th>
+              <th>내용</th>
+              <th>작성자</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                list.map(item=>{
+                  return(
+                  <tr>
+                    <td>{item.title}</td>
+                    <td>{item.content}</td>
+                    <td>{item.writer}</td>  
+                  </tr>  
+                  );
+                })
+              }
+            </tbody>
+         </table>
+				);
+			}
+			function Insert(){
+				return(
+          <div>
+            <input type="text"placeholder="제목"/>
+            <br/>
+            <input type="text"placeholder="작성자"/>
+            <br/>
+            <textarea placeholder="내용"></textarea>
+            <br/>
+            <button>게시글등록</button>
+          </div>
+        );
+			}
+
+			//하나의 화면에서 컴포넌트만 바꿔서 url 여러개 만들기 가능
+
+      ReactDOM.render(<App />, document.querySelector('#root'));
+    </script>
+  </body>
+</html>
