@@ -24,7 +24,7 @@
 <body>
    <tiles:insertAttribute name="header" />
    <div style ="min-height:calc(100vh - 290px)">
-   <tiles:insertAttribute name="body" />
+   	<tiles:insertAttribute name="body" />
    </div>
    <tiles:insertAttribute name="footer" />
 </body>
