@@ -19,6 +19,7 @@ public class HomeController {
 	@Autowired
 	MemberService memberService;
 	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 		log.info("안녕하세요. 스프링 메인입니다.");
@@ -47,4 +48,23 @@ public class HomeController {
 		}
 		return "message";
 	}
+	@GetMapping("/login")
+	public String login(Model model) {
+		model.addAttribute("title", "로그인");
+		return "/member/login";
+		
+	}
+	@PostMapping("/login")
+	public String login(Model model,MemberVO member) {
+		boolean res = memberService.login(member);
+		if(res) {
+			model.addAttribute("msg", "로그인에 성공했습니다.");
+			model.addAttribute("url", "/");
+		}else {
+			model.addAttribute("msg", "로그인에 실패했습니다.");
+			model.addAttribute("url", "/login");
+		}
+		return "message";
+	}
+	
 }

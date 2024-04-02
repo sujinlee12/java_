@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.kh.spring3.dao.MemberDAO;
+import kr.kh.spring3.model.dto.LoginDTO;
 import kr.kh.spring3.model.vo.MemberVO;
 
 //서비스 어노테이션 까먹으면 500번 에러
@@ -22,6 +23,10 @@ public class MemberServiceImp implements MemberService{
 		return memberDao.selectMemberCount();
 	}
 
+	private boolean checkString(String str) {
+		return str != null && str.length() != 0; 
+	}
+	
 	@Override
 	public String signupMember() {
 		// TODO Auto-generated method stub
@@ -52,6 +57,15 @@ public class MemberServiceImp implements MemberService{
 			//이메일이 없으면 예외 발생
 			e.printStackTrace();
 			return false;
+			
+		}
+	}
+
+	@Override
+	public MemberVO login(LoginDTO loginDto) {
+		if(loginDto == null || 
+		!checkString(loginDto.getId()) || !checkString(loginDto.getPw()) {
+			return null;	
 			
 		}
 	}

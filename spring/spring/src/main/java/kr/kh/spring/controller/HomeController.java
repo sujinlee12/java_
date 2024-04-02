@@ -31,6 +31,11 @@ public class HomeController {
 	private BoardService boardService;
 	
 	
+	private boolean checkString(String str) {
+		return str  != null && str.length() !=0;
+	}
+
+	
 	//value : url, method :전송 방식을 get 또는 post
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {

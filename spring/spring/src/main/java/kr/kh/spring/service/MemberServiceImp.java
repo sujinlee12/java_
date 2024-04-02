@@ -25,10 +25,7 @@ public class MemberServiceImp implements MemberService {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	//메서드 만들기
-	private boolean checkString(String str) {
-		return str  != null && str.length() !=0;
-	}
+	
 
 	private String randomPassword1(int size) {
 		String strs = "abcdefghijklmnopqrstuvwxyzABCDERGHRJKLMNOPQRSTUVWXYZ0123456789!@#";
@@ -117,6 +114,10 @@ public class MemberServiceImp implements MemberService {
 		return user;
 	}
 
+	private boolean checkString(String str) {
+		return str != null && str.length() != 0; 
+	}
+	
 	@Override
 	public boolean idCheck(String id) {
 		MemberVO member = memberDao.selectMember(id);
@@ -203,6 +204,12 @@ public class MemberServiceImp implements MemberService {
 		user.setMe_pw(member.getMe_pw());
 		user.setMe_email(member.getMe_email());
 		return true;
+	}
+	//쿠키기능 구현 미와
+	@Override
+	public MemberVO getMemberByCookie(String sessionId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 
