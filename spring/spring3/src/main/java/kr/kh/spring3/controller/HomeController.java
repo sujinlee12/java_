@@ -22,7 +22,7 @@ public class HomeController {
 		//vo안만들고 간단하게 하는 방법
 		int count = memberService.getMemberCount();
 		log.info("등록된 회원 수 : " + count);
-		return "home";
+		return "/main/home";
 	}
 	
 }
