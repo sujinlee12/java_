@@ -14,4 +14,5 @@ public class MemberVO {
 	private String me_authority;
 	private String me_stop;
 	private int me_fail;
+	
 }

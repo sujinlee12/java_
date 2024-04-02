@@ -1,5 +1,6 @@
 package kr.kh.spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.spring.model.dto.LoginDTO;
+import kr.kh.spring.model.vo.BoardVO;
 import kr.kh.spring.model.vo.MemberVO;
+import kr.kh.spring.pagination.Criteria;
+import kr.kh.spring.service.BoardService;
 import kr.kh.spring.service.MemberService;
 
 @Controller
@@ -24,6 +28,7 @@ public class HomeController {
 
 	@Autowired
 	private MemberService memberService;
+	private BoardService boardService;
 	
 	
 	//value : url, method :전송 방식을 get 또는 post
@@ -66,6 +71,9 @@ public class HomeController {
 		MemberVO user = memberService.login(loginDto);
 		System.out.println(user);
 		if(user != null) {
+			
+			user.setAutoLogin(loginDto.isAutoLogin());
+			
 			model.addAttribute("user",user);
 			model.addAttribute("msg","로그인했습니다.");
 			model.addAttribute("url","/");
