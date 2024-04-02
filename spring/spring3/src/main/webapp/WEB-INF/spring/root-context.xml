@@ -13,12 +13,11 @@
 		<!-- 디비이름, 시간(대소문자구분),아이디 비밀번호 변경하기 -->
 		<bean id="dataSource"
 	      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-	    <property name="url"
-	              value="jdbc:mysql://localhost:3306/community?useSSL=false&amp;serverTimezone=Asia/Seoul">
-	    </property>
-	    <property name="username" value="root"></property>
-	    <property name="password" value="root"></property>
+	  		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+			<property name="url"
+          value="jdbc:log4jdbc:mysql://localhost:3306/community?useSSL=false&amp;serverTimezone=Asia/Seoul"/>
+	   	 	<property name="username" value="root"></property>
+	    	<property name="password" value="root"></property>
 		</bean>  
 		<!-- mapper정보 -->
 		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -27,6 +26,5 @@
 	    	<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
 		</bean>
 		<!-- dao 패키지 연결 -->
-		<mybatis-spring:scan base-package="kr.kh.spring3.dao"/>
-		
+		<mybatis-spring:scan base-package="kr.kh.spring3.dao"/>		
 </beans>

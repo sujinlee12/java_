@@ -119,6 +119,7 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		
 		<!-- mybatis 의존성 추가 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
