@@ -22,16 +22,13 @@ public class MemberServiceImp implements MemberService{
 	public int getMemberCount() {
 		return memberDao.selectMemberCount();
 	}
-
-	private boolean checkString(String str) {
-		return str != null && str.length() != 0; 
-	}
 	
-	@Override
-	public String signupMember() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	 @Override 
+	 public String signupMember() { 
+	  return null; 
+	  }
+	 
 
 	@Override
 	public boolean signup(MemberVO member) {
@@ -62,15 +59,20 @@ public class MemberServiceImp implements MemberService{
 	}
 
 	@Override
-	public MemberVO login(LoginDTO loginDto) {
-		if(loginDto == null || 
-		!checkString(loginDto.getId()) || !checkString(loginDto.getPw()) {
-			return null;	
-			
+	public MemberVO login(MemberVO member) {
+		//매개변수 null 처리
+		if(member == null || 
+		   member.getMe_id() == null || 
+		   member.getMe_pw() == null)
+			return null;
+		//아이디 확인
+		MemberVO user = memberDao.selectMember(member.getMe_id());
+		if(user == null) 
+			return null;
+		//비번 확인
+		if(passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())) {
+			return user;
 		}
-	}
-
-	
-
-	
+		return null;
+	 }	
 }

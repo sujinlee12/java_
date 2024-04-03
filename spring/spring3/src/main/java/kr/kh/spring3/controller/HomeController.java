@@ -1,5 +1,7 @@
 package kr.kh.spring3.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,17 +56,29 @@ public class HomeController {
 		return "/member/login";
 		
 	}
+	//매개변수를 기본생성자로 객체를 만들어서 일단 넘긴다.
 	@PostMapping("/login")
-	public String login(Model model,MemberVO member) {
-		boolean res = memberService.login(member);
-		if(res) {
-			model.addAttribute("msg", "로그인에 성공했습니다.");
+	public String loginPost(Model model, MemberVO member) {
+		log.info(member);
+		//log.info(member); //로그인한 회원 정보를 가져오는지 확인하고 다음 작업 
+		MemberVO user = memberService.login(member);
+		//log.info(user);//시킨 일을 다시 확인하기.
+		model.addAttribute("user",user);//user라는 이름으로 전송, 인터셉터의 이름과 맞춤
+		if(user != null){
 			model.addAttribute("url", "/");
+			model.addAttribute("msg", "로그인에 성공했습니다.");
 		}else {
-			model.addAttribute("msg", "로그인에 실패했습니다.");
 			model.addAttribute("url", "/login");
+			model.addAttribute("msg", "로그인에 실패했습니다.");
 		}
 		return "message";
 	}
-	
+	@GetMapping("/logout")
+	public String logout(Model model, HttpSession session) {
+		session.removeAttribute("user");
+		model.addAttribute("msg","로그아웃 했습니다.");
+		model.addAttribute("url","/");
+		return "message";
+			
+	}
 }

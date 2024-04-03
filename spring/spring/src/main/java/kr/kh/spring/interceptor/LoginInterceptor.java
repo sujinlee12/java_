@@ -1,5 +1,7 @@
 package kr.kh.spring.interceptor;
 
+import java.util.Date;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +45,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if(user != null) {
 		//세션에 회원 정보를 추가
 		request.getSession().setAttribute("user", user);
+		
 		//자동 로그인을 체크했으면
 		if(user.isAutoLogin()) {
 			//쿠키를 생성해서
@@ -61,8 +64,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			user.setMe_cookie_limit(date);
 			memberService.updateMemberCookie(user);
 			}
-
-		
+		//되돌아갈 url이 있으면 해당 url로 돌아감
+		String url = (String)request.getSession().getAttribute("prevUrl");
+		if(url != null) {
+			response.sendRedirect(url);
+			request.getSession().removeAttribute("prevUrl");
+			}
 		}
 	
 	}

@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+	<title>회원가입</title>
+	<!--이 페이지에서만 쓰는 링크가 있을 수 있으므로 header, footer 빼고는 남겨둠  -->
 </head>
 <body>
 <div class="container">
@@ -21,7 +22,7 @@
   		 </div>
     	 <div class="form-group">
 		   <label for="pw">비번확인:</label>
-		   <input type="password" class="form-control" id="pw2" name="me_pw"required>
+		   <input type="password" class="form-control" id="pw2" required>
   		 </div>
   		 <div class="form-group">
 		   <label for="email">이메일:</label>

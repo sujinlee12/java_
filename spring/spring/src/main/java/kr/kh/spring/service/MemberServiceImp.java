@@ -26,7 +26,6 @@ public class MemberServiceImp implements MemberService {
 	private JavaMailSender mailSender;
 	
 	
-
 	private String randomPassword1(int size) {
 		String strs = "abcdefghijklmnopqrstuvwxyzABCDERGHRJKLMNOPQRSTUVWXYZ0123456789!@#";
 		String newPw = "";
@@ -204,12 +203,18 @@ public class MemberServiceImp implements MemberService {
 		user.setMe_pw(member.getMe_pw());
 		user.setMe_email(member.getMe_email());
 		return true;
-	}
-	//쿠키기능 구현 미와
-	@Override
-	public MemberVO getMemberByCookie(String sessionId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		}
+	
+		@Override
+		public void updateMemberCookie(MemberVO user) {
+			if(user == null)
+				return;
+			memberDao.updateMemberCookie(user);
+		}
+		@Override
+		public MemberVO getMemberByCookie(String sessionId) {
+			
+			return memberDao.selectMemberByCookie(sessionId);
+		}
 }
 
