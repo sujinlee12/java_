@@ -6,7 +6,6 @@
 <form action="<c:url value="/board/list"/>" method ="get">
   	<div class="input-group mb-3">
     	<select name = "type" class="form-control">
-    	
 			<option value="all"<c:if test ="${pm.cri.type =='all' }">selected</c:if>>전체</option>
 			<option value="title"<c:if test ="${pm.cri.type =='title' }">selected</c:if>>제목</option>
 			<option value="writer"<c:if test ="${pm.cri.type =='writer' }">selected</c:if>>작성자</option>    		

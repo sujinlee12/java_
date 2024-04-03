@@ -27,7 +27,7 @@ public class HomeController {
 		log.info("안녕하세요. 스프링 메인입니다.");
 		//vo안만들고 간단하게 하는 방법
 		int count = memberService.getMemberCount();
-		log.info("등록된 회원 수 : " + count);
+		//log.info("등록된 회원 수 : " + count);
 		return "/main/home";
 	}
 	
