@@ -8,7 +8,7 @@
 <body>
 <div class="container">
 	<h1>게시글 목록</h1>
-	<form action="<c:url value="/post/list"/>" method="get">
+	<form action="<c:url value="/post/list"/>" method="get" id="searchForm">
 	<div class="input-group mb-3">
 			<select class="form-control" name="type">
 				<option value="all"<c:if test="${pm.cri.type == 'all' }">selected</c:if>>전체</option>
@@ -82,7 +82,14 @@
 				<a class="page-link" href="${url}">다음</a>
 			</li>
 		</c:if>
-	</ul>
+	</ul><a href="<c:url value="/post/insert"/>"class="btn btn-outline-info">게시글 등록</a>
+	
 </div>
+<script type="text/javascript">
+$("[name=order]").change(function(){//이벤트 등록
+	$("#searchForm").submit();//이벤트 실행
+})
+
+</script>
 </body>
 </html>
