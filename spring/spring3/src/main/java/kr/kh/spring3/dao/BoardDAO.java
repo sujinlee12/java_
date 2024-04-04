@@ -10,9 +10,9 @@ import kr.kh.spring3.pagination.Criteria;
 public interface BoardDAO {
 
 
-	ArrayList<BoardVO> selectBoardList(@Param("cri") Criteria cri);
+	ArrayList<BoardVO> selectBoardList(@Param("cri")Criteria cri);
 
-	int selectBoardTotalCount();
+	int selectBoardTotalCount(@Param("cri") Criteria cri);
 	
 
 }

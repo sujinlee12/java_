@@ -24,7 +24,7 @@ public class BoardController {
 	public String postList(Model model,Criteria cri) {
 		//cri.setPage(2); //보여줄 페이지
 		ArrayList<BoardVO>list = boardService.getBoardList(cri);
-		int totalCount = boardService.getBoardTotalCount();
+		int totalCount = boardService.getBoardTotalCount(cri);
 		PageMaker pm = new PageMaker(3,cri,totalCount);
 		model.addAttribute("pm", pm);
 		model.addAttribute("title", "게시글 목록");
