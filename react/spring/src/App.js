@@ -11,7 +11,7 @@ function App() {
           .then(res=>res.forEach(item=>{
             setList(list => [...list, item]);
           }))
-      }, );
+      }, []);
   return (
     <div className="App">
       <table>
