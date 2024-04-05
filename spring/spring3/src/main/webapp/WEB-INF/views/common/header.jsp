@@ -3,13 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav class="navbar navbar-expand-sm bg-light">
 <!-- Brand/logo -->
-<a class="navbar-brand" href="#">
+<a class="navbar-brand" href="<c:url value="/"/>">
 	<img src="<c:url value="/resources/img/bird.jpg"/>" alt="logo" style="width:40px;">
 </a>
 <!-- Links -->
 	<ul class="navbar-nav">
 		<li class="nav-item">
-					<a class="nav-link" href="<c:url value="/post/list"/>">게시글</a>
+				<a class="nav-link" href="<c:url value="/post/list"/>">게시글</a>
 		</li>
 		<c:if test="${user == null}">
 			<li class="nav-item">
