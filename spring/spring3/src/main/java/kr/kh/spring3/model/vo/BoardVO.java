@@ -13,4 +13,5 @@ public class BoardVO {
 	String bo_content; 
 	int bo_view; 
 	int bo_report_count;
+	
 }

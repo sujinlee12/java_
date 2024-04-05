@@ -192,7 +192,21 @@
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
-		<!-- 비밀번호 암호화 끝 -->		  
+		<!-- 비밀번호 암호화 끝 -->
+		<!-- 파일 업로드 의존성 추가 -->
+		<!-- pom.xml -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.2</version>
+		</dependency>
+		<!-- @Resource 사용을 위한  -->
+		<dependency>
+		    <groupId>javax.annotation</groupId>
+		    <artifactId>javax.annotation-api</artifactId>
+		    <version>1.3.2</version>
+		</dependency>
+		<!-- 파일 업로드 의존성 추가 끝 -->	  
 	</dependencies>
     <build>
         <plugins>
