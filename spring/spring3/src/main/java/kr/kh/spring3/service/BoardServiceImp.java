@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.spring3.dao.BoardDAO;
@@ -88,6 +89,21 @@ public class BoardServiceImp implements BoardService{
 	public ArrayList<CommunityVO> getCommunityList() {
 		return boardDao.selectCommunityList();
 	}
-	
+
+	@Override
+	public void updateVies(int num) {
+		boardDao.updateView(num);
+		
+	}
+
+	@Override
+	public BoardVO getBoard(int num) {
+		return boardDao.selectBoard(num);
+	}
+
+	@Override
+	public ArrayList<FileVO> getFileList(int num) {
+		return boardDao.selectFileList(num);
+	}
 	
 }

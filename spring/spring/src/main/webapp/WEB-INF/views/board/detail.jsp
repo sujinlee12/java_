@@ -77,7 +77,7 @@
 		<a href="<c:url value="/board/delete?boNum=${board.bo_num}"/>" class="btn btn-outline-success">삭제</a>
 		<a href="<c:url value="/board/update?boNum=${board.bo_num}"/>" class="btn btn-outline-warning">수정</a>
 	</c:if>
-	</div>
+</div>
 <!-- 댓글 리스트 조회 -->
 <script type="text/javascript">
 //댓글 페이지 정보를 가지고 있는 객체를 선언

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.spring3.model.vo.BoardVO;
 import kr.kh.spring3.model.vo.CommunityVO;
+import kr.kh.spring3.model.vo.FileVO;
 import kr.kh.spring3.model.vo.MemberVO;
 import kr.kh.spring3.pagination.Criteria;
 import kr.kh.spring3.pagination.PageMaker;
@@ -61,5 +62,21 @@ public class BoardController {
 		return "message"; //앞에 슬러시 안하면 헤더와 푸터가 사라짐.
 		
 	}
+	@GetMapping("/post/detail")//bo_num으로 보내면 bo_num
+	public String postDetail(Model model, int num) {
+		//게시글 조회수 증가
+		boardService.updateVies(num);//게시글 조회수 증가시켜->서비스에게 요청하기
+		//게시글을 가져옴 (게시글 1개이므로 VO, 여러개이면 list)
+		BoardVO board = boardService.getBoard(num);
+		//게시글 첨부파일을 가져옴, (최대3개로 했으므로 list로 가져오기,요구사항에 맞게 작업)
+		ArrayList<FileVO> list = boardService.getFileList(num);
+		log.info(list);
+		model.addAttribute("board",board);
+		model.addAttribute("list",list);
+		//화면에 게시글, 첨부파일을 전송
+		return "/post/detail";
+		
+	}
+	
 
 }
